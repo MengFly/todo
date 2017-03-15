@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        style="@style/DescTextView"
+        android:id="@+id/tv_talk_content"
+        />
+    <com.example.todolib.view.widget.DateTextView
+        android:layout_gravity="end"
+        android:id="@+id/tv_talk_date"
+        style="@style/DescTextView" />
+</LinearLayout>

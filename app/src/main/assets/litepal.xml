@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+
+    <!--数据库名称-->
+    <dbname value="todo_db" />
+    <!--数据库版本-->
+    <version value="5" />
+
+    <list>
+        <mapping class="com.example.mengfei.todo.entity.Task"/>
+        <mapping class="com.example.mengfei.todo.entity.Talk"/>
+        <mapping class="com.example.mengfei.todo.entity.OneWords"/>
+    </list>
+
+</litepal>

@@ -1,0 +1,63 @@
+<resources>
+
+
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<layout_title_bar name="colorPrimary">@color/colorPrimary</layout_title_bar>-->
+        <!--<layout_title_bar name="colorPrimaryDark">@color/colorPrimaryDark</layout_title_bar>-->
+        <!--<layout_title_bar name="colorAccent">@color/colorAccent</layout_title_bar>-->
+        <!--<layout_title_bar name="titleTextColor">@color/colorPrimaryLight</layout_title_bar>-->
+        <!--<layout_title_bar name="android:displayOptions">showHome</layout_title_bar>-->
+        <!--<layout_title_bar name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</layout_title_bar>-->
+    <!--</style>-->
+
+    <!-- Base application theme. --><style name="AppTheme" parent="Base.AppTheme" />
+
+    <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
+
+    <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorPrimaryLight</item>
+        <item name="android:displayOptions">showHome</item>
+        <item name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</item>
+    </style>
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="DrawableText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TitleTextView">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <style name="DescTextView">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/color_text_desc</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+</resources>

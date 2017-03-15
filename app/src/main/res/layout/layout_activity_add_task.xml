@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Toolbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        layout="@layout/layout_include_talks" />
+
+    <Button
+        android:id="@+id/btn_ok_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定修改" />
+
+    <Button
+        android:id="@+id/btn_done_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="完成任务" />
+
+</LinearLayout>

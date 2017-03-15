@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--应用的主颜色-->
+    <color name="app_main_color">#bd1b1b</color>
+    <color name="app_main_color_light">#75bd1b1b</color>
+    <color name="colorPrimary">@color/app_main_color</color>
+    <color name="colorPrimaryLight">#8c8ca0</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">@color/app_main_color</color>
+    <color name="colorAccent_gray">#c83165</color>
+    <color name="back_white">#fff</color>
+    <color name="back_light_gary">#f6f2f2</color>
+
+    <!--Button-->
+    <color name="app_btn_color">#2196F3</color>
+    <color name="app_btn_color_dark">#1976D2</color>
+
+    <!--文字-->
+    <color name="color_text_title">#333333</color>
+    <color name="color_text_link">#477aac</color>
+    <color name="color_text_desc">#897e7e</color>
+    <color name="color_text_not_important">#b2b2b2</color>
+    <color name="color_text_second">#cccccc</color>
+    <color name="color_text_title_white">#fafafa</color>
+
+    <!--默认的底色-->
+    <color name="color_back_page_default">#f2f4f5</color>
+    <!--分割线-->
+    <color name="color_split_color">#0a000000</color>
+    <color name="color_split_color_dark">#1a000000</color>
+</resources>
