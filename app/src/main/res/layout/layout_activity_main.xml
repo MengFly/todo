@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/drawrlayout"
+    android:layout_height="match_parent">
 
     <!--主界面-->
-    <include
-        layout="@layout/layout_include_main_content" />
+    <include layout="@layout/layout_include_main_content" />
 
     <!--Menu-->
-    <include
-        layout="@layout/layout_include_main_menu"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nv_menu"
+        app:itemIconTint="@color/app_btn_color"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start" />
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/layout_include_main_menu"
+        app:menu="@menu/menu_main_nav" />
 
 </android.support.v4.widget.DrawerLayout>

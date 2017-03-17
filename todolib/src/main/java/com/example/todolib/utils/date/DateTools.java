@@ -11,6 +11,18 @@ import java.util.Date;
 
 public class DateTools {
 
+
+    /**
+     * 判断现在的日期是否在before和after之间
+     * @param before
+     * @param now
+     * @param after
+     * @return
+     */
+    public static boolean isAmongst(Date before,Date now,  Date after) {
+        return now.after(before) && now.before(after);
+    }
+
     //对日期对象进行字符串格式输出，带有日期和时间
     public static String formatDate(Date d) {
         DateFormat format = DateFormat.getDateTimeInstance();

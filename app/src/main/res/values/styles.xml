@@ -21,7 +21,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="titleTextColor">@color/colorPrimaryLight</item>
+        <item name="titleTextColor">@color/color_text_title_white</item>
         <item name="android:displayOptions">showHome</item>
         <item name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</item>
     </style>
@@ -58,6 +58,15 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <style name="emptyView">
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

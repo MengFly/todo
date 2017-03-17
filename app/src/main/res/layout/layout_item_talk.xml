@@ -6,8 +6,7 @@
     android:layout_height="match_parent">
     <TextView
         style="@style/DescTextView"
-        android:id="@+id/tv_talk_content"
-        />
+        android:id="@+id/tv_talk_content" />
     <com.example.todolib.view.widget.DateTextView
         android:layout_gravity="end"
         android:id="@+id/tv_talk_date"

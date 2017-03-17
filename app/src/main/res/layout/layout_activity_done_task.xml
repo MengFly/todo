@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/lv_done_task"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        style="@style/emptyView"
+        android:drawableTop="@drawable/ic_no_task"
+        android:id="@+id/tv_empty_view"
+        android:text="你还没有完成的任务呦,快去努力完成吧!" />
+
+</FrameLayout>

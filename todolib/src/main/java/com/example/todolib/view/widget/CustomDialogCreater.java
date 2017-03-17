@@ -35,7 +35,7 @@ public class CustomDialogCreater{
         textView.setTextSize(20);
         textView.setGravity(Gravity.CENTER_VERTICAL);
         int size = getSize(context, 14);
-textView.setPadding(size, size, size, size);
+        textView.setPadding(size, size, size, size);
         textView.setText(title);
         builder.setCustomTitle(textView);
         builder.setTitle(title);
@@ -50,5 +50,22 @@ textView.setPadding(size, size, size, size);
     public static  int getSize(Context context, int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return (int) (dp * displayMetrics.density);
+    }
+
+    public static AlertDialog getSimpleDialog(Context context, String title, CharSequence message, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener cancelListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if (title != null) {
+            builder.setTitle(title);
+        }
+        if (message != null) {
+            builder.setMessage(message);
+        }
+        if (okListener ==null && cancelListener == null) {
+            builder.setPositiveButton("确定", okListener);
+        } else {
+            builder.setPositiveButton("确定", okListener);
+            builder.setNegativeButton("取消", cancelListener);
+        }
+        return builder.create();
     }
 }

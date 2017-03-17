@@ -4,11 +4,13 @@
     package="com.example.mengfei.todo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".TodoApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -23,6 +25,8 @@
         <activity android:name=".activity.AddTaskActivity" android:windowSoftInputMode="stateHidden|adjustNothing"/>
         <activity android:name=".activity.EditTaskActivity" android:windowSoftInputMode="stateHidden|adjustNothing"/>
         <activity android:name=".activity.TotalTaskDetailsActivity"/>
+        <activity android:name=".activity.HistoryOneWordsActivity"/>
+        <activity android:name=".activity.DoneTaskActivity"/>
     </application>
 
 </manifest>

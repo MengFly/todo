@@ -1,42 +1,46 @@
 package com.example.mengfei.todo.activity;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.adapter.TaskAdapter;
 import com.example.mengfei.todo.entity.OneWords;
-import com.example.mengfei.todo.entity.Talk;
+import com.example.mengfei.todo.entity.OneWordsManager;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
-import com.example.todolib.net.CommonOkHttpClient;
-import com.example.todolib.net.listener.DisposeDataHandle;
-import com.example.todolib.net.listener.DisposeDataListener;
-import com.example.todolib.net.request.CommonRequest;
+import com.example.mengfei.todo.utils.DateUtils;
+
 import com.example.todolib.view.widget.CustomDialogCreater;
-import com.google.gson.Gson;
 
-
-import org.json.JSONObject;
-import org.litepal.crud.DataSupport;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * 主界面
@@ -45,22 +49,35 @@ public class MainActivity extends BaseActivity {
 
     private static String showMsg = null;
 
-    private TextView taskDetailsTV,oneWordsOfDayTV;
+    private TextView oneWordsOfDayTV;
     private ListView taskLV;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton addTaskBtn;
     private Toolbar toolbar;
+    private ImageView headerBackIV;
 
     private TaskAdapter adapter;
+    private NavigationView menuNav;
+    private DrawerLayout drawerLayout;
 
+    private int toorBarNowAlpha = 0;
+    private int downY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_main);
-        initView(savedInstanceState);
+        initView();
         initListener();
         initUI();
+
+    }
+
+    //检查时间是否太晚
+    private void checkTime() {
+        if (DateUtils.isTooLate()) {
+            CustomDialogCreater.getSimpleDialog(mContext, "重要提示！！！", "时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。",null, null).show();
+        }
     }
 
     @Override
@@ -71,45 +88,23 @@ public class MainActivity extends BaseActivity {
 
 
     private void initUI() {
+        checkTime();
         initOneWords();
     }
 
     private void initOneWords() {
-        OneWords oneWords = OneWords.findFirst(OneWords.class);
-        if (oneWords != null && SimpleDateFormat.getDateInstance().format(new Date()).equals(SimpleDateFormat.getDateInstance().format(oneWords.getGetDate()))) {
-            oneWordsOfDayTV.setText(oneWords.getShowSpannableString());
-        } else {
-            CommonOkHttpClient.get(CommonRequest.createGetRequest("http://open.iciba.com/dsapi/", null), new DisposeDataHandle(new DisposeDataListener() {
-                @Override
-                public void onSuccess(Object responseObj) {
-                    try {
-                        OneWords oneWords = new Gson().fromJson(responseObj.toString(), OneWords.class);
-                        oneWords.setGetDate(new Date());
-                        oneWordsOfDayTV.setText(oneWords.getShowSpannableString());
-                        oneWords.saveIfNotExist("sid=?", oneWords.getSid());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        OneWords oneWords = OneWords.findFirst(OneWords.class);
-                        oneWordsOfDayTV.setText(oneWords == null ? "坚持下去，看小Do能帮你完成多少事情" : oneWords.getShowSpannableString());
-                    }
-                }
-
-                @Override
-                public void onFailure(Object reasonObj) {
-                    OneWords oneWords = OneWords.findFirst(OneWords.class);
-                    oneWordsOfDayTV.setText(oneWords == null ? "坚持下去，看小Do能帮你完成多少事情" : oneWords.getShowSpannableString());
-                }
-            }));
-        }
+        OneWordsManager.getOneWords(new UiShower<OneWords>() {
+            @Override
+            public void show(OneWords oneWords) {
+                oneWordsOfDayTV.setText(oneWords.getShowSpannableString());
+                Glide.with(mContext).load(oneWords.getPicture2()).
+                        bitmapTransform(new BlurTransformation(mContext, 25)).
+                        error(R.color.app_main_color).into(headerBackIV);
+            }
+        });
     }
 
     private void initListener() {
-        taskDetailsTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openOtherActivity(TotalTaskDetailsActivity.class, false);
-            }
-        });
         addTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +118,63 @@ public class MainActivity extends BaseActivity {
                 showTask(adapter.getItem(position-1));
             }
         });
+        taskLV.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        downY = (int) event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int y = (int) (event.getY() - downY);
+                        downY = (int) event.getY();
+                        updateColor(y);
+                        break;
+                }
+                return false;
+            }
+        });
+        taskLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position - 1 < 0) return false;
+                taskOnLongClick(adapter.getItem(position-1));
+                return true;
+            }
+        });
+        menuNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return navItemSelected(item);
+            }
+        });
+    }
+
+    private boolean navItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_done_task:
+                openOtherActivity(DoneTaskActivity.class, false);
+                return true;
+            case R.id.menu_history_words:
+                openOtherActivity(HistoryOneWordsActivity.class, false);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void updateColor(int y) {
+        if (taskLV.getFirstVisiblePosition() >= 1 ) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.app_main_color));
+        } else if (taskLV.getChildCount() > 1){
+            toorBarNowAlpha -= y *2 ;
+            if (toorBarNowAlpha < 0) {
+                toorBarNowAlpha = 0;
+            } else if (toorBarNowAlpha > 255) {
+                toorBarNowAlpha = 255;
+            }
+            toolbar.setBackgroundColor(Color.argb(toorBarNowAlpha, 189, 17, 17));
+        }
         taskLV.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -134,16 +186,8 @@ public class MainActivity extends BaseActivity {
                 if (firstVisibleItem >= 1) {
                     toolbar.setTitle("当前未完成的任务");
                 } else {
-                    toolbar.setTitle("Todo");
+                    toolbar.setTitle("TODO");
                 }
-            }
-        });
-        taskLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position - 1 < 0) return false;
-                taskOnLongClick(adapter.getItem(position-1));
-                return true;
             }
         });
     }
@@ -198,18 +242,34 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    private void initView(Bundle savedInstanceState) {
+    private void initView() {
         toolbar = ((Toolbar) findViewById(R.id.toolbar));
         setSupportActionBar(toolbar);
         View headerLayout = getLayoutInflater().inflate(R.layout.layout_main_header, null);
-        taskDetailsTV = ((TextView) headerLayout.findViewById(R.id.tv_task_details));
         oneWordsOfDayTV = ((TextView) headerLayout.findViewById(R.id.tv_word_of_day));
+        headerBackIV = (ImageView) headerLayout.findViewById(R.id.iv_back);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_btn);
+        menuNav = (NavigationView) findViewById(R.id.nv_menu);
         taskLV = ((ListView) findViewById(R.id.lv_task_items));
         taskLV.addHeaderView(headerLayout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawrlayout);
         addTaskBtn = ((FloatingActionButton) findViewById(R.id.btn_add_task));
         initActionBar("TODO", null, false);
+        ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true);
         initDatas();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Open the navigation drawer when the home icon is selected from the toolbar.
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initDatas() {

@@ -24,6 +24,7 @@ import java.util.TimerTask;
 public class DateTextView extends TextView {
 
     private Date mDate;
+    private int showTypeCount = 2;//这个变量标示在显示天数的时候可以显示几种类型,默认是显示两种类型
 
     public DateTextView(Context context) {
         this(context, null, 0);
@@ -66,40 +67,56 @@ public class DateTextView extends TextView {
     }
 
     private SpannableString getShowText(Date date) {
+        int showTypeCount = 0;
         StringBuilder sb = new StringBuilder("(");
         Calendar now = Calendar.getInstance();
         Calendar simpleDate = Calendar.getInstance();
         simpleDate.setTime(date);
         int year = now.get(Calendar.YEAR) - simpleDate.get(Calendar.YEAR);
-        int month= now.get(Calendar.MONTH) - simpleDate.get(Calendar.MONTH);
+        int month = now.get(Calendar.MONTH) - simpleDate.get(Calendar.MONTH);
         int day = now.get(Calendar.DAY_OF_MONTH) - simpleDate.get(Calendar.DAY_OF_MONTH);
-        int hour= now.get(Calendar.HOUR_OF_DAY) - simpleDate.get(Calendar.HOUR_OF_DAY);
+        int hour = now.get(Calendar.HOUR_OF_DAY) - simpleDate.get(Calendar.HOUR_OF_DAY);
         int min = now.get(Calendar.MINUTE) - simpleDate.get(Calendar.MINUTE);
-        if (min < 0) {
+        if (min < 0 && hour > 0) {
             min += 60;
-            hour --;
+            hour--;
         }
-        if (hour < 0) {
-            day --;
+        if (hour < 0 && day > 0) {
+            hour += 24;
+            day--;
         }
-        if (day < 0) {
-            month --;
+        if (day < 0 && month > 0) {
+            day += now.getMaximum(Calendar.DAY_OF_MONTH);
+            month--;
         }
-        if (month < 0) {
+        if (month < 0 && year > 0) {
+            month += 12;
             year--;
         }
         if (year > 0) {
-            sb.append(year + "年前");
-        } else if (month > 0) {
-            sb.append(month + "月前");
-        } else  if (day > 0) {
-            sb.append(day + "天前");
-        } else if (hour > 0) {
-            sb.append(hour + "小时前");
-        } else if (min > 0) {
-            sb.append(min + "分钟前");
-        } else {
+            showTypeCount++;
+            sb.append(year).append("年");
+        }
+        if (month > 0 && showTypeCount < this.showTypeCount) {
+            showTypeCount++;
+            sb.append(month).append("月");
+        }
+        if (day > 0 && showTypeCount < this.showTypeCount) {
+            showTypeCount++;
+            sb.append(day).append("天");
+        }
+        if (hour > 0 && showTypeCount < this.showTypeCount) {
+            showTypeCount++;
+            sb.append(hour).append("小时");
+        }
+        if (min > 0 && showTypeCount < this.showTypeCount) {
+            sb.append(min).append("分钟");
+            showTypeCount ++;
+        }
+        if (showTypeCount ==0){
             sb.append("刚刚");
+        } else {
+            sb.append("前");
         }
         sb.append(")");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);

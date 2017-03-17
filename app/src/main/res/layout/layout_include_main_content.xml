@@ -1,73 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.MainActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/Toolbar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    </android.support.design.widget.AppBarLayout>
-
-
-        <LinearLayout
-            android:layout_below="@id/appbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/lv_task_items"
-                android:scrollbars="none"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-            <!--EmptyView-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/act_main_empty_view"
-                android:drawableTop="@drawable/ic_no_task"
-                android:visibility="gone" />
-
-
-        </LinearLayout>
-
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/cl_btn"
     android:layout_width="match_parent"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_height="match_parent">
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_add_task"
-        android:layout_margin="10dp"
-        app:rippleColor="@color/app_main_color"
-        app:pressedTranslationZ="6dp"
-        app:borderWidth="5dp"
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:background="?selectableItemBackground"
-        android:src="@android:drawable/ic_input_add"
-        app:elevation="3dp" />
-</android.support.design.widget.CoordinatorLayout>
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lv_task_items"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
 
 
-</RelativeLayout>
+        <!--EmptyView-->
+        <TextView
+            android:id="@+id/act_main_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_no_task"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/cl_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_add_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="18dp"
+            android:background="?selectableItemBackground"
+            android:src="@android:drawable/ic_input_add"
+            app:borderWidth="5dp"
+            app:elevation="3dp"
+            app:pressedTranslationZ="6dp"
+            app:rippleColor="@color/app_btn_color" />
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</FrameLayout>
