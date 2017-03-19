@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,8 +25,10 @@ public class TaskManager {
     //完成任务
     public static boolean completeTask(Task task) {
         task.setCompleted(true);
+        task.setDoneDate(new Date());
         ContentValues values = new ContentValues();
         values.put("isCompleted", task.isCompleted());
+        values.put("doneDate", task.getDoneDate().getTime());
         return DataSupport.updateAll(Task.class, values, "taskId=?", task.getTaskId()) > 0;
     }
 

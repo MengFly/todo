@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        style="@style/DescTextView"
+        android:autoLink="all"
+        android:textColorLink="@color/app_btn_color"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_text_desc"
+        android:textSize="14sp"
+        android:focusable="false"
+        android:lineSpacingExtra="8dp"
         android:id="@+id/tv_talk_content" />
     <com.example.todolib.view.widget.DateTextView
         android:layout_gravity="end"

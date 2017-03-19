@@ -67,6 +67,9 @@ public class DateTextView extends TextView {
     }
 
     private SpannableString getShowText(Date date) {
+        if (date == null) {
+            return null;
+        }
         int showTypeCount = 0;
         StringBuilder sb = new StringBuilder("(");
         Calendar now = Calendar.getInstance();

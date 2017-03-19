@@ -6,14 +6,24 @@
     <item android:title="历史">
         <menu>
             <item
-                android:icon="@drawable/ic_done"
-                android:id="@+id/menu_done_task"
-                android:title="已完成的任务" />
-            <item
                 android:icon="@drawable/ic_one_words"
                 android:id="@+id/menu_history_words"
                 android:title="每日一句" />
+            <item
+                android:icon="@drawable/ic_done"
+                android:id="@+id/menu_done_task"
+                android:title="已完成的任务" />
         </menu>
+    </item>
+
+    <item android:id="@+id/menu_setting" android:title="设置" android:icon="@drawable/ic_setting"/>
+
+    <item android:title="About">
+        <menu>
+            <item android:title="关于App" android:id="@+id/menu_about_app" android:icon="@drawable/ic_about"/>
+            <item android:title="应用反馈" android:id="@+id/menu_back" android:icon="@drawable/ic_back"/>
+        </menu>
+
 
     </item>
 

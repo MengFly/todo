@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.adapter.TaskAdapter;
@@ -36,6 +36,7 @@ import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.DateUtils;
 
+import com.example.mengfei.todo.utils.image.ImageLoader;
 import com.example.todolib.view.widget.CustomDialogCreater;
 
 import java.util.List;
@@ -97,9 +98,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void show(OneWords oneWords) {
                 oneWordsOfDayTV.setText(oneWords.getShowSpannableString());
-                Glide.with(mContext).load(oneWords.getPicture2()).
-                        bitmapTransform(new BlurTransformation(mContext, 25)).
-                        error(R.color.app_main_color).into(headerBackIV);
+                ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, new BlurTransformation(mContext, 25));
             }
         });
     }
@@ -115,7 +114,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position - 1 < 0) return;
-                showTask(adapter.getItem(position-1));
+                EditTaskActivity.openEditTaskActivity(mContext,adapter.getItem(position-1), false);
             }
         });
         taskLV.setOnTouchListener(new View.OnTouchListener() {
@@ -153,14 +152,46 @@ public class MainActivity extends BaseActivity {
     private boolean navItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_done_task:
-                openOtherActivity(DoneTaskActivity.class, false);
+                openOtherActivity(TotalDoneTaskActivity.class, false);
                 return true;
             case R.id.menu_history_words:
                 openOtherActivity(HistoryOneWordsActivity.class, false);
                 return true;
+            case R.id.menu_about_app:
+                WebActivity.StartWebActivityWithURL(mContext, "https://github.com/MengFly/todo/issues/new");
+//                openOtherActivity(AboutAppActivity.class, false);
+                return true;
+            case R.id.menu_back:
+                openOtherActivity(BackActivity.class, false);
+                return  true;
+            case R.id.menu_setting:
+                openOtherActivity(SettingActivity.class, false);
+                return true;
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(menuNav)) {
+            drawerLayout.closeDrawer(menuNav);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            if (drawerLayout.isDrawerOpen(menuNav)) {
+                drawerLayout.closeDrawer(menuNav);
+            } else {
+                drawerLayout.openDrawer(menuNav);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void updateColor(int y) {
@@ -261,6 +292,7 @@ public class MainActivity extends BaseActivity {
         initDatas();
     }
 
+    //当点击Menu按钮的时候
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

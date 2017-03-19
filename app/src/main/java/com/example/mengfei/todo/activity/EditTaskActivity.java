@@ -1,5 +1,9 @@
 package com.example.mengfei.todo.activity;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +11,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,7 +27,10 @@ import com.example.mengfei.todo.adapter.TalkAdapter;
 import com.example.mengfei.todo.entity.Talk;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
+import com.example.todolib.utils.ClipboardUtils;
 import com.example.todolib.view.widget.CustomDialogCreater;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,17 +41,30 @@ import java.util.List;
  */
 public class EditTaskActivity extends BaseActivity {
 
+    private static final String INTENT_KEY_TASK = "task";
+
     private EditText taskTitleET, taskDescET;
     private Button doneBtn, okEditBtn;
     private ListView talkListView;
-    private Toolbar toolbar;
-    private View headerView;
-    private View talkAreaTitle;
+    private CoordinatorLayout coordinatorLayout;
 
     private ImageButton addChatBtn;
     private TalkAdapter adapter;
 
     private Task task;
+
+    /**
+     * 打开编辑Task的界面
+     * @param sendTask 要显示的Task
+     */
+    public static void openEditTaskActivity(Activity context, Task sendTask, boolean isFinish) {
+        Intent intent = new Intent(context, EditTaskActivity.class);
+        intent.putExtra(INTENT_KEY_TASK, sendTask);
+        context.startActivity(intent);
+        if (isFinish) {
+            context.finish();
+        }
+    }
 
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -51,27 +74,27 @@ public class EditTaskActivity extends BaseActivity {
         }
     };
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_add_task);
-        headerView = getLayoutInflater().inflate(R.layout.layout_add_task_header, null);
+        View headerView = getLayoutInflater().inflate(R.layout.layout_add_task_header, null);
         headerView.findViewById(R.id.appbar_layout).setVisibility(View.GONE);
-        talkAreaTitle = getLayoutInflater().inflate(R.layout.layout_title_bar, null);
+        View talkAreaTitle = getLayoutInflater().inflate(R.layout.layout_title_bar, null);
         addChatBtn = (ImageButton) talkAreaTitle.findViewById(R.id.ibtn_add_chat);
-        toolbar = ((Toolbar) findViewById(R.id.toolbar));
+        Toolbar toolbar = ((Toolbar) findViewById(R.id.toolbar));
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         setSupportActionBar(toolbar);
         doneBtn = (Button) findViewById(R.id.btn_done_task);
         okEditBtn = (Button) findViewById(R.id.btn_ok_edit);
         Intent intent = getIntent();
         if (intent != null) {
-            task = (Task) intent.getSerializableExtra("task");
+            task = (Task) intent.getSerializableExtra(INTENT_KEY_TASK);
         }
         if (task != null) {
             initActionBar(task.getTitle(), task.getDesc(), true);
         } else {
-            showSnackbar(doneBtn, "task layout_title_bar 不合法, 3 秒后退出此界面");
+            showSnackbar(coordinatorLayout, "task layout_title_bar 不合法, 3 秒后退出此界面");
             handler.sendEmptyMessageDelayed(0x0001, 3000);
         }
 
@@ -98,7 +121,7 @@ public class EditTaskActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (TextUtils.isEmpty(inputText[0].getText().toString())) {
-                            showSnackbar(getCurrentFocus(), "没有输入");
+                            showSnackbar(coordinatorLayout, "没有输入");
                         } else {
                             Talk talk = new Talk(inputText[0].getText().toString());
                             talk.setTaskId(task.getTaskId());
@@ -124,14 +147,37 @@ public class EditTaskActivity extends BaseActivity {
             public void onClick(View v) {
                 String taskTitle = taskTitleET.getText().toString();
                 String taskDesc = taskDescET.getText().toString();
-                showSnackbar(getCurrentFocus(), taskTitle + taskDesc + task.getTaskId());
+                showSnackbar(coordinatorLayout, taskTitle + taskDesc + task.getTaskId());
                 if (TaskManager.checkTitleAndDesc(taskTitle, taskDesc)) {
                     TaskManager.updateTask(task, taskTitle, taskDesc);
                     MainActivity.startMainWithMsg(mContext, "修改成功");
                     finish();
                 } else {
-                    showSnackbar(getCurrentFocus(), "task title and desc can't empty!!");
+                    showSnackbar(coordinatorLayout, "task title and desc can't empty!!");
                 }
+            }
+        });
+        talkListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Talk talk = adapter.getItem(position - 2);
+                CustomDialogCreater.getItemsDialog(mContext, "选择操作", new String[]{"复制到剪切板", "删除评论"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                ClipboardUtils.setTextClip(mContext, talk.getTalkContent());
+                                showSnackbar(coordinatorLayout, "您的评论已经复制到了剪贴板了");
+                                break;
+                            case 1:
+                                DataSupport.deleteAll(Talk.class, "talkId=?", talk.getTalkId());
+                                adapter.removeItem(talk);
+                                showSnackbar(coordinatorLayout, "评论删除成功");
+                                break;
+                        }
+                    }
+                }).show();
+                return false;
             }
         });
 

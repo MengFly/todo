@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/iv_back"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_ok"
+        android:src="@drawable/ic_back_default"
         android:layout_width="match_parent"
         android:layout_height="270dp" />
 

@@ -25,16 +25,41 @@
     <include
         layout="@layout/layout_include_talks" />
 
-    <Button
-        android:id="@+id/btn_ok_edit"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确定修改" />
+        android:id="@+id/coordinator_layout"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_done_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="完成任务" />
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_margin="3dp"
+                android:background="@drawable/back_btn"
+                android:id="@+id/btn_ok_edit"
+                android:textColor="@color/color_text_title_white"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="确定修改" />
+
+            <Button
+                android:textColor="@color/color_text_title_white"
+                android:layout_margin="3dp"
+                android:background="@drawable/back_btn"
+                android:id="@+id/btn_done_task"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="完成任务" />
+
+        </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
 
 </LinearLayout>

@@ -2,6 +2,8 @@ package com.example.mengfei.todo;
 
 import android.app.Application;
 
+import com.tencent.smtt.sdk.QbSdk;
+
 import org.litepal.LitePalApplication;
 
 /**
@@ -9,10 +11,10 @@ import org.litepal.LitePalApplication;
  */
 public class TodoApplication extends LitePalApplication {
 
-
     @Override
     public void onCreate() {
         super.onCreate();
+        QbSdk.initX5Environment(this, null);//加载腾讯X5内核
     }
 
 }

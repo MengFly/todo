@@ -9,7 +9,7 @@
     android:drawableLeft="@drawable/rect_small"
     android:drawablePadding="10dp"
     android:gravity="left|start"
-    android:text="评论区" />
+    android:text="评论/笔记" />
 
     <ImageButton
         android:id="@+id/ibtn_add_chat"

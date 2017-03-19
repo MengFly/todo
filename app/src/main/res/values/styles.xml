@@ -69,4 +69,9 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="btn">
+        <item name="android:textColor">@color/color_text_title_white</item>
+        <item name="android:background">@drawable/back_btn</item>
+    </style>
+
 </resources>
