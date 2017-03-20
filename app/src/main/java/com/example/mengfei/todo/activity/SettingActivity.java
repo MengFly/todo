@@ -8,7 +8,7 @@ import com.example.mengfei.todo.R;
 /**
  * Created by mengfei on 2017/3/18.
  */
-public class SettingActivity extends Activity {
+public class SettingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

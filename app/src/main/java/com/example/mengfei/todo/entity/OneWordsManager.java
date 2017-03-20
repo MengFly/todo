@@ -18,7 +18,7 @@ import java.util.Date;
 public class OneWordsManager {
 
     public static void getOneWords(final UiShower<OneWords> shower) {
-        final OneWords oneWords = OneWords.findFirst(OneWords.class);
+        final OneWords oneWords = OneWords.findLast(OneWords.class);
         if (oneWords != null && SimpleDateFormat.getDateInstance().format(new Date()).equals(SimpleDateFormat.getDateInstance().format(oneWords.getGetDate()))) {
             shower.show(oneWords);
         } else {
@@ -32,7 +32,7 @@ public class OneWordsManager {
 
                 @Override
                 public void errorResult(Object resultMessage) {
-                    OneWords oneWords = OneWords.findFirst(OneWords.class);
+                    OneWords oneWords = OneWords.findLast(OneWords.class);
                     if (oneWords == null) {
                         oneWords = getDefaultOneWords();
                         oneWords.saveIfNotExist("sid=?", oneWords.getSid());

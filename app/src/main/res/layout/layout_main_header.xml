@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout android:id="@+id/rl_header"
     android:layout_width="match_parent"
-    android:layout_height="270dp"
+    android:layout_height="300dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/iv_back"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_back_default"
+        android:src="@drawable/ic_back_error"
         android:layout_width="match_parent"
-        android:layout_height="270dp" />
+        android:layout_height="300dp" />
 
 <LinearLayout
     android:paddingBottom="5dp"
-    android:paddingTop="40dp"
     android:layout_gravity="bottom"
     android:layout_width="match_parent"
     android:orientation="vertical"

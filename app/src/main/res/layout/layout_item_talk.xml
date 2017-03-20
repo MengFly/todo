@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
     <TextView
-        android:autoLink="all"
-        android:textColorLink="@color/app_btn_color"
-       android:layout_width="match_parent"
+        android:id="@+id/tv_talk_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_text_desc"
-        android:textSize="14sp"
+        android:autoLink="all"
         android:focusable="false"
         android:lineSpacingExtra="8dp"
-        android:id="@+id/tv_talk_content" />
+        android:textColor="@color/color_text_desc"
+        android:textColorLink="@color/app_btn_color"
+        android:textSize="14sp" />
+
     <com.example.todolib.view.widget.DateTextView
-        android:layout_gravity="end"
         android:id="@+id/tv_talk_date"
-        style="@style/DescTextView" />
+        style="@style/DescTextView"
+        android:layout_gravity="end" />
 </LinearLayout>

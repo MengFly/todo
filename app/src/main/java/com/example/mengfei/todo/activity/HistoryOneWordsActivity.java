@@ -22,7 +22,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
  * 查看历史Words的界面
  * Created by mengfei on 2017/3/17.
  */
-public class HistoryOneWordsActivity extends BaseActivity{
+public class HistoryOneWordsActivity extends BaseActivity {
 
     private ImageView backImageView;
     private ListView oneWordLv;
@@ -43,7 +43,7 @@ public class HistoryOneWordsActivity extends BaseActivity{
         adapter = new OneWordsAdapter(mContext, oneWordsList, R.layout.layout_item_one_words);
         oneWordLv.setAdapter(adapter);
         if (oneWordsList != null && oneWordsList.size() > 0) {
-            OneWords showPic = oneWordsList.get(new Random().nextInt()%oneWordsList.size());
+            OneWords showPic = oneWordsList.get(Math.abs(new Random().nextInt()) % oneWordsList.size());
             Glide.with(mContext).load(showPic.getPicture2()).bitmapTransform(new BlurTransformation(mContext, 30)).into(backImageView);
         }
     }

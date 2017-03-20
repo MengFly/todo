@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
@@ -12,8 +12,8 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/app_main_color"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/Toolbar"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="任务名称"
+        android:text="@string/string_task_title"
         android:textColor="@color/colorAccent"
         android:textSize="16sp" />
 
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:hint="请输入任务名称"
+        android:hint="@string/string_input_task_title"
         android:padding="10dp"
         android:textColor="@color/color_text_title"
         android:textColorHint="@color/color_text_desc" />
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="任务描述"
+        android:text="@string/string_task_desc"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -53,15 +53,14 @@
         android:id="@+id/et_task_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        android:gravity="top"
-        android:hint="请输入任务描述"
-        android:lineSpacingExtra="6dp"
-        android:padding="10dp"
         android:background="@null"
+        android:gravity="top"
+        android:hint="@string/string_input_task_desc"
+        android:lineSpacingExtra="6dp"
+        android:minHeight="50dp"
+        android:padding="10dp"
         android:textColor="@color/color_text_title"
         android:textColorHint="@color/color_text_desc" />
-
 
 
 </LinearLayout>

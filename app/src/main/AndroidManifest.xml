@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="auto"
-    package="com.example.mengfei.todo">
+    package="com.example.mengfei.todo"
+    android:installLocation="auto">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".TodoApplication"
@@ -17,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.MainActivity" android:launchMode="singleTask">
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,16 +28,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.AddTaskActivity" android:windowSoftInputMode="stateHidden|adjustNothing"/>
-        <activity android:name=".activity.EditTaskActivity" android:windowSoftInputMode="stateHidden|adjustNothing"/>
-        <activity android:name=".activity.TotalTaskDetailsActivity"/>
-        <activity android:name=".activity.HistoryOneWordsActivity"/>
-        <activity android:name=".activity.TotalDoneTaskActivity"/>
-        <activity android:name=".activity.AboutAppActivity"/>
-        <activity android:name=".activity.SettingActivity"/>
-        <activity android:name=".activity.BackActivity"/>
-        <activity android:name=".activity.WebActivity" android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+            android:name=".activity.AddTaskActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".activity.EditTaskActivity"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity android:name=".activity.TotalTaskDetailsActivity" />
+        <activity android:name=".activity.HistoryOneWordsActivity" />
+        <activity android:name=".activity.TotalDoneTaskActivity" />
+        <activity android:name=".activity.AboutAppActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.BackActivity" />
+        <activity
+            android:name=".activity.WebActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.ShowDoneTaskActivity" />
+
+        <service android:name=".service.TaskTimeCheckService" />
     </application>
 
 </manifest>

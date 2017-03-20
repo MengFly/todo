@@ -23,6 +23,10 @@ public class Task extends DataSupport implements Serializable {
     private Date doneDate;
     @Column(unique = true)
     private String taskId;
+    //想要完成的时间，也是提醒时间
+    private Date wantDoneDate;
+
+
 
     private List<Talk> talks;
 
@@ -83,9 +87,17 @@ public class Task extends DataSupport implements Serializable {
 
     public List<Talk> getTalks() {
         if (talks == null) {
-            talks = DataSupport.where("taskId=?", taskId).find(Talk.class);
+            talks = DataSupport.where("taskId=?", taskId).order("talkDate desc").find(Talk.class);
         }
         return talks;
+    }
+
+    public void setWantDoneDate(Date wantDoneDate) {
+        this.wantDoneDate = wantDoneDate;
+    }
+
+    public Date getWantDoneDate() {
+        return wantDoneDate;
     }
 
     public void setTalks(List<Talk> talks) {

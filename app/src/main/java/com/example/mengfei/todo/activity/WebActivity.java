@@ -121,7 +121,6 @@ public class WebActivity extends BaseActivity {
     private class MyWebClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String s) {
-            super.shouldOverrideUrlLoading(webView, s);
             webView.loadUrl(s);
             return true;
         }

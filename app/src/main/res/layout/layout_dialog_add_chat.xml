@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:padding="10dp"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:minWidth="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:text="输入你的评论："
-        style="@style/DescTextView"/>
-    <EditText
-        android:id="@+id/et_talk_input"
-        android:hint="在这里输入"
-        android:inputType="text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/DescTextView"
+            android:text="@string/string_input_content" />
+
+        <EditText
+            android:gravity="top|start"
+            android:id="@+id/et_talk_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/string_input_there"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_dialog_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/string_add_ok"
+        android:textColor="@color/app_btn_color" />
 
 </LinearLayout>

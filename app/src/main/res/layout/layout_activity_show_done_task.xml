@@ -52,7 +52,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="创建时间:"
+                            android:text="任务创建时间:"
                             android:textColor="@color/color_text_title_white" />
 
                         <com.example.todolib.view.widget.DateTextView
@@ -69,7 +69,25 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="完成时间:"
+                            android:text="预计完成时间:"
+                            android:textColor="@color/color_text_title_white" />
+
+                        <com.example.todolib.view.widget.DateTextView
+                            android:id="@+id/dtv_want_done_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="实际完成时间:"
                             android:textColor="@color/color_text_title_white" />
 
                         <com.example.todolib.view.widget.DateTextView
@@ -105,12 +123,12 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_add_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/back_btn"
         android:clickable="true"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/ic_add_white"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
 

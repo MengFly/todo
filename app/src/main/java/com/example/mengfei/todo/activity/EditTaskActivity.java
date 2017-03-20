@@ -1,9 +1,6 @@
 package com.example.mengfei.todo.activity;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,27 +9,31 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.adapter.TalkAdapter;
 import com.example.mengfei.todo.entity.Talk;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
+import com.example.mengfei.todo.utils.dialog.AddChatDialog;
+import com.example.mengfei.todo.utils.dialog.DateTimeDialog;
 import com.example.todolib.utils.ClipboardUtils;
+import com.example.todolib.utils.date.DateTools;
 import com.example.todolib.view.widget.CustomDialogCreater;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +43,8 @@ import java.util.List;
 public class EditTaskActivity extends BaseActivity {
 
     private static final String INTENT_KEY_TASK = "task";
+    private View addDateTimeView;//设置时间的View
+    private TextView showDateTimeTV;//显示设置时间的view
 
     private EditText taskTitleET, taskDescET;
     private Button doneBtn, okEditBtn;
@@ -55,6 +58,7 @@ public class EditTaskActivity extends BaseActivity {
 
     /**
      * 打开编辑Task的界面
+     *
      * @param sendTask 要显示的Task
      */
     public static void openEditTaskActivity(Activity context, Task sendTask, boolean isFinish) {
@@ -77,11 +81,7 @@ public class EditTaskActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_activity_add_task);
-        View headerView = getLayoutInflater().inflate(R.layout.layout_add_task_header, null);
-        headerView.findViewById(R.id.appbar_layout).setVisibility(View.GONE);
-        View talkAreaTitle = getLayoutInflater().inflate(R.layout.layout_title_bar, null);
-        addChatBtn = (ImageButton) talkAreaTitle.findViewById(R.id.ibtn_add_chat);
+        setContentView(R.layout.layout_activity_edit_task);
         Toolbar toolbar = ((Toolbar) findViewById(R.id.toolbar));
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         setSupportActionBar(toolbar);
@@ -97,43 +97,47 @@ public class EditTaskActivity extends BaseActivity {
             showSnackbar(coordinatorLayout, "task layout_title_bar 不合法, 3 秒后退出此界面");
             handler.sendEmptyMessageDelayed(0x0001, 3000);
         }
+        initEditHeader();
+        initAddDateTimeView();
+        initAddChatTitle();
+        initUI();
+        initListener();
+    }
 
+    //初始化编辑任务的头部
+    private void initEditHeader() {
+        View headerView = getLayoutInflater().inflate(R.layout.layout_include_add_task_header, null);
+        headerView.findViewById(R.id.appbar_layout).setVisibility(View.GONE);
         taskTitleET = ((EditText) headerView.findViewById(R.id.et_task_title));
         taskDescET = ((EditText) headerView.findViewById(R.id.et_task_desc));
         talkListView = (ListView) findViewById(R.id.lv_talk_items);
         talkListView.addHeaderView(headerView);
+    }
+
+    //初始化评论区title
+    private void initAddChatTitle() {
+        View talkAreaTitle = getLayoutInflater().inflate(R.layout.layout_title_bar, null);
+        addChatBtn = (ImageButton) talkAreaTitle.findViewById(R.id.ibtn_add_chat);
         talkListView.addHeaderView(talkAreaTitle);
-        initUI();
-        initListener();
+    }
+
+    //初始化添加时间的View
+    private void initAddDateTimeView() {
+        addDateTimeView = getLayoutInflater().inflate(R.layout.layout_include_add_date_time, null);
+        showDateTimeTV = (TextView) addDateTimeView.findViewById(R.id.tv_show_date_time);
+        if (task.getWantDoneDate() != null) {
+            showDateTimeTV.setText(DateTools.formatDate(task.getWantDoneDate()));
+        }
+        talkListView.addHeaderView(addDateTimeView);
     }
 
     private void initListener() {
         addChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText[] inputText = new EditText[1];
-                android.support.v7.app.AlertDialog dialog = CustomDialogCreater.getViewDialog(mContext, R.layout.layout_dialog_add_chat, new CustomDialogCreater.ResourceBinder() {
-                    @Override
-                    public void bindView(View rootView) {
-                        inputText[0] = (EditText) rootView.findViewById(R.id.et_talk_input);
-                    }
-                }, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (TextUtils.isEmpty(inputText[0].getText().toString())) {
-                            showSnackbar(coordinatorLayout, "没有输入");
-                        } else {
-                            Talk talk = new Talk(inputText[0].getText().toString());
-                            talk.setTaskId(task.getTaskId());
-                            adapter.setItem(talk);
-                            talk.save();
-                        }
-                    }
-                });
-                dialog.show();
+                showAddTalkDialog();
             }
         });
-
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +164,9 @@ public class EditTaskActivity extends BaseActivity {
         talkListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final Talk talk = adapter.getItem(position - 2);
+                int itemIndex = position - 3;
+                if (itemIndex < 0) return true;
+                final Talk talk = adapter.getItem(itemIndex);
                 CustomDialogCreater.getItemsDialog(mContext, "选择操作", new String[]{"复制到剪切板", "删除评论"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -180,7 +186,34 @@ public class EditTaskActivity extends BaseActivity {
                 return false;
             }
         });
+        addDateTimeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DateTimeDialog(mContext, new Date(), new UiShower<Date>() {
+                    @Override
+                    public void show(Date date) {
+                        showDateTimeTV.setText(DateTools.formatDate(date));
+                        task.setWantDoneDate(date);
+                    }
+                }).show();
+            }
+        });
 
+    }
+
+    //显示一个添加聊天信息的Dialog
+    private void showAddTalkDialog() {
+        AddChatDialog.newInstance(mContext, new UiShower<Talk>() {
+            @Override
+            public void show(Talk talk) {
+                if (talk == null) {
+                    showSnackbar(coordinatorLayout, "没有输入");
+                } else {
+                    adapter.setItem(talk, 0);
+                    talk.save();
+                }
+            }
+        }, task).show();
     }
 
 

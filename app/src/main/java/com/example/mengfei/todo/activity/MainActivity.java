@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.icu.text.LocaleDisplayNames;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -34,10 +37,13 @@ import com.example.mengfei.todo.entity.OneWords;
 import com.example.mengfei.todo.entity.OneWordsManager;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
+import com.example.mengfei.todo.service.TaskTimeCheckService;
 import com.example.mengfei.todo.utils.DateUtils;
 
 import com.example.mengfei.todo.utils.image.ImageLoader;
+import com.example.todolib.utils.DisplayUtils;
 import com.example.todolib.view.widget.CustomDialogCreater;
+import com.example.todolib.view.widget.VisibleImageView;
 
 import java.util.List;
 
@@ -61,23 +67,39 @@ public class MainActivity extends BaseActivity {
     private NavigationView menuNav;
     private DrawerLayout drawerLayout;
 
-    private int toorBarNowAlpha = 0;
-    private int downY;
+    private int headerHeight = 300;
+    private int statBarHeight = 25;
+
+    private int toolbarNowAlpha = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_main);
+        Intent intent = new Intent(mContext, TaskTimeCheckService.class);
+        startService(intent);
         initView();
+
+        initStatBarSize();
         initListener();
         initUI();
 
     }
 
+    private void initStatBarSize() {
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statBarHeight = DisplayUtils.px2dip(mContext, getResources().getDimensionPixelSize(resourceId));
+        } else {
+            statBarHeight = 25;
+        }
+    }
+
     //检查时间是否太晚
     private void checkTime() {
         if (DateUtils.isTooLate()) {
-            CustomDialogCreater.getSimpleDialog(mContext, "重要提示！！！", "时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。",null, null).show();
+            CustomDialogCreater.getSimpleDialog(mContext, "重要提示！！！", "时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。", null, null).show();
         }
     }
 
@@ -87,12 +109,19 @@ public class MainActivity extends BaseActivity {
         initDatas();
     }
 
+    private void closeNavMenu() {
+        if (drawerLayout.isDrawerOpen(menuNav)) {
+            drawerLayout.closeDrawer(menuNav);
+        }
+    }
+
 
     private void initUI() {
         checkTime();
         initOneWords();
     }
 
+    //初始化每日一句
     private void initOneWords() {
         OneWordsManager.getOneWords(new UiShower<OneWords>() {
             @Override
@@ -107,6 +136,7 @@ public class MainActivity extends BaseActivity {
         addTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeNavMenu();
                 openOtherActivity(AddTaskActivity.class, false);
             }
         });
@@ -114,30 +144,15 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position - 1 < 0) return;
-                EditTaskActivity.openEditTaskActivity(mContext,adapter.getItem(position-1), false);
-            }
-        });
-        taskLV.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        downY = (int) event.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        int y = (int) (event.getY() - downY);
-                        downY = (int) event.getY();
-                        updateColor(y);
-                        break;
-                }
-                return false;
+                closeNavMenu();
+                EditTaskActivity.openEditTaskActivity(mContext, adapter.getItem(position - 1), false);
             }
         });
         taskLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position - 1 < 0) return false;
-                taskOnLongClick(adapter.getItem(position-1));
+                taskOnLongClick(adapter.getItem(position - 1));
                 return true;
             }
         });
@@ -147,24 +162,51 @@ public class MainActivity extends BaseActivity {
                 return navItemSelected(item);
             }
         });
+        taskLV.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Rect headerRect = new Rect();
+                headerBackIV.getGlobalVisibleRect(headerRect);
+                int top = DisplayUtils.px2dip(mContext, headerRect.top);
+                if (top <= 0 || firstVisibleItem >= 1) {
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.app_main_color));
+                    toolbar.setTitle("未完成的任务");
+                } else {
+                    int now = DisplayUtils.px2dip(mContext, headerRect.bottom) - statBarHeight;
+                    toolbarNowAlpha = (int) (255 * ((headerHeight - now) / (headerHeight + 0.5f)));
+                    toolbar.setBackgroundColor(Color.argb(toolbarNowAlpha, 189, 17, 17));
+                    toolbar.setTitle("Todo");
+                }
+            }
+        });
     }
 
+    //侧滑菜单的点击响应事件
     private boolean navItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_done_task:
+                closeNavMenu();
                 openOtherActivity(TotalDoneTaskActivity.class, false);
                 return true;
             case R.id.menu_history_words:
+                closeNavMenu();
                 openOtherActivity(HistoryOneWordsActivity.class, false);
                 return true;
             case R.id.menu_about_app:
-                WebActivity.StartWebActivityWithURL(mContext, "https://github.com/MengFly/todo/issues/new");
-//                openOtherActivity(AboutAppActivity.class, false);
+                closeNavMenu();
+                WebActivity.StartWebActivityWithURL(mContext, "http://mengfly.github.io/app/todo/aboutapp.html");
                 return true;
             case R.id.menu_back:
+                closeNavMenu();
                 openOtherActivity(BackActivity.class, false);
-                return  true;
+                return true;
             case R.id.menu_setting:
+                closeNavMenu();
                 openOtherActivity(SettingActivity.class, false);
                 return true;
             default:
@@ -172,6 +214,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    //主界面不允许滑动
+    @Override
+    public boolean supportSlideBack() {
+        return false;
+    }
+
+    //主界面的后退事件
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(menuNav)) {
@@ -194,40 +243,11 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void updateColor(int y) {
-        if (taskLV.getFirstVisiblePosition() >= 1 ) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.app_main_color));
-        } else if (taskLV.getChildCount() > 1){
-            toorBarNowAlpha -= y *2 ;
-            if (toorBarNowAlpha < 0) {
-                toorBarNowAlpha = 0;
-            } else if (toorBarNowAlpha > 255) {
-                toorBarNowAlpha = 255;
-            }
-            toolbar.setBackgroundColor(Color.argb(toorBarNowAlpha, 189, 17, 17));
-        }
-        taskLV.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem >= 1) {
-                    toolbar.setTitle("当前未完成的任务");
-                } else {
-                    toolbar.setTitle("TODO");
-                }
-            }
-        });
-    }
-
     private void taskOnLongClick(final Task task) {
         SpannableString title = new SpannableString("选择操作任务 —— " + task.getTitle());
         title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_main_color)), "选择操作任务 —— ".length(), title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_btn_color)), 0, "选择操作任务".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        CustomDialogCreater.getItemsDialog(mContext, title , new String[]{"完成目标", "删除任务", "查看任务"}, new DialogInterface.OnClickListener() {
+        CustomDialogCreater.getItemsDialog(mContext, title, new String[]{"完成目标", "删除任务", "查看任务"}, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -237,11 +257,11 @@ public class MainActivity extends BaseActivity {
                         completeTask(task);
                         break;
                     //删除任务
-                    case  1:
+                    case 1:
                         deleteTask(task);
                         break;
                     case 2:
-                        showTask(task);
+                        EditTaskActivity.openEditTaskActivity(mContext, task, false);
                         break;
                 }
             }
@@ -250,7 +270,7 @@ public class MainActivity extends BaseActivity {
 
     //完成Task
     private void completeTask(Task task) {
-        if(TaskManager.completeTask(task)) {
+        if (TaskManager.completeTask(task)) {
             showSnackbar(coordinatorLayout, "任务已经完成，可以在已完成任务界面里面查看呦");
             adapter.removeItem(task);
         }
@@ -262,15 +282,6 @@ public class MainActivity extends BaseActivity {
             adapter.removeItem(task);
             showSnackbar(coordinatorLayout, "删除成功");
         }
-    }
-
-
-
-    //展示一个Task
-    private void showTask(Task task) {
-        Intent intent = new Intent(mContext, EditTaskActivity.class);
-        intent.putExtra("task", task);
-        startActivity(intent);
     }
 
     private void initView() {
@@ -319,6 +330,11 @@ public class MainActivity extends BaseActivity {
         showMsg = null;
     }
 
+    /**
+     * 启动MainActivity
+     *
+     * @param msg 要让MainActivity显示的消息
+     */
     public static void startMainWithMsg(Context context, String msg) {
         Intent intent = new Intent(context, MainActivity.class);
         showMsg = msg;

@@ -37,9 +37,18 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public void setItem(T item, int index) {
+        this.mList.add(index, item);
+        this.notifyDataSetChanged();
+    }
+
     public void removeItem(T item) {
         this.mList.remove(item);
         this.notifyDataSetChanged();
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 
     @Override

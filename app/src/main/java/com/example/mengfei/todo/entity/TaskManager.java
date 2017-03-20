@@ -38,6 +38,7 @@ public class TaskManager {
         ContentValues values = new ContentValues();
         values.put("title", title);
         values.put("desc", desc);
+        values.put("wantDoneDate", task.getWantDoneDate().getTime());
         return DataSupport.updateAll(Task.class, values, "taskId=?", task.getTaskId()) > 0;
     }
 
