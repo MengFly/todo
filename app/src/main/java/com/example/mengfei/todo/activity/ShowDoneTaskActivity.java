@@ -103,7 +103,7 @@ public class ShowDoneTaskActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_share:
-                //todo
+                ShareTaskActivity.openShareTaskActivity(mContext, doneTask);
                 return true;
         }
         return super.onOptionsItemSelected(item);

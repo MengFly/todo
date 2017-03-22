@@ -72,15 +72,17 @@ public class DateTimeDialog extends Dialog {
         hourNP.setMinValue(0);
         hourNP.setMaxValue(23);
         hourNP.setValue(beginDate.get(Calendar.HOUR_OF_DAY));
+        hourNP.setWrapSelectorWheel(false);
 
         mintsNp.setMinValue(0);
         mintsNp.setMaxValue(59);
         mintsNp.setValue(beginDate.get(Calendar.MINUTE));
+        mintsNp.setWrapSelectorWheel(false);
 
-        yearMouthAndDayNP.setFormatter(formatter);
         yearMouthAndDayNP.setMinValue(0);
         yearMouthAndDayNP.setMaxValue(100);
         yearMouthAndDayNP.setValue(0);
+        yearMouthAndDayNP.setFormatter(formatter);
         yearMouthAndDayNP.setWrapSelectorWheel(false);
         initListener();
         updateShowText();

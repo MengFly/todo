@@ -21,7 +21,7 @@
     <item android:title="About">
         <menu>
             <item android:title="关于App" android:id="@+id/menu_about_app" android:icon="@drawable/ic_about"/>
-            <item android:title="应用反馈" android:id="@+id/menu_back" android:icon="@drawable/ic_back"/>
+            <item android:title="应用反馈" android:id="@+id/menu_back" android:icon="@drawable/ic_edit"/>
         </menu>
 
 

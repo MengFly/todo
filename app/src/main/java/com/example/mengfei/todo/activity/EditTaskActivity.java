@@ -9,7 +9,10 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -113,6 +116,7 @@ public class EditTaskActivity extends BaseActivity {
         talkListView = (ListView) findViewById(R.id.lv_talk_items);
         talkListView.addHeaderView(headerView);
     }
+
 
     //初始化评论区title
     private void initAddChatTitle() {

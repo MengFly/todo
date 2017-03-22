@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">todo</string>
+    <string name="app_name">任务备忘录</string>
     <string name="string_no_msg">暂时还没有消息哦</string>
     <string name="string_no_task">你还没有完成的任务呦,快去努力完成吧!</string>
     <string name="string_add_ok">确定添加</string>
@@ -10,4 +10,5 @@
     <string name="string_task_desc">任务描述</string>
     <string name="string_input_task_title">请输入任务名称</string>
     <string name="string_task_title">任务名称</string>
+    <string name="ok">Ok</string>
 </resources>

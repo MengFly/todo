@@ -1,7 +1,12 @@
 package com.example.mengfei.todo.entity;
 
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+
+import com.example.mengfei.todo.reciver.TaskTimeCheckReceiver;
 
 import org.litepal.crud.DataSupport;
 
@@ -38,7 +43,9 @@ public class TaskManager {
         ContentValues values = new ContentValues();
         values.put("title", title);
         values.put("desc", desc);
-        values.put("wantDoneDate", task.getWantDoneDate().getTime());
+        if (task.getWantDoneDate() != null) {
+            values.put("wantDoneDate", task.getWantDoneDate().getTime());
+        }
         return DataSupport.updateAll(Task.class, values, "taskId=?", task.getTaskId()) > 0;
     }
 
@@ -51,12 +58,23 @@ public class TaskManager {
     }
 
     public static boolean deleteTask(Task task) {
-        if(DataSupport.deleteAll(Task.class, "taskId=?", task.getTaskId()) > 0) {
+        if (DataSupport.deleteAll(Task.class, "taskId=?", task.getTaskId()) > 0) {
             DataSupport.deleteAll(Talk.class, "taskId=?", task.getTaskId());
             return true;
-        }else {
+        } else {
             return false;
         }
+    }
+
+    public static PendingIntent getAlarmPendingIntent(Context context, Task task) {
+        Intent intent = new Intent(context.getApplicationContext(), TaskTimeCheckReceiver.class);
+        intent.putExtra("task", task);
+        return PendingIntent.getBroadcast(context, getTaskID(task), intent, PendingIntent.FLAG_ONE_SHOT);
+    }
+
+    //根据task获取到通知的id
+    public static int getTaskID(Task task) {
+        return Integer.parseInt(task.getTaskId().substring(task.getTaskId().length() - 7, task.getTaskId().length()));
     }
 
 
