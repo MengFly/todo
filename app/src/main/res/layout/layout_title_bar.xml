@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
-    android:orientation="horizontal"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="start|center_vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<TextView style="@style/DescTextView"
-    android:layout_margin="8dp"
-    android:layout_weight="1"
-    android:drawableLeft="@drawable/rect_small"
-    android:drawablePadding="10dp"
-    android:gravity="left|start"
-    android:text="评论/笔记" />
+    android:orientation="horizontal">
+
+    <TextView
+        style="@style/DescTextView"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/rect_small"
+        android:drawablePadding="10dp"
+        android:gravity="start"
+        android:text="评论/笔记" />
 
     <ImageButton
         android:id="@+id/ibtn_add_chat"
-        android:background="?attr/selectableItemBackground"
-        android:layout_margin="10dp"
-        android:padding="5dp"
-        android:src="@drawable/ic_add"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="5dp"
+        android:src="@drawable/ic_add" />
 </LinearLayout>

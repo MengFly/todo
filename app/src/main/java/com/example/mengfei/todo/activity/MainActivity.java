@@ -127,7 +127,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void show(OneWords oneWords) {
                 oneWordsOfDayTV.setText(oneWords.getShowSpannableString());
-                ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, new BlurTransformation(mContext, 25));
+                Log.d("URL", oneWords.getPicture2());
+                ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, new BlurTransformation(mContext, 15));
             }
         });
     }
@@ -179,7 +180,11 @@ public class MainActivity extends BaseActivity {
                 } else {
                     int now = DisplayUtils.px2dip(mContext, headerRect.bottom) - statBarHeight;
                     toolbarNowAlpha = (int) (255 * ((headerHeight - now) / (headerHeight + 0.5f)));
-                    toolbar.setBackgroundColor(Color.argb(toolbarNowAlpha, 189, 17, 17));
+                    if (toolbarNowAlpha <= 3) {
+                        toolbar.setBackground(getResources().getDrawable(R.drawable.back_toolbar));
+                    } else {
+                        toolbar.setBackgroundColor(Color.argb(toolbarNowAlpha, 189, 17, 17));
+                    }
                     toolbar.setTitle("Todo");
                 }
             }

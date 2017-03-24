@@ -21,7 +21,7 @@
 
         <TextView
             android:textSize="16sp"
-            android:textColor="@color/back_white"
+            android:textColor="@color/color_text_main_light"
             android:maxLines="2"
             android:gravity="center_vertical"
             android:padding="10dp"

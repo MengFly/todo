@@ -3,13 +3,13 @@
 
     <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<layout_title_bar name="colorPrimary">@color/colorPrimary</layout_title_bar>-->
-        <!--<layout_title_bar name="colorPrimaryDark">@color/colorPrimaryDark</layout_title_bar>-->
-        <!--<layout_title_bar name="colorAccent">@color/colorAccent</layout_title_bar>-->
-        <!--<layout_title_bar name="titleTextColor">@color/colorPrimaryLight</layout_title_bar>-->
-        <!--<layout_title_bar name="android:displayOptions">showHome</layout_title_bar>-->
-        <!--<layout_title_bar name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</layout_title_bar>-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<layout_title_bar name="colorPrimary">@color/colorPrimary</layout_title_bar>-->
+    <!--<layout_title_bar name="colorPrimaryDark">@color/colorPrimaryDark</layout_title_bar>-->
+    <!--<layout_title_bar name="colorAccent">@color/colorAccent</layout_title_bar>-->
+    <!--<layout_title_bar name="titleTextColor">@color/colorPrimaryLight</layout_title_bar>-->
+    <!--<layout_title_bar name="android:displayOptions">showHome</layout_title_bar>-->
+    <!--<layout_title_bar name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</layout_title_bar>-->
     <!--</style>-->
 
     <!-- Base application theme. --><style name="AppTheme" parent="Base.AppTheme" />
@@ -21,12 +21,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="titleTextColor">@color/color_text_title_white</item>
+        <item name="titleTextColor">@color/color_text_main_light</item>
         <item name="android:displayOptions">showHome</item>
         <item name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</item>
     </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="DialogActivity" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
     <style name="DrawableText">
         <item name="android:textSize">18sp</item>
@@ -40,11 +47,11 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:padding">5dp</item>
-        <item name="android:textColor">@color/color_text_title</item>
+        <item name="android:textColor">@color/color_text_main_dark</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
 
@@ -52,7 +59,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">middle</item>
         <item name="android:padding">5dp</item>
-        <item name="android:textColor">@color/color_text_desc</item>
+        <item name="android:textColor">@color/color_text_second_dark</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
@@ -69,9 +76,38 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <!--整个应用的按钮类型-->
     <style name="btn">
-        <item name="android:textColor">@color/color_text_title_white</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:minWidth">88dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textSize">@dimen/btn_body</item>
+        <item name="android:textColor">@color/color_text_main_light</item>
         <item name="android:background">@drawable/back_btn</item>
     </style>
+
+    <!--整个应用的按钮类型-->
+    <style name="btn_flat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:minWidth">80dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textSize">@dimen/btn_body</item>
+        <item name="android:textColor">@color/app_btn_color</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="btn_float">
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
 
 </resources>

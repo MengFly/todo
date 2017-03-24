@@ -50,7 +50,7 @@ public class EditTaskActivity extends BaseActivity {
     private TextView showDateTimeTV;//显示设置时间的view
 
     private EditText taskTitleET, taskDescET;
-    private Button doneBtn, okEditBtn;
+    private Button okEditBtn;
     private ListView talkListView;
     private CoordinatorLayout coordinatorLayout;
 
@@ -88,7 +88,7 @@ public class EditTaskActivity extends BaseActivity {
         Toolbar toolbar = ((Toolbar) findViewById(R.id.toolbar));
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         setSupportActionBar(toolbar);
-        doneBtn = (Button) findViewById(R.id.btn_done_task);
+//        doneBtn = (Button) findViewById(R.id.btn_done_task);
         okEditBtn = (Button) findViewById(R.id.btn_ok_edit);
         Intent intent = getIntent();
         if (intent != null) {
@@ -140,14 +140,6 @@ public class EditTaskActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 showAddTalkDialog();
-            }
-        });
-        doneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TaskManager.completeTask(task);
-                MainActivity.startMainWithMsg(mContext, "恭喜完成了一个任务，完成的任务可以在已经完成的任务列表查看");
-                finish();
             }
         });
         okEditBtn.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +195,24 @@ public class EditTaskActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit_task, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_done_task:
+                TaskManager.completeTask(task);
+                MainActivity.startMainWithMsg(mContext, "恭喜完成了一个任务，完成的任务可以在已经完成的任务列表查看");
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //显示一个添加聊天信息的Dialog

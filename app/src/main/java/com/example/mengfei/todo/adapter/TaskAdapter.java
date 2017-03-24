@@ -36,6 +36,7 @@ public class TaskAdapter extends CommonAdapter<Task> {
         ((TextView) holder.getView(R.id.tv_task_desc)).setText(bean.getDesc());
         ((DateTextView) holder.getView(R.id.dtv_create_date)).setDate(bean.getCreateDate());
         ((TextView) holder.getView(R.id.tv_chat_count)).setText(String.valueOf(bean.getTalks().size()));
+        ((ImageView) holder.getView(R.id.iv_task_stat)).setImageDrawable(null);
         if (bean.getWantDoneDate() != null && !bean.isCompleted()) {
             if (bean.getWantDoneDate().before(Calendar.getInstance().getTime())) {
                 ((ImageView) holder.getView(R.id.iv_task_stat)).setImageResource(R.drawable.ic_time_over);

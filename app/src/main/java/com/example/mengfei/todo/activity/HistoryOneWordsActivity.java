@@ -3,7 +3,9 @@ package com.example.mengfei.todo.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,22 +56,13 @@ public class HistoryOneWordsActivity extends BaseActivity {
         oneWordLv = (ListView) findViewById(R.id.lv_one_words);
         TextView emptyView = (TextView) findViewById(R.id.tv_empty_view);
         oneWordLv.setEmptyView(emptyView);
-        oneWordLv.setOnScrollListener(new AbsListView.OnScrollListener() {
+        oneWordLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem >= 1) {
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.app_main_color));
-                } else {
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                OneWords oneWords = adapter.getItem(position);
+                ShareOneWordActivity.OpenShareOneWordsActivity(mContext, oneWords);
             }
         });
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initActionBar("历史每日一句", null, true);
     }

@@ -11,4 +11,7 @@
     <string name="string_input_task_title">请输入任务名称</string>
     <string name="string_task_title">任务名称</string>
     <string name="ok">Ok</string>
+    <string name="string_current_not_complete_task">当前未完成任务</string>
+    <string name="string_ok">确定</string>
+    <string name="string_reset_time">重置时间</string>
 </resources>

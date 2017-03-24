@@ -1,6 +1,9 @@
 package com.example.todolib.utils;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 
 import java.io.File;
@@ -15,6 +18,13 @@ public class ShareTools {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imageFile));
+        return intent;
+    }
+
+    public static Intent getShareBitmapIntent(Bitmap bitmap) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_STREAM, bitmap);
         return intent;
     }
 }

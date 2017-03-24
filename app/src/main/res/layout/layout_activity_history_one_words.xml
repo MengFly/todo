@@ -15,7 +15,7 @@
         style="@style/emptyView"
         android:drawableTop="@drawable/ic_no_history"
         android:text="@string/string_no_msg"
-        android:textColor="@color/color_text_title_white" />
+        android:textColor="@color/color_text_main_light" />
 
     <ListView
         android:id="@+id/lv_one_words"
@@ -29,6 +29,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/back_toolbar"
         android:minHeight="?attr/actionBarSize" />
 </FrameLayout>

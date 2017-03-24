@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:text="TODO"
+        android:textColor="@color/color_text_main_light"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </FrameLayout>

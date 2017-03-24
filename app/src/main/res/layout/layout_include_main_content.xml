@@ -31,10 +31,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/back_toolbar"
         android:minHeight="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:theme="@style/Toolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <android.support.design.widget.CoordinatorLayout
@@ -44,16 +44,12 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btn_add_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/btn_float"
             android:layout_gravity="end|bottom"
-            android:layout_margin="18dp"
-            android:background="?selectableItemBackground"
-            android:src="@android:drawable/ic_input_add"
-            app:borderWidth="5dp"
+            android:src="@drawable/ic_add_white"
+            app:borderWidth="4dp"
             app:elevation="3dp"
-            app:pressedTranslationZ="6dp"
-            app:rippleColor="@color/app_btn_color" />
+            app:pressedTranslationZ="6dp" />
     </android.support.design.widget.CoordinatorLayout>
 
 

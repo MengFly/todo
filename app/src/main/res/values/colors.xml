@@ -2,31 +2,39 @@
 <resources>
 
     <!--应用的主颜色-->
-    <color name="app_main_color">#bd1b1b</color>
+    <color name="app_main_color">#F44336</color>
     <color name="app_main_color_light">#75bd1b1b</color>
     <color name="colorPrimary">#0000</color>
     <color name="colorPrimaryLight">#8c8ca0</color>
     <color name="colorPrimaryDark">@color/app_main_color</color>
-    <color name="colorAccent">@color/app_main_color</color>
+    <color name="colorAccent">@color/app_btn_color</color>
     <color name="colorAccent_gray">#c83165</color>
+
     <color name="back_white">#fff</color>
     <color name="back_light_gary">#f6f2f2</color>
 
     <!--Button-->
-    <color name="app_btn_color">#ef2ba7</color>
-    <color name="app_btn_color_dark">#c72474</color>
+    <color name="app_btn_color">#E91E63</color>
+    <color name="app_btn_color_dark">#D81B60</color>
 
-    <!--文字-->
-    <color name="color_text_title">#333333</color>
-    <color name="color_text_link">#477aac</color>
-    <color name="color_text_desc">#897e7e</color>
-    <color name="color_text_not_important">#b2b2b2</color>
-    <color name="color_text_second">#cccccc</color>
-    <color name="color_text_title_white">#fafafa</color>
+    <!--主要文字（黑色）的颜色-->
+    <color name="color_text_main_dark">#dd000000</color>
+    <!--次要文字（黑色）的颜色-->
+    <color name="color_text_second_dark">#8a000000</color>
+    <!--禁用文字，提示文字和圖示-->
+    <color name="color_text_disabled_dark">#60000000</color>
+    <!--分隔線-->
+    <color name="color_diver_dark">#1e000000</color>
 
-    <!--默认的底色-->
-    <color name="color_back_page_default">#f2f4f5</color>
-    <!--分割线-->
-    <color name="color_split_color">#0a000000</color>
-    <color name="color_split_color_dark">#1a000000</color>
+    <!--主要文字（白色）的颜色-->
+    <color name="color_text_main_light">#ffffff</color>
+    <!--次要文字（白色）的颜色-->
+    <color name="color_text_second_light">#b3ffffff</color>
+    <!--禁用文字，提示文字和圖示-->
+    <color name="color_text_disabled_light">#80ffffff</color>
+    <!--分隔線-->
+    <color name="color_diver_light">#1effffff</color>
+
+
+
 </resources>

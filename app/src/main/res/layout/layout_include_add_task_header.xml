@@ -46,8 +46,8 @@
                 android:hint="@string/string_input_task_title"
                 android:maxLines="6"
                 android:padding="10dp"
-                android:textColor="@color/color_text_title"
-                android:textColorHint="@color/color_text_desc" />
+                android:textColor="@color/color_text_main_dark"
+                android:textColorHint="@color/color_text_disabled_dark" />
 
 
             <android.support.v7.widget.AppCompatTextView
@@ -56,8 +56,7 @@
                 android:padding="10dp"
                 android:text="@string/string_task_desc"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_task_desc"
@@ -70,8 +69,8 @@
                 android:minHeight="50dp"
                 android:padding="10dp"
                 android:maxLines="6"
-                android:textColor="@color/color_text_title"
-                android:textColorHint="@color/color_text_desc" />
+                android:textColor="@color/color_text_second_dark"
+                android:textColorHint="@color/color_text_disabled_dark" />
 
         </LinearLayout>
 

@@ -3,27 +3,30 @@
 
     <item android:state_pressed="true">
         <shape>
-            <corners android:radius="3dp" />
+            <corners android:radius="2dp" />
+            <padding android:left="16dp" android:right="16dp" />
             <size android:height="36dp" />
             <solid android:color="@color/app_btn_color_dark" />
-            <stroke android:width="0.4dp" android:color="@color/color_text_not_important" />
+            <stroke android:width="0.4dp" android:color="@color/color_diver_dark" />
         </shape>
     </item>
 
     <item android:state_checked="true">
         <shape>
-            <corners android:radius="3dp" />
+            <corners android:radius="2dp" />
+            <padding android:left="16dp" android:right="16dp" />
             <size android:height="36dp" />
             <solid android:color="@color/app_btn_color_dark" />
-            <stroke android:width="0.4dp" android:color="@color/color_text_not_important" />
+            <stroke android:width="0.4dp" android:color="@color/color_diver_dark" />
         </shape>
     </item>
     <item>
         <shape>
-            <corners android:radius="3dp" />
+            <corners android:radius="2dp" />
+            <padding android:left="16dp" android:right="16dp" />
             <size android:height="36dp" />
             <solid android:color="@color/app_btn_color" />
-            <stroke android:width="0.4dp" android:color="@color/color_text_not_important" />
+            <stroke android:width="0.4dp" android:color="@color/color_diver_dark" />
         </shape>
     </item>
 

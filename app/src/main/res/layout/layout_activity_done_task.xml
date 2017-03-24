@@ -26,6 +26,7 @@
         android:id="@+id/tv_empty_view"
         style="@style/emptyView"
         android:drawableTop="@drawable/ic_no_task"
+        android:textColor="@color/color_text_second_dark"
         android:text="@string/string_no_task" />
 
 </FrameLayout>

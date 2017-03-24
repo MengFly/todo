@@ -9,13 +9,14 @@ import android.text.style.StyleSpan;
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 每日一句
  * Created by mengfei on 2017/3/14.
  */
-public class OneWords extends DataSupport{
+public class OneWords extends DataSupport implements Serializable{
 
     private String note;
 

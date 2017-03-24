@@ -13,7 +13,7 @@
         android:autoLink="all"
         android:focusable="false"
         android:lineSpacingExtra="8dp"
-        android:textColor="@color/color_text_desc"
+        android:textColor="@color/color_text_second_dark"
         android:textColorLink="@color/app_btn_color"
         android:textSize="14sp" />
 
