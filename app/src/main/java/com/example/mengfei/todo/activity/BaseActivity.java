@@ -3,27 +3,26 @@ package com.example.mengfei.todo.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.text.util.Linkify;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aitangba.swipeback.SwipeBackActivity;
-import com.example.mengfei.todo.TodoApplication;
-import com.example.todolib.utils.ClipboardUtils;
+import com.example.mengfei.todo.R;
 
 import java.util.List;
 
 
 /**
+ * 所有Activity的基类
  * Created by mengfei on 2017/3/14.
  */
 public class BaseActivity extends SwipeBackActivity {
@@ -31,6 +30,8 @@ public class BaseActivity extends SwipeBackActivity {
     protected Toast mToast;
     protected BaseActivity mContext;
     private ProgressDialog mProDialog;
+    protected Toolbar toolbar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +39,19 @@ public class BaseActivity extends SwipeBackActivity {
         mContext = this;
     }
 
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        initToolBar();
+    }
+
+    //初始化Toolbar
+    private void initToolBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+    }
 
     public void showSnackbar(View view, CharSequence text) {
         Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG);
@@ -85,6 +99,7 @@ public class BaseActivity extends SwipeBackActivity {
     }
 
 
+
     /**
      * 取消等待提示的对话框
      */
@@ -97,6 +112,7 @@ public class BaseActivity extends SwipeBackActivity {
 
     /**
      * 返回目标的Intent时候存在支持的Activity
+     *
      * @param intent 目标的Intent
      * @return 是否存在可以前往的Activity或者是Service
      */
@@ -112,13 +128,14 @@ public class BaseActivity extends SwipeBackActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     /**
      * 进入其他的ctivity
+     *
      * @param actClass class
      * @param isFinish 进入其他的Activity后时候销毁当前的Activity
      */
@@ -129,7 +146,6 @@ public class BaseActivity extends SwipeBackActivity {
             mContext.finish();
         }
     }
-
 
 
 }

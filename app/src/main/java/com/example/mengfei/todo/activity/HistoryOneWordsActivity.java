@@ -29,13 +29,12 @@ public class HistoryOneWordsActivity extends BaseActivity {
     private ImageView backImageView;
     private ListView oneWordLv;
     private OneWordsAdapter adapter;
-    private Toolbar toolbar;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_history_one_words);
+        initActionBar("历史每日一句", null, true);
         initView();
         initDatas();
     }
@@ -52,7 +51,6 @@ public class HistoryOneWordsActivity extends BaseActivity {
 
     private void initView() {
         backImageView = (ImageView) findViewById(R.id.iv_back);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         oneWordLv = (ListView) findViewById(R.id.lv_one_words);
         TextView emptyView = (TextView) findViewById(R.id.tv_empty_view);
         oneWordLv.setEmptyView(emptyView);
@@ -63,7 +61,5 @@ public class HistoryOneWordsActivity extends BaseActivity {
                 ShareOneWordActivity.OpenShareOneWordsActivity(mContext, oneWords);
             }
         });
-        setSupportActionBar(toolbar);
-        initActionBar("历史每日一句", null, true);
     }
 }

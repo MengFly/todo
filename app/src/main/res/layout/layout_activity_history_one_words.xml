@@ -25,10 +25,5 @@
         android:divider="@drawable/diver_bound"
         android:padding="10dp" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_toolbar"
-        android:minHeight="?attr/actionBarSize" />
+    <include layout="@layout/layout_include_toolbar_alpha" />
 </FrameLayout>

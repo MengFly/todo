@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:minWidth="300dp"
     android:layout_height="match_parent"
+    android:minWidth="300dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,20 +16,20 @@
             android:text="@string/string_input_content" />
 
         <EditText
-            android:gravity="top|start"
             android:id="@+id/et_talk_input"
             android:layout_width="match_parent"
-            android:textColorHint="@color/color_text_disabled_dark"
             android:layout_height="wrap_content"
+            android:gravity="top|start"
             android:hint="@string/string_input_there"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColorHint="@color/color_text_disabled_dark" />
 
     </LinearLayout>
 
 
     <Button
-        style="@style/btn_flat"
         android:id="@+id/btn_dialog_ok"
+        style="@style/btn_flat"
         android:layout_gravity="end"
         android:text="@string/string_add_ok" />
 

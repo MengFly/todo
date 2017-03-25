@@ -35,7 +35,6 @@ public class ShareTaskActivity extends BaseActivity {
     private Task task;
     private static final String INTENT_KEY = "task";
 
-    private Toolbar toolbar;
     private View shareLayout;
     private ImageView headerBackIV;
     private ImageView addImageIV;
@@ -94,7 +93,6 @@ public class ShareTaskActivity extends BaseActivity {
     }
 
     private void initView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         shareLayout = findViewById(R.id.sv_share);
         headerBackIV = (ImageView) findViewById(R.id.iv_header_back);
         addImageIV = (ImageView) findViewById(R.id.iv_add_image);
@@ -104,7 +102,6 @@ public class ShareTaskActivity extends BaseActivity {
         taskExtraTv = (TextView) findViewById(R.id.tv_task_extra);
         shareBtn = (Button) findViewById(R.id.btn_share);
         saveBtn = (Button) findViewById(R.id.btn_save);
-        setSupportActionBar(toolbar);
         initActionBar("分享应用", null, true);
     }
 }

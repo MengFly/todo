@@ -44,6 +44,15 @@ public class TaskAdapter extends CommonAdapter<Task> {
                 ((ImageView) holder.getView(R.id.iv_task_stat)).setImageResource(R.drawable.ic_time_tip);
             }
         }
+        if (Task.TASK_TYPE_NET.equals(bean.getTaskType())) {
+            ((ImageView) holder.getView(R.id.iv_task_type)).setImageResource(R.drawable.ic_task_type_net);
+        } else if (Task.TASK_TYPE_MOBILE.equals(bean.getTaskType())) {
+            ((ImageView) holder.getView(R.id.iv_task_type)).setImageResource(android.R.drawable.ic_menu_call);
+        } else if (Task.TASK_TYPE_EMAIL.equals(bean.getTaskType())) {
+            ((ImageView) holder.getView(R.id.iv_task_type)).setImageResource(R.drawable.ic_task_type_email);
+        } else {
+            ((ImageView) holder.getView(R.id.iv_task_type)).setImageResource(R.drawable.ic_task_type_text);
+        }
 
     }
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.example.mengfei.todo.reciver.TaskTimeCheckReceiver;
+import com.example.todolib.utils.date.DateTools;
 
 import org.litepal.crud.DataSupport;
 
@@ -75,6 +76,26 @@ public class TaskManager {
     //根据task获取到通知的id
     public static int getTaskID(Task task) {
         return Integer.parseInt(task.getTaskId().substring(task.getTaskId().length() - 7, task.getTaskId().length()));
+    }
+
+    public static String getTaskShareStr(Task task) {
+        StringBuilder sb = new StringBuilder("*****My Todo Task******\n");
+        sb.append("TaskName:").append(task.getTitle()).append("\n");
+        sb.append("TaskDesc:").append(task.getDesc()).append("\n");
+        sb.append("CreateTime:").append(DateTools.formatDate(task.getCreateDate())).append("\n");
+        if (task.getWantDoneDate() != null) {
+            sb.append("TaskWantDoneTime:").append(DateTools.formatDate(task.getWantDoneDate())).append("\n");
+        }
+        if (task.getDoneDate() != null) {
+            sb.append("TaskDoneTime:").append(DateTools.formatDate(task.getDoneDate())).append("\n");
+        }
+        sb.append("*******My Task Chats*******\n");
+        for (Talk talk : task.getTalks()) {
+            sb.append(DateTools.formatDate(talk.getTalkDate())).append(" : ").append(talk.getTalkContent()).append("\n");
+        }
+        sb.append("             ~ From Todo(任务备忘录)");
+        return sb.toString();
+
     }
 
 

@@ -14,9 +14,23 @@ public class ClipboardUtils {
         return (ClipboardManager) applicationContext.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
-    public static void setTextClip(Context context,String textClip) {
+    public static void setTextClip(Context context, String textClip) {
         ClipData clipData = ClipData.newPlainText("text", textClip);
         getClipboardManager(context).setPrimaryClip(clipData);
+    }
+
+    /**
+     * 获取剪贴板的文本
+     *
+     * @return 剪贴板的文本
+     */
+    public static CharSequence getText(Context context) {
+        ClipboardManager clipboard = getClipboardManager(context);
+        ClipData clip = clipboard.getPrimaryClip();
+        if (clip != null && clip.getItemCount() > 0) {
+            return clip.getItemAt(0).coerceToText(context.getApplicationContext());
+        }
+        return null;
     }
 
 }

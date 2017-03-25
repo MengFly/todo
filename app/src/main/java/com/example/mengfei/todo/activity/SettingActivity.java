@@ -13,5 +13,7 @@ public class SettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_setting);
+        initActionBar("设置", null, true);
+
     }
 }

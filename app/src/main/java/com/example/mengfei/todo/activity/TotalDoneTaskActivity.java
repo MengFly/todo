@@ -19,7 +19,6 @@ import com.example.mengfei.todo.entity.TaskManager;
  */
 public class TotalDoneTaskActivity extends BaseActivity {
 
-    private Toolbar toolbar;
     private ListView doneTaskListView;
     private TaskAdapter doneTaskAdapter;
 
@@ -31,8 +30,6 @@ public class TotalDoneTaskActivity extends BaseActivity {
     }
 
     private void initView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         initActionBar("已经完成的任务", null, true);
         doneTaskListView = (ListView) findViewById(R.id.lv_done_task);
         TextView emptyView = (TextView) findViewById(R.id.tv_empty_view);

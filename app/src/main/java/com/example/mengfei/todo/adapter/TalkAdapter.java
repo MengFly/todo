@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.text.util.Linkify;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
@@ -38,4 +39,5 @@ public class TalkAdapter extends CommonAdapter<Talk> {
         LinkManager.linkClick(getContext(), textView);
         ((DateTextView) holder.getView(R.id.tv_talk_date)).setDate(bean.getTalkDate());
     }
+
 }

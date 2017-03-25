@@ -27,7 +27,6 @@ public class WebActivity extends BaseActivity {
     private String loadUrl;
     private FrameLayout webLayout;
     private ProgressBar showPressBar;
-    private Toolbar toolBar;
 
     public static void StartWebActivityWithURL(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -43,11 +42,9 @@ public class WebActivity extends BaseActivity {
         setContentView(R.layout.layout_activity_web);
         showPressBar = (ProgressBar) findViewById(R.id.progressBar);
         webLayout = (FrameLayout) findViewById(R.id.fl_web_parent);
-        toolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolBar);
         initWebView();
         initUI();
-        initActionBar(webView.getTitle(), null, true);
+        initActionBar("加载中...", null, true);
     }
 
     private void initUI() {
@@ -68,7 +65,7 @@ public class WebActivity extends BaseActivity {
         webView.setWebChromeClient(new MyWebChromeClient());
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webLayout.addView(webView);
     }
 
@@ -109,10 +106,11 @@ public class WebActivity extends BaseActivity {
                 if (showPressBar.getVisibility() == View.VISIBLE) {
                     showPressBar.setProgress(i);
                 } else {
+                    toolbar.setTitle("加载中...");
                     showPressBar.setVisibility(View.VISIBLE);
                 }
             } else {
-                toolBar.setTitle(webView.getTitle());
+                toolbar.setTitle(webView.getTitle());
                 showPressBar.setVisibility(View.GONE);
             }
         }

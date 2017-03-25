@@ -12,7 +12,9 @@ public class StreamManager {
     public static void closeAll(Closeable... streams) {
         for (Closeable closeable : streams) {
             try {
-                closeable.close();
+                if (closeable != null) {
+                    closeable.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

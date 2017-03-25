@@ -30,6 +30,7 @@ import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.dialog.AddChatDialog;
 import com.example.mengfei.todo.utils.dialog.DateTimeDialog;
 import com.example.todolib.utils.ClipboardUtils;
+import com.example.todolib.utils.ShareTools;
 import com.example.todolib.utils.date.DateTools;
 import com.example.todolib.view.widget.CustomDialogCreater;
 
@@ -85,10 +86,7 @@ public class EditTaskActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_edit_task);
-        Toolbar toolbar = ((Toolbar) findViewById(R.id.toolbar));
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
-        setSupportActionBar(toolbar);
-//        doneBtn = (Button) findViewById(R.id.btn_done_task);
         okEditBtn = (Button) findViewById(R.id.btn_ok_edit);
         Intent intent = getIntent();
         if (intent != null) {
@@ -211,9 +209,27 @@ public class EditTaskActivity extends BaseActivity {
                 MainActivity.startMainWithMsg(mContext, "恭喜完成了一个任务，完成的任务可以在已经完成的任务列表查看");
                 finish();
                 return true;
+            case R.id.menu_text_share:
+                String shareStr = TaskManager.getTaskShareStr(task);
+                Intent intent = ShareTools.getShareTextIntent(shareStr);
+                if (isUsedIntentActivity(intent)) {
+                    startActivity(Intent.createChooser(intent, "选择要分享的应用"));
+                } else {
+                    showSnackbar(toolbar, "您的设备没有对应的应用可供分享");
+                }
+                return true;
+            case R.id.menu_delete_task:
+                TaskManager.deleteTask(task);
+                MainActivity.startMainWithMsg(mContext, "删除成功");
+                finish();
+                return true;
+            case R.id.menu_image_share:
+                ShareTaskActivity.openShareTaskActivity(mContext, task);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     //显示一个添加聊天信息的Dialog
     private void showAddTalkDialog() {

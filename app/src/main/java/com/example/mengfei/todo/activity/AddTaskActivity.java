@@ -1,5 +1,7 @@
 package com.example.mengfei.todo.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
@@ -25,30 +28,59 @@ import java.util.Date;
  */
 public class AddTaskActivity extends BaseActivity {
 
-    private Toolbar toolbar;
+    private static final String INTENT_TASK_TYPE_LEY = "task type";
+    private static final String INTENT_TASK_DESC_KEY = "task desc";
+
+    private LinearLayout descLayout;
     private EditText taskTitleEt;
     private EditText taskDescEt;
-    private CardView setTimeCV;
+    private View setDateTimeLy;
     private TextView showSetTimeTV;
 
     private Date wantDoneDate;
 
+    private String taskType;
+    private String taskDesc;
+
+    public static void openAddTaskActivity(Context context, String taskType, String desc) {
+        Intent intent = new Intent(context, AddTaskActivity.class);
+        intent.putExtra(INTENT_TASK_TYPE_LEY, taskType);
+        intent.putExtra(INTENT_TASK_DESC_KEY, desc);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initVriable();
         setContentView(R.layout.layout_activity_add_task);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         initActionBar("Add Task", null, true);
         initView();
+        initUI();
+    }
+
+    private void initUI() {
+        if (!Task.TASK_TYPE_TEXT.equals(taskType)) {
+            descLayout.setVisibility(View.GONE);
+            taskDescEt.setText(taskDesc);
+        }
+    }
+
+    private void initVriable() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            taskType = intent.getStringExtra(INTENT_TASK_TYPE_LEY);
+            taskDesc = intent.getStringExtra(INTENT_TASK_DESC_KEY);
+        }
     }
 
     private void initView() {
+        descLayout = (LinearLayout) findViewById(R.id.ly_task_desc);
         taskTitleEt = (EditText) findViewById(R.id.et_task_title);
         taskDescEt = (EditText) findViewById(R.id.et_task_desc);
-        setTimeCV = (CardView) findViewById(R.id.cv_set_time);
+        setDateTimeLy = findViewById(R.id.ly_set_date_time);
         showSetTimeTV = (TextView) findViewById(R.id.tv_show_date_time);
-        setTimeCV.setOnClickListener(new View.OnClickListener() {
+        setDateTimeLy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DateTimeDialog(mContext, new Date(), new UiShower<Date>() {
@@ -85,6 +117,7 @@ public class AddTaskActivity extends BaseActivity {
             showSnackbar(getCurrentFocus(), "task can not empty");
         } else {
             final Task task = new Task(taskTitle, taskDesc);
+            task.setTaskType(taskType);
             task.setWantDoneDate(wantDoneDate);
             if (TaskManager.saveTask(task)) {
                 MainActivity.startMainWithMsg(mContext, "添加成功");

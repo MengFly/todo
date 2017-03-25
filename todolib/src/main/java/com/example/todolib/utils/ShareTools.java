@@ -14,6 +14,7 @@ import java.io.File;
  */
 public class ShareTools {
 
+    // 获取到发送图片的Intent
     public static Intent getShareImageIntent(File imageFile) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
@@ -21,10 +22,27 @@ public class ShareTools {
         return intent;
     }
 
-    public static Intent getShareBitmapIntent(Bitmap bitmap) {
+
+    //获取到发送邮件的Intent
+    public static Intent getSendEmailIntent(String email, String subject, String text) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:" + email));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        return intent;
+    }
+
+    public static Intent getShareTextIntent(String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_STREAM, bitmap);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        return intent;
+    }
+
+    public static Intent getCallIntent(String callStr) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" +callStr);
+        intent.setData(data);
         return intent;
     }
 }

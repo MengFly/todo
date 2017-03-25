@@ -1,18 +1,6 @@
 <resources>
 
-
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-    <!--<layout_title_bar name="colorPrimary">@color/colorPrimary</layout_title_bar>-->
-    <!--<layout_title_bar name="colorPrimaryDark">@color/colorPrimaryDark</layout_title_bar>-->
-    <!--<layout_title_bar name="colorAccent">@color/colorAccent</layout_title_bar>-->
-    <!--<layout_title_bar name="titleTextColor">@color/colorPrimaryLight</layout_title_bar>-->
-    <!--<layout_title_bar name="android:displayOptions">showHome</layout_title_bar>-->
-    <!--<layout_title_bar name="android:homeAsUpIndicator">@drawable/home_as_up_indicator</layout_title_bar>-->
-    <!--</style>-->
-
-    <!-- Base application theme. --><style name="AppTheme" parent="Base.AppTheme" />
+    <style name="AppTheme" parent="Base.AppTheme" />
 
     <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
 

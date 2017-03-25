@@ -129,6 +129,8 @@ public class DateTimeDialog extends Dialog {
 
 
     private void updateYearMouthDayText(int showP) {
+        showDate.set(Calendar.YEAR, beginDate.get(Calendar.YEAR));
+        showDate.set(Calendar.MONTH, beginDate.get(Calendar.MONTH));
         showDate.set(Calendar.DAY_OF_MONTH, beginDate.get(Calendar.DAY_OF_MONTH) + showP);
         updateShowText();
     }

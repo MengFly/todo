@@ -27,15 +27,7 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/Toolbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <include layout="@layout/layout_include_toolbar_alpha" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/cl_btn"

@@ -5,77 +5,61 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <include layout="@layout/layout_include_toolbar" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/app_main_color"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/Toolbar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/string_task_title"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+            app:hintTextAppearance="@style/TextInputLayout_Hint">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_task_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/string_input_task_title"
+                android:hint="@string/string_task_title"
                 android:maxLines="6"
                 android:padding="10dp"
-                android:textColor="@color/color_text_main_dark"
-                android:textColorHint="@color/color_text_disabled_dark" />
+                android:textColor="@color/app_main_color"
+                android:textColorHint="@color/color_text_disabled_dark"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+<LinearLayout
+    android:id="@+id/ly_task_desc"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:text="任务描述"
+        android:textColor="@color/app_btn_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_task_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="@string/string_input_task_desc"
+        android:lineSpacingExtra="6dp"
+        android:maxLines="6"
+        android:padding="10dp"
+        android:textColor="@color/color_text_second_dark"
+        android:textColorHint="@color/color_text_disabled_dark"
+        android:textSize="14sp" />
+</LinearLayout>
 
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/string_task_desc"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/et_task_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:gravity="top"
-                android:hint="@string/string_input_task_desc"
-                android:lineSpacingExtra="6dp"
-                android:minHeight="50dp"
-                android:padding="10dp"
-                android:maxLines="6"
-                android:textColor="@color/color_text_second_dark"
-                android:textColorHint="@color/color_text_disabled_dark" />
-
-        </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
 
 </LinearLayout>

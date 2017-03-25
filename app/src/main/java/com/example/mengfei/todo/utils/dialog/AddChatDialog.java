@@ -30,7 +30,7 @@ public class AddChatDialog extends Dialog {
 
     private EditText inputEt;
     private UiShower<Talk> shower;
-    private Button okBtn;
+
     public AddChatDialog(@NonNull Context context, UiShower<Talk> shower, Task task) {
         this(context, 0, shower, task);
     }
@@ -45,7 +45,7 @@ public class AddChatDialog extends Dialog {
         setContentView(R.layout.layout_dialog_add_chat);
         inputEt = (EditText) findViewById(R.id.et_talk_input);
         setTitle(null);
-        okBtn = (Button) findViewById(R.id.btn_dialog_ok);
+        Button okBtn = (Button) findViewById(R.id.btn_dialog_ok);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

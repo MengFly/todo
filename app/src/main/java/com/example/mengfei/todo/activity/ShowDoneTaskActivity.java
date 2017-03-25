@@ -33,7 +33,6 @@ public class ShowDoneTaskActivity extends BaseActivity {
     private DateTextView doneDate;
     private DateTextView wantDoneDate;
     private CollapsingToolbarLayout collLayout;
-    private Toolbar toolbar;
     private LinearLayout chatLayout;
     private FloatingActionButton addChatBtn;
 
@@ -53,10 +52,8 @@ public class ShowDoneTaskActivity extends BaseActivity {
         doneDate = (DateTextView) findViewById(R.id.dtv_done_date);
         collLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         chatLayout = (LinearLayout) findViewById(R.id.ly_talk);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         addChatBtn = (FloatingActionButton) findViewById(R.id.btn_add_chat);
         wantDoneDate = (DateTextView) findViewById(R.id.dtv_want_done_date);
-        setSupportActionBar(toolbar);
         initUI();
         initListener();
     }

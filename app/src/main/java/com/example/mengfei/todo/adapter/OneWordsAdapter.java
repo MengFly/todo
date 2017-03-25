@@ -20,7 +20,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Created by mengfei on 2017/3/17.
  */
 
-public class OneWordsAdapter  extends CommonAdapter<OneWords>{
+public class OneWordsAdapter extends CommonAdapter<OneWords> {
     private Context mContext;
 
     public OneWordsAdapter(Context mContext, List<OneWords> mList, int mItemLayoutResorce) {

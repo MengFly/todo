@@ -16,6 +16,15 @@ import java.util.List;
  */
 public class Task extends DataSupport implements Serializable {
 
+    //任务类型为文本类型
+    public static final String TASK_TYPE_TEXT = "text";
+    //任务类型为打电话类型
+    public static final String TASK_TYPE_MOBILE = "mobile";
+    //任务类型为发送邮件类型
+    public static final String TASK_TYPE_EMAIL = "email";
+    //任务类型为打开网页类型
+    public static final String TASK_TYPE_NET = "net";
+
     private String title;
     private String desc;
     private Date createDate;
@@ -26,7 +35,7 @@ public class Task extends DataSupport implements Serializable {
     //想要完成的时间，也是提醒时间
     private Date wantDoneDate;
 
-
+    private String taskType = TASK_TYPE_TEXT;//默认为文本类型
 
     private List<Talk> talks;
 
@@ -102,6 +111,14 @@ public class Task extends DataSupport implements Serializable {
 
     public void setTalks(List<Talk> talks) {
         this.talks = talks;
+    }
+
+    public String getTaskType() {
+        return taskType == null ? TASK_TYPE_TEXT : taskType;//默认是text类型
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
     }
 
     public void addTalk(Talk talk) {

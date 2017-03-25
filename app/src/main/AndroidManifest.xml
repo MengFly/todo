@@ -34,7 +34,6 @@
         <activity
             android:name=".activity.EditTaskActivity"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
-        <activity android:name=".activity.TotalTaskDetailsActivity" />
         <activity android:name=".activity.HistoryOneWordsActivity" />
         <activity android:name=".activity.TotalDoneTaskActivity" />
         <activity android:name=".activity.AboutAppActivity" />
@@ -49,6 +48,8 @@
         <service android:name=".service.TaskTimeCheckService" />
         <activity
             android:name=".activity.ShareOneWordActivity"
+            android:theme="@style/DialogActivity" />
+        <activity android:name=".activity.TaskOpenActivity"
             android:theme="@style/DialogActivity" />
     </application>
 

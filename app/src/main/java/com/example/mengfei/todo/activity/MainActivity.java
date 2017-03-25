@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.icu.text.LocaleDisplayNames;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,14 +13,13 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.AbsListView;
@@ -43,7 +41,6 @@ import com.example.mengfei.todo.utils.DateUtils;
 import com.example.mengfei.todo.utils.image.ImageLoader;
 import com.example.todolib.utils.DisplayUtils;
 import com.example.todolib.view.widget.CustomDialogCreater;
-import com.example.todolib.view.widget.VisibleImageView;
 
 import java.util.List;
 
@@ -60,7 +57,6 @@ public class MainActivity extends BaseActivity {
     private ListView taskLV;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton addTaskBtn;
-    private Toolbar toolbar;
     private ImageView headerBackIV;
 
     private TaskAdapter adapter;
@@ -79,7 +75,6 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(mContext, TaskTimeCheckService.class);
         startService(intent);
         initView();
-
         initStatBarSize();
         initListener();
         initUI();
@@ -133,12 +128,18 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void initListener() {
         addTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 closeNavMenu();
-                openOtherActivity(AddTaskActivity.class, false);
+                AddTaskActivity.openAddTaskActivity(mContext, Task.TASK_TYPE_TEXT, null);
             }
         });
         taskLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -146,7 +147,12 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position - 1 < 0) return;
                 closeNavMenu();
-                EditTaskActivity.openEditTaskActivity(mContext, adapter.getItem(position - 1), false);
+                Task task = adapter.getItem(position - 1);
+                if (Task.TASK_TYPE_TEXT.equals(task.getTaskType())) {
+                    EditTaskActivity.openEditTaskActivity(mContext, task, false);
+                } else {
+                    TaskOpenActivity.openTaskOpenActivity(mContext, task);
+                }
             }
         });
         taskLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -166,7 +172,6 @@ public class MainActivity extends BaseActivity {
         taskLV.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
             }
 
             @Override
@@ -183,7 +188,7 @@ public class MainActivity extends BaseActivity {
                     if (toolbarNowAlpha <= 3) {
                         toolbar.setBackground(getResources().getDrawable(R.drawable.back_toolbar));
                     } else {
-                        toolbar.setBackgroundColor(Color.argb(toolbarNowAlpha, 189, 17, 17));
+                        toolbar.setBackgroundColor(Color.argb(toolbarNowAlpha, 244, 67, 54));
                     }
                     toolbar.setTitle("Todo");
                 }
@@ -290,8 +295,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        toolbar = ((Toolbar) findViewById(R.id.toolbar));
-        setSupportActionBar(toolbar);
         View headerLayout = getLayoutInflater().inflate(R.layout.layout_main_header, null);
         oneWordsOfDayTV = ((TextView) headerLayout.findViewById(R.id.tv_word_of_day));
         headerBackIV = (ImageView) headerLayout.findViewById(R.id.iv_back);
@@ -307,6 +310,7 @@ public class MainActivity extends BaseActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         initDatas();
     }
+
 
     //当点击Menu按钮的时候
     @Override

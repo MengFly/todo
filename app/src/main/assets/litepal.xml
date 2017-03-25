@@ -4,7 +4,7 @@
     <!--数据库名称-->
     <dbname value="todo_db" />
     <!--数据库版本-->
-    <version value="6" />
+    <version value="7" />
 
     <list>
         <mapping class="com.example.mengfei.todo.entity.Task"/>
