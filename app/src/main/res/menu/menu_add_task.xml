@@ -3,11 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:icon="@drawable/ic_add_white"
+        android:title="添加"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menu_add_time"
+                android:icon="@drawable/ic_menu_tip"
+                android:title="添加提醒时间" />
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/menu_ok"
-        android:icon="@drawable/ic_ok"
+        android:icon="@drawable/ic_menu_ok"
         android:title="@string/ok"
         app:showAsAction="always" />
-
 
 
 </menu>

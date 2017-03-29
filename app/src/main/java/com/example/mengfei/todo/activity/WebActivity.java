@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -56,6 +55,11 @@ public class WebActivity extends BaseActivity {
         if (intent != null) {
             loadUrl = intent.getStringExtra(INTENT_KEY_LOAD_WEB_URL);
         }
+    }
+
+    @Override
+    public boolean supportSlideBack() {
+        return false;
     }
 
     private void initWebView() {

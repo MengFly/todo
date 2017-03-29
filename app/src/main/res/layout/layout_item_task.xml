@@ -15,12 +15,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/back_c"
             android:padding="10dp" />
-
-        <ImageView
-            android:id="@+id/iv_task_stat"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_gravity="top|end" />
     </FrameLayout>
 
 

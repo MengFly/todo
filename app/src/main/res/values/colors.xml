@@ -35,6 +35,8 @@
     <!--分隔線-->
     <color name="color_diver_light">#1effffff</color>
 
+    <color name="color_none">#0000</color>
+
 
 
 </resources>

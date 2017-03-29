@@ -23,6 +23,8 @@ public class CheckUtils {
      */
     public static final String CHECK_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
 
+    public static final String REGEX_URL = "[a-zA-z]+://[^\\s]*";
+
     /**
      * 验证邮箱
      *
@@ -51,6 +53,16 @@ public class CheckUtils {
      */
     public static boolean isMobileExact(CharSequence input) {
         return isMatch(REGEX_MOBILE_SIMPLE, input);
+    }
+
+    /**
+     * 验证URL
+     *
+     * @param input 待验证文本
+     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     */
+    public static boolean isURL(CharSequence input) {
+        return isMatch(REGEX_URL, input);
     }
 
     /**

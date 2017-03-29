@@ -5,29 +5,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mengfei.todo.AppConfig;
+import com.example.mengfei.todo.AppConstant;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.adapter.TaskAdapter;
@@ -37,7 +39,7 @@ import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.service.TaskTimeCheckService;
 import com.example.mengfei.todo.utils.DateUtils;
-
+import com.example.mengfei.todo.utils.dialog.CheckBoxDialog;
 import com.example.mengfei.todo.utils.image.ImageLoader;
 import com.example.todolib.utils.DisplayUtils;
 import com.example.todolib.view.widget.CustomDialogCreater;
@@ -52,6 +54,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 public class MainActivity extends BaseActivity {
 
     private static String showMsg = null;
+    private AppConfig config = null;
 
     private TextView oneWordsOfDayTV;
     private ListView taskLV;
@@ -71,6 +74,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        config = AppConfig.getInstance(mContext);
         setContentView(R.layout.layout_activity_main);
         Intent intent = new Intent(mContext, TaskTimeCheckService.class);
         startService(intent);
@@ -93,8 +97,19 @@ public class MainActivity extends BaseActivity {
 
     //检查时间是否太晚
     private void checkTime() {
-        if (DateUtils.isTooLate()) {
-            CustomDialogCreater.getSimpleDialog(mContext, "重要提示！！！", "时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。", null, null).show();
+        if (DateUtils.isTooLate() && config.isTimeTooLateTipShow()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setNegativeButton("不再提示", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    config.setTimeTooLateTipShow(false);
+                    showSnackbar(coordinatorLayout, "您已关闭提示，可以在设置中重新打开。");
+                }
+            });
+            builder.setPositiveButton("知道了", null);
+            builder.setTitle("重要提示！！！");
+            builder.setMessage("时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。");
+            builder.create().show();
         }
     }
 
@@ -122,7 +137,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void show(OneWords oneWords) {
                 oneWordsOfDayTV.setText(oneWords.getShowSpannableString());
-                Log.d("URL", oneWords.getPicture2());
                 ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, new BlurTransformation(mContext, 15));
             }
         });
@@ -140,6 +154,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 closeNavMenu();
                 AddTaskActivity.openAddTaskActivity(mContext, Task.TASK_TYPE_TEXT, null);
+                overridePendingTransition(R.anim.slid_right_to_left, R.anim.exit_alpha_1_0);
             }
         });
         taskLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -198,25 +213,21 @@ public class MainActivity extends BaseActivity {
 
     //侧滑菜单的点击响应事件
     private boolean navItemSelected(MenuItem item) {
+        closeNavMenu();
         switch (item.getItemId()) {
             case R.id.menu_done_task:
-                closeNavMenu();
                 openOtherActivity(TotalDoneTaskActivity.class, false);
                 return true;
             case R.id.menu_history_words:
-                closeNavMenu();
                 openOtherActivity(HistoryOneWordsActivity.class, false);
                 return true;
             case R.id.menu_about_app:
-                closeNavMenu();
-                WebActivity.StartWebActivityWithURL(mContext, "http://mengfly.github.io/app/todo/aboutapp.html");
+                WebActivity.StartWebActivityWithURL(mContext, AppConstant.ABOUT_APP_URL);
                 return true;
             case R.id.menu_back:
-                closeNavMenu();
                 openOtherActivity(BackActivity.class, false);
                 return true;
             case R.id.menu_setting:
-                closeNavMenu();
                 openOtherActivity(SettingActivity.class, false);
                 return true;
             default:
@@ -287,10 +298,27 @@ public class MainActivity extends BaseActivity {
     }
 
     //删除Task
-    private void deleteTask(Task task) {
-        if (TaskManager.deleteTask(task)) {
-            adapter.removeItem(task);
-            showSnackbar(coordinatorLayout, "删除成功");
+    private void deleteTask(final Task task) {
+        if (config.isDeleteTipShow()) {
+            CheckBoxDialog.getDialog(mContext, null, "是否删除这个任务？", "不再提示", new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    config.setDeleteTipShow(!isChecked);
+                }
+            }, "确定删除", "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (TaskManager.deleteTask(task)) {
+                        adapter.removeItem(task);
+                        showSnackbar(coordinatorLayout, "删除成功");
+                    }
+                }
+            }, null).show();
+        } else {
+            if (TaskManager.deleteTask(task)) {
+                adapter.removeItem(task);
+                showSnackbar(coordinatorLayout, "删除成功");
+            }
         }
     }
 

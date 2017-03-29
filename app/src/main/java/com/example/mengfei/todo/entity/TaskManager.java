@@ -42,8 +42,12 @@ public class TaskManager {
         task.setTitle(title);
         task.setDesc(desc);
         ContentValues values = new ContentValues();
-        values.put("title", title);
-        values.put("desc", desc);
+        if (title != null) {
+            values.put("title", title);
+        }
+        if (desc != null) {
+            values.put("desc", desc);
+        }
         if (task.getWantDoneDate() != null) {
             values.put("wantDoneDate", task.getWantDoneDate().getTime());
         }
@@ -51,11 +55,11 @@ public class TaskManager {
     }
 
     public static List<Task> getCompletedTask() {
-        return DataSupport.where("isCompleted=?", String.valueOf(1)).order("createDate").find(Task.class);
+        return DataSupport.where("isCompleted=?", String.valueOf(1)).order("createDate desc").find(Task.class);
     }
 
     public static List<Task> getNotCompletedTask() {
-        return DataSupport.where("isCompleted=?", String.valueOf(0)).order("createDate").find(Task.class);
+        return DataSupport.where("isCompleted=?", String.valueOf(0)).order("createDate desc").find(Task.class);
     }
 
     public static boolean deleteTask(Task task) {

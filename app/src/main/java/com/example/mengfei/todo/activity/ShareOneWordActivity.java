@@ -3,18 +3,13 @@ package com.example.mengfei.todo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -22,13 +17,13 @@ import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.entity.OneWords;
+import com.example.mengfei.todo.utils.AppFileManager;
 import com.example.mengfei.todo.utils.image.ImageLoader;
+import com.example.todolib.utils.ImageUtils;
 import com.example.todolib.utils.ShareTools;
 import com.example.todolib.utils.io.FileManager;
-import com.example.todolib.utils.io.StreamManager;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -107,22 +102,12 @@ public class ShareOneWordActivity extends BaseActivity {
 
 
     private void saveImageAndShare() {
-        int viewHeight = 0;
-        shareView.setDrawingCacheEnabled(true);
-        // 获取listView实际高度
-        for (int i = 0; i < shareView.getChildCount(); i++) {
-            viewHeight += shareView.getChildAt(i).getHeight();
-        }
-        // 创建对应大小的bitmap
-        final Bitmap bitmap = Bitmap.createBitmap(shareView.getWidth(), viewHeight,
-                Bitmap.Config.ARGB_8888);
-        final String filePath = getShareFileName();
-        final Canvas canvas = new Canvas(bitmap);
-        shareView.draw(canvas);
+        final Bitmap shareBitmap = ImageUtils.getScrollViewImage(shareView);
+        final String filePath = AppFileManager.getShareFileName("" + oneWords.getGetDate().getTime());
         new Thread() {
             @Override
             public void run() {
-                FileManager.saveBitmap(bitmap, filePath);
+                FileManager.saveBitmap(shareBitmap, filePath);
                 Message msg = shareCallbackHandler.obtainMessage();
                 msg.what = HANDLER_SHARE_IMAGE_WHAT;
                 msg.obj = filePath;
@@ -150,12 +135,5 @@ public class ShareOneWordActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_share_one_words, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-
-    public String getShareFileName() {
-        //获取地址
-        String parentDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
-        return parentDir + "/" + String.valueOf(oneWords.getGetDate().getTime()) + ".png";
     }
 }

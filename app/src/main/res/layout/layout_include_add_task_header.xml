@@ -31,32 +31,26 @@
                 android:textSize="20sp" />
         </android.support.design.widget.TextInputLayout>
 
-<LinearLayout
-    android:id="@+id/ly_task_desc"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ly_task_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:paddingLeft="10dp"
-        android:text="任务描述"
-        android:textColor="@color/app_btn_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/et_task_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="top"
-        android:hint="@string/string_input_task_desc"
-        android:lineSpacingExtra="6dp"
-        android:maxLines="6"
-        android:padding="10dp"
-        android:textColor="@color/color_text_second_dark"
-        android:textColorHint="@color/color_text_disabled_dark"
-        android:textSize="14sp" />
-</LinearLayout>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_task_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="@string/string_input_task_desc"
+                android:lineSpacingExtra="6dp"
+                android:maxLines="6"
+                android:padding="10dp"
+                android:textColor="@color/color_text_second_dark"
+                android:textColorHint="@color/color_text_disabled_dark"
+                android:textSize="14sp" />
+        </LinearLayout>
 
 
     </LinearLayout>

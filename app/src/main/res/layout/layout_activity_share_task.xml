@@ -18,18 +18,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/back_white"
             android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/iv_header_back"
+
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:background="@drawable/ic_back_error"
-                    android:scaleType="centerCrop" />
+                    android:scrollbars="none">
+
+                    <ImageView
+                        android:id="@+id/iv_header_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="300dp"
+                        android:scaleType="fitXY" />
+                </HorizontalScrollView>
 
                 <ImageView
                     android:id="@+id/iv_add_image"
@@ -39,27 +46,82 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/back_c"
                     android:clickable="true"
-                    android:minHeight="32dp"
-                    android:minWidth="32dp"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:src="@drawable/ic_select_pic" />
             </FrameLayout>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/rect_small"
+                android:drawablePadding="5dp"
+                android:padding="5dp"
+                android:text="任务详情"
+                android:textColor="@color/app_btn_color"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/tv_task_title"
                 style="@style/TitleTextView"
-                android:text="title" />
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/tv_task_desc"
                 style="@style/DescTextView"
-                android:text="fdsfdsfdsfds" />
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/rect_small"
+                android:drawablePadding="5dp"
+                android:padding="5dp"
+                android:text="时间详情"
+                android:textColor="@color/app_btn_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_task_create_date"
+                style="@style/DescTextView"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_task_want_done_date"
+                style="@style/DescTextView"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_task_done_date"
+                style="@style/DescTextView"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/rect_small"
+                android:drawablePadding="5dp"
+                android:paddingLeft="10dp"
+                android:text="我的评论"
+                android:textColor="@color/app_btn_color"
+                android:textSize="16sp" />
+
 
             <LinearLayout
                 android:id="@+id/ly_talk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp" />
+                android:layout_margin="3dp"
+                android:orientation="vertical" />
 
             <TextView
                 android:id="@+id/tv_task_extra"
@@ -70,15 +132,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:background="@drawable/back_line" />
+                android:background="@drawable/driver_page" />
 
             <TextView
                 style="@style/DescTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_app_small"
+                android:background="@color/back_white"
+                android:gravity="end"
                 android:text="来自TODO(任务清单)--任务分享"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -86,23 +149,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_save"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="保存" />
+            style="@style/btn_flat"
+            android:text="保存到本地" />
 
         <Button
             android:id="@+id/btn_share"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/btn_flat"
             android:text="分享" />
     </LinearLayout>
 

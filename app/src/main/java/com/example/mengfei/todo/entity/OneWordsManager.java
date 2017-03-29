@@ -8,8 +8,13 @@ import com.example.todolib.net.listener.DisposeDataListener;
 import com.example.todolib.net.request.CommonRequest;
 import com.google.gson.Gson;
 
+import org.bouncycastle.asn1.dvcs.Data;
+import org.litepal.crud.DataSupport;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by mengfei on 2017/3/17.
@@ -52,5 +57,18 @@ public class OneWordsManager {
         oneWords.setPicture("http://cdn.iciba.com/news/word/20170317.jpg");
         oneWords.setPicture2("http://cdn.iciba.com/news/word/big_20170317b.jpg");
         return oneWords;
+    }
+
+    public static List<OneWords> getOneWordsList() {
+        return DataSupport.order("getDate desc").find(OneWords.class);
+    }
+
+    public static OneWords getRandomOneWords() {
+        List<OneWords> list = DataSupport.findAll(OneWords.class);
+        if (list == null || list.isEmpty()) {
+            return getDefaultOneWords();
+        } else {
+            return list.get(Math.abs(new Random().nextInt()) % list.size());
+        }
     }
 }

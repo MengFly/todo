@@ -9,18 +9,18 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mengfei.todo.AppConfig;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.adapter.TalkAdapter;
@@ -28,6 +28,7 @@ import com.example.mengfei.todo.entity.Talk;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.dialog.AddChatDialog;
+import com.example.mengfei.todo.utils.dialog.CheckBoxDialog;
 import com.example.mengfei.todo.utils.dialog.DateTimeDialog;
 import com.example.todolib.utils.ClipboardUtils;
 import com.example.todolib.utils.ShareTools;
@@ -88,13 +89,12 @@ public class EditTaskActivity extends BaseActivity {
         setContentView(R.layout.layout_activity_edit_task);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         okEditBtn = (Button) findViewById(R.id.btn_ok_edit);
+        initActionBar("Edit Task", null, true);
         Intent intent = getIntent();
         if (intent != null) {
             task = (Task) intent.getSerializableExtra(INTENT_KEY_TASK);
         }
-        if (task != null) {
-            initActionBar(task.getTitle(), task.getDesc(), true);
-        } else {
+        if (task == null) {
             showSnackbar(coordinatorLayout, "task layout_title_bar 不合法, 3 秒后退出此界面");
             handler.sendEmptyMessageDelayed(0x0001, 3000);
         }
@@ -219,9 +219,25 @@ public class EditTaskActivity extends BaseActivity {
                 }
                 return true;
             case R.id.menu_delete_task:
-                TaskManager.deleteTask(task);
-                MainActivity.startMainWithMsg(mContext, "删除成功");
-                finish();
+                if (AppConfig.getInstance(mContext).isDeleteTipShow()) {
+                    CheckBoxDialog.getDialog(mContext, null, "是否删除这个任务？", "不再提示", new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            AppConfig.getInstance(mContext).setDeleteTipShow(!isChecked);
+                        }
+                    }, "确定删除", "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            TaskManager.deleteTask(task);
+                            MainActivity.startMainWithMsg(mContext, "删除成功");
+                            finish();
+                        }
+                    }, null).show();
+                } else {
+                    TaskManager.deleteTask(task);
+                    MainActivity.startMainWithMsg(mContext, "删除成功");
+                    finish();
+                }
                 return true;
             case R.id.menu_image_share:
                 ShareTaskActivity.openShareTaskActivity(mContext, task);

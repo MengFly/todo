@@ -2,7 +2,6 @@ package com.example.mengfei.todo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.adapter.TaskAdapter;
+import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 
 
@@ -43,7 +43,12 @@ public class TotalDoneTaskActivity extends BaseActivity {
         doneTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShowDoneTaskActivity.showDoneTask(mContext, doneTaskAdapter.getItem(position));
+                Task task = doneTaskAdapter.getItem(position);
+                if (Task.TASK_TYPE_TEXT.equals(task.getTaskType())) {
+                    EditTaskActivity.openEditTaskActivity(mContext, task, false);
+                } else {
+                    TaskOpenActivity.openTaskOpenActivity(mContext, task);
+                }
             }
         });
     }

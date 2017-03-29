@@ -2,8 +2,9 @@ package com.example.mengfei.todo.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.adapter.OneWordsAdapter;
 import com.example.mengfei.todo.entity.OneWords;
+import com.example.mengfei.todo.entity.OneWordsManager;
+import com.example.todolib.utils.DisplayUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -40,7 +43,7 @@ public class HistoryOneWordsActivity extends BaseActivity {
     }
 
     private void initDatas() {
-        List<OneWords> oneWordsList = OneWords.findAll(OneWords.class);
+        List<OneWords> oneWordsList = OneWordsManager.getOneWordsList();
         adapter = new OneWordsAdapter(mContext, oneWordsList, R.layout.layout_item_one_words);
         oneWordLv.setAdapter(adapter);
         if (oneWordsList != null && oneWordsList.size() > 0) {
@@ -53,6 +56,7 @@ public class HistoryOneWordsActivity extends BaseActivity {
         backImageView = (ImageView) findViewById(R.id.iv_back);
         oneWordLv = (ListView) findViewById(R.id.lv_one_words);
         TextView emptyView = (TextView) findViewById(R.id.tv_empty_view);
+        oneWordLv.addFooterView(getOneWordsListence());
         oneWordLv.setEmptyView(emptyView);
         oneWordLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,5 +65,16 @@ public class HistoryOneWordsActivity extends BaseActivity {
                 ShareOneWordActivity.OpenShareOneWordsActivity(mContext, oneWords);
             }
         });
+    }
+
+    //获取有关每日一句出处信息的TextView
+    private TextView getOneWordsListence() {
+        TextView textView = new TextView(mContext);
+        textView.setTextColor(getResources().getColor(R.color.color_text_second_light));
+        textView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(0, DisplayUtils.dip2px(mContext.getApplicationContext(), 20f), 0, DisplayUtils.dip2px(mContext.getApplicationContext(), 20f));
+        textView.setText("每日一句信息由金山词霸每日一句平台提供");
+        return textView;
     }
 }

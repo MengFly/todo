@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.EditTaskActivity;
+import com.example.mengfei.todo.activity.TaskOpenActivity;
 import com.example.mengfei.todo.entity.Talk;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
@@ -62,7 +63,13 @@ public class TaskTimeCheckReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= 17) {
             builder.setShowWhen(true);
         }
-        Intent intent = new Intent(context, EditTaskActivity.class);
+        Intent intent;
+        if (!Task.TASK_TYPE_TEXT.equals(task.getTaskType())) {
+            intent = new Intent(context, TaskOpenActivity.class);
+
+        } else {
+            intent = new Intent(context, EditTaskActivity.class);
+        }
         intent.putExtra("task", task);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
