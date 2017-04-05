@@ -44,7 +44,6 @@
     </style>
 
     <style name="DescTextView">
-        <item name="android:maxLines">1</item>
         <item name="android:ellipsize">middle</item>
         <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/color_text_second_dark</item>

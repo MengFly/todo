@@ -42,6 +42,14 @@
             app:borderWidth="4dp"
             app:elevation="3dp"
             app:pressedTranslationZ="6dp" />
+
+        <include
+            android:id="@+id/ly_main_foot"
+            layout="@layout/layout_main_foot"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="end|bottom"
+            android:visibility="gone" />
     </android.support.design.widget.CoordinatorLayout>
 
 

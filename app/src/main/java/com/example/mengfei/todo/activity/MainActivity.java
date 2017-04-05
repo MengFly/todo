@@ -1,5 +1,6 @@
 package com.example.mengfei.todo.activity;
 
+import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -65,6 +69,8 @@ public class MainActivity extends BaseActivity {
     private TaskAdapter adapter;
     private NavigationView menuNav;
     private DrawerLayout drawerLayout;
+
+    private View footView;
 
     private int headerHeight = 300;
     private int statBarHeight = 25;
@@ -153,8 +159,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 closeNavMenu();
+//                openOtherActivity(AddNoteActivity.class, false);
                 AddTaskActivity.openAddTaskActivity(mContext, Task.TASK_TYPE_TEXT, null);
-                overridePendingTransition(R.anim.slid_right_to_left, R.anim.exit_alpha_1_0);
+                overridePendingTransition(R.anim.slid_right_bottom_to_left_top, R.anim.exit_alpha_1_0);
             }
         });
         taskLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -165,6 +172,7 @@ public class MainActivity extends BaseActivity {
                 Task task = adapter.getItem(position - 1);
                 if (Task.TASK_TYPE_TEXT.equals(task.getTaskType())) {
                     EditTaskActivity.openEditTaskActivity(mContext, task, false);
+//                    overridePendingTransition(R.anim.open_0_large, 0);
                 } else {
                     TaskOpenActivity.openTaskOpenActivity(mContext, task);
                 }
@@ -332,6 +340,7 @@ public class MainActivity extends BaseActivity {
         taskLV.addHeaderView(headerLayout);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawrlayout);
         addTaskBtn = ((FloatingActionButton) findViewById(R.id.btn_add_task));
+        footView = findViewById(R.id.ly_main_foot);
         initActionBar("TODO", null, false);
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);

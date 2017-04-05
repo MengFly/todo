@@ -45,9 +45,8 @@
                 android:gravity="top"
                 android:hint="@string/string_input_task_desc"
                 android:lineSpacingExtra="6dp"
-                android:maxLines="6"
                 android:padding="10dp"
-                android:textColor="@color/color_text_second_dark"
+                android:textColor="@color/color_text_main_dark"
                 android:textColorHint="@color/color_text_disabled_dark"
                 android:textSize="14sp" />
         </LinearLayout>

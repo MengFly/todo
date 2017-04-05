@@ -36,6 +36,7 @@ import com.example.todolib.utils.date.DateTools;
 import com.example.todolib.utils.io.FileManager;
 import com.example.todolib.view.widget.CustomDialogCreater;
 import com.example.todolib.view.widget.DateTextView;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.litepal.crud.DataSupport;
 
@@ -182,7 +183,7 @@ public class ShareTaskActivity extends BaseActivity {
 
     private View getTalkTextView(Talk talk) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.layout_item_talk, null);
-        ((TextView) itemView.findViewById(R.id.tv_talk_content)).setText(talk.getTalkContent());
+        ((ExpandableTextView)itemView.findViewById(R.id.expand_text_view)).setText(talk.getTalkContent());
         ((DateTextView) itemView.findViewById(R.id.tv_talk_date)).setDate(talk.getTalkDate());
         return itemView;
     }

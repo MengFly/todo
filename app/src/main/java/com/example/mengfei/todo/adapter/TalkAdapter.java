@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.text.util.Linkify;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.example.todolib.adapter.CommonAdapter;
 import com.example.todolib.adapter.ViewHolder;
 import com.example.todolib.utils.ClipboardUtils;
 import com.example.todolib.view.widget.DateTextView;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.tencent.smtt.sdk.WebSettings;
 
 import java.util.List;
@@ -34,8 +36,9 @@ public class TalkAdapter extends CommonAdapter<Talk> {
 
     @Override
     public void bindItemDatas(ViewHolder holder, Talk bean) {
-        TextView textView = ((TextView) holder.getView(R.id.tv_talk_content));
-        textView.setText(bean.getTalkContent());
+        ExpandableTextView expTv1 = (ExpandableTextView) holder.getView(R.id.expand_text_view);
+        expTv1.setText(bean.getTalkContent());
+        TextView textView = ((TextView) holder.getView(R.id.expandable_text));
         LinkManager.linkClick(getContext(), textView);
         ((DateTextView) holder.getView(R.id.tv_talk_date)).setDate(bean.getTalkDate());
     }

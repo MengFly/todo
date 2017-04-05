@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ms.square.android.expandabletextview.ExpandableTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/expand_text_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    expandableTextView:animDuration="200"
+    expandableTextView:maxCollapsedLines="2">
 
     <TextView
-        android:id="@+id/tv_talk_content"
+        android:id="@+id/expandable_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="all"
         android:focusable="false"
         android:lineSpacingExtra="8dp"
-        android:textColor="@color/color_text_second_dark"
+        android:textColor="@color/color_text_main_dark"
         android:textColorLink="@color/app_btn_color"
         android:textSize="14sp" />
 
@@ -23,4 +24,13 @@
         style="@style/DescTextView"
         android:layout_gravity="end" />
 
-</LinearLayout>
+    <ImageButton
+        android:id="@id/expand_collapse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:background="@android:color/transparent"
+        android:padding="16dp" />
+
+
+</com.ms.square.android.expandabletextview.ExpandableTextView>
