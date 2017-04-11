@@ -68,7 +68,7 @@ public class DateTimeDialog extends Dialog {
         mintsNp.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         hourNP.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         yearMouthAndDayNP.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-
+        yearMouthAndDayNP.setClickable(false);
         hourNP.setMinValue(0);
         hourNP.setMaxValue(23);
         hourNP.setValue(beginDate.get(Calendar.HOUR_OF_DAY));
@@ -163,7 +163,8 @@ public class DateTimeDialog extends Dialog {
                 Calendar show = Calendar.getInstance();
                 show.setTime(beginDate.getTime());
                 show.set(Calendar.DAY_OF_MONTH, value + beginDate.get(Calendar.DAY_OF_MONTH));
-                return new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA).format(show.getTime());
+                String dateStr = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA).format(show.getTime());
+                return dateStr.substring(2, dateStr.length());
             }
         }
     };

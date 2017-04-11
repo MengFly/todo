@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back_white"
@@ -7,4 +8,47 @@
 
     <include layout="@layout/layout_include_add_task_header" />
 
-</LinearLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/ly_task_style"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_style_text"
+            style="@style/btn_float"
+            app:elevation="1dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/ic_task_type_text" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_style_url"
+            style="@style/btn_float"
+            app:elevation="1dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/ic_task_type_net" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_style_email"
+            style="@style/btn_float"
+            app:elevation="1dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/ic_task_type_email" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_style_phone"
+            style="@style/btn_float"
+            app:elevation="1dp"
+            android:layout_gravity="bottom|center"
+            android:src="@android:drawable/stat_sys_phone_call" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_show_style"
+            style="@style/btn_float"
+            app:elevation="1dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/ic_task_type_text" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

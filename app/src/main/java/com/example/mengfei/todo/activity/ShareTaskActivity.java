@@ -120,7 +120,7 @@ public class ShareTaskActivity extends BaseActivity {
         addImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomDialogCreater.getItemsDialog(mContext, null, new String[]{"换一张图片", "从手机中选择"}, new DialogInterface.OnClickListener() {
+                CustomDialogCreater.getItemsDialog(mContext, "图片", new String[]{"换一张图片", "从手机中选择"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
