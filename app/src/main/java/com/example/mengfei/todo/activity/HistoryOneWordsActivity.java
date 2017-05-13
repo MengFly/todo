@@ -61,8 +61,10 @@ public class HistoryOneWordsActivity extends BaseActivity {
         oneWordLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OneWords oneWords = adapter.getItem(position);
-                ShareOneWordActivity.OpenShareOneWordsActivity(mContext, oneWords);
+                if(position < adapter.getCount()) {
+                    OneWords oneWords = adapter.getItem(position);
+                    ShareOneWordActivity.OpenShareOneWordsActivity(mContext, oneWords);
+                }
             }
         });
     }

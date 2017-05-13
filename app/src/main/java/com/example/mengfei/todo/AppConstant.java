@@ -5,6 +5,8 @@ package com.example.mengfei.todo;
  * Created by mengfei on 2017/3/24.
  */
 public class AppConstant {
+
+    //App中用到的一些地址
     public static final String BACK_EMAIL = "mengfly_todo_app@163.com";
     public static final String ABOUT_APP_URL = "https://mengfly.github.io/app/todo/aboutapp.html";
     public static final String APP_LICENSE_URL = "https://mengfly.github.io/app/todo/applicence.html";

@@ -9,7 +9,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +32,7 @@ import com.example.mengfei.todo.utils.dialog.DateTimeDialog;
 import com.example.todolib.utils.CheckUtils;
 import com.example.todolib.utils.DisplayUtils;
 import com.example.todolib.utils.date.DateTools;
+import com.example.todolib.view.widget.CustomDialogCreater;
 
 import java.util.Date;
 
@@ -129,7 +134,6 @@ public class AddTaskActivity extends BaseActivity {
             builder.create().show();
         }
     }
-
 
     private void initVriable() {
         Intent intent = getIntent();
@@ -267,31 +271,59 @@ public class AddTaskActivity extends BaseActivity {
         }
     }
 
+    private void showSnackbarAsRule(String extraText, final SpannableString tip) {
+        Snackbar snackbar = Snackbar.make(taskStyleLy, extraText, Snackbar.LENGTH_LONG);
+        snackbar.setActionTextColor(getResources().getColor(R.color.app_btn_color));
+        snackbar.setAction("查看规则", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage(tip);
+                builder.setNegativeButton("确定", null).create().show();
+            }
+        }).show();
+    }
+
+    //检测输入的类型是否正确
     private boolean checkStyle(String taskType, String taskDesc) {
         if (Task.TASK_TYPE_EMAIL.equals(taskType)) {
             if (CheckUtils.isEmail(taskDesc)) {
                 return true;
             } else {
-                showSnackbar(taskStyleLy, "您输入的Email地址不合法");
+                //设置提示信息
+                String showStr = "Email填写规范:\n <****.****@***.com/cn> \n示例:\n (shili@gmail.com)";
+                showSnackbarAsRule("您输入的Email地址不合法", getSpannbleShowTip(showStr));
                 return false;
             }
         } else if (Task.TASK_TYPE_MOBILE.equals(taskType)) {
             if (CheckUtils.isMobileExact(taskDesc) || CheckUtils.isTel(taskDesc)) {
                 return true;
             } else {
-                showSnackbar(taskStyleLy,"您输入的电话或手机号码不合法");
+                String showStr = "手机号或电话号码填写规范:\n<***-*****或******> \n示例:\n(0000-1111111或10000000000)";
+               showSnackbarAsRule("您输入的电话或手机号码不合法", getSpannbleShowTip(showStr));
                 return false;
             }
         } else if (Task.TASK_TYPE_NET.equals(taskType)) {
             if (CheckUtils.isURL(taskDesc)) {
                 return true;
             } else {
-                showSnackbar(taskStyleLy, "您输入的网络地址不合法");
+                String showStr = "网络地址填写规范:\n<http://****.***或https://****.****> \n示例:\n(http://github.com)";
+                showSnackbarAsRule("您输入的网络地址不合法", getSpannbleShowTip(showStr));
                 return false;
             }
         } else {
             return true;
         }
+    }
+
+    //获取提示信息的Spannble
+    private SpannableString getSpannbleShowTip(String tipStr) {
+        SpannableString showTip = new SpannableString(tipStr);
+        showTip.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_btn_color)),
+                tipStr.indexOf("<") + 1, tipStr.indexOf(">"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        showTip.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_btn_color)),
+                tipStr.indexOf("(") + 1, tipStr.indexOf(")"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return showTip;
     }
 
     public void openBtn() {

@@ -53,9 +53,10 @@ public class BaseActivity extends SwipeBackActivity {
         }
     }
 
-    public void showSnackbar(View view, CharSequence text) {
+    public Snackbar showSnackbar(View view, CharSequence text) {
         Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG);
         snackbar.show();
+        return snackbar;
     }
 
     public void initActionBar(String actionTitle, String actionBarSubTitle, boolean isBack) {
