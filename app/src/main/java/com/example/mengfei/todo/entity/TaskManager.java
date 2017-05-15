@@ -45,6 +45,7 @@ public class TaskManager {
         return DataSupport.updateAll(Task.class, values, "taskId=?", task.getTaskId()) > 0;
     }
 
+    //更新任务
     public static boolean updateTask(Task task, String title, String desc) {
         task.setTitle(title);
         task.setDesc(desc);

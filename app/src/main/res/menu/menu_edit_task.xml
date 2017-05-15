@@ -23,6 +23,11 @@
 
             </item>
             <item
+                android:id="@+id/menu_edit_tag"
+                android:icon="@drawable/ic_tag"
+                android:title="编辑标签" />
+
+            <item
                 android:id="@+id/menu_delete_task"
                 android:icon="@drawable/ic_menu_delete"
                 android:title="删除任务" />

@@ -15,4 +15,6 @@
     <string name="string_ok">确定</string>
     <string name="string_reset_time">重置时间</string>
     <string name="string_ok_edit">确定修改</string>
+    <string name="all_tags">All Tags</string>
+    <string name="tag">添加TAG</string>
 </resources>

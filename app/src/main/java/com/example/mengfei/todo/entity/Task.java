@@ -1,6 +1,9 @@
 package com.example.mengfei.todo.entity;
 
 
+import android.content.ContentValues;
+import android.text.TextUtils;
+
 import org.bouncycastle.asn1.dvcs.Data;
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
@@ -12,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 任务的实体类
  * Created by mengfei on 2017/3/14.
  */
 public class Task extends DataSupport implements Serializable {
@@ -35,6 +39,9 @@ public class Task extends DataSupport implements Serializable {
     //想要完成的时间，也是提醒时间
     private Date wantDoneDate;
 
+    //任务的标签
+    private String tags = "";
+
     private String taskType = TASK_TYPE_TEXT;//默认为文本类型
 
     private List<Talk> talks;
@@ -44,6 +51,51 @@ public class Task extends DataSupport implements Serializable {
         this.desc = desc;
         this.createDate = new Date();
         taskId = String.valueOf(createDate.getTime());
+    }
+    public void setTag(Tag tag) {
+        if (tags == null || !tags.contains(tag.getName())) {
+            tags += tag.getName() + " ";
+            ContentValues values = new ContentValues();
+            values.put("tags", tags);
+            updateAll(Task.class, values, "taskId=?", getTaskId());
+        }
+    }
+
+    public void removeTag(Tag tag) {
+        String tagName = tag.getName();
+        if (tags != null && tags.contains(tagName)) {
+            tags = tags.replace(tagName + " " , "");
+            ContentValues values = new ContentValues();
+            values.put("tags", tags);
+            updateAll(Task.class, values, "taskId=?", getTaskId());
+        }
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        if (tags != null) {
+            this.tags = tags.replaceAll("  ", " ");
+        } else {
+            this.tags = "";
+        }
+    }
+
+    public List<Tag> getAddedTags() {
+        if (tags == null) {
+            return Collections.emptyList();
+        }
+        String[] tagsName = tags.split(" ");
+        List<Tag> tags =new ArrayList<>();
+        for (String tagName : tagsName) {
+            if (!TextUtils.isEmpty(tagName)) {
+                Tag tag = new Tag(tagName);
+                tags.add(tag);
+            }
+        }
+        return tags;
     }
 
     public String getTitle() {

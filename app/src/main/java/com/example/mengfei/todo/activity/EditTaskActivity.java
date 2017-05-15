@@ -30,6 +30,7 @@ import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.dialog.AddChatDialog;
 import com.example.mengfei.todo.utils.dialog.CheckBoxDialog;
 import com.example.mengfei.todo.utils.dialog.DateTimeDialog;
+import com.example.mengfei.todo.utils.dialog.EditTagDialog;
 import com.example.todolib.utils.ClipboardUtils;
 import com.example.todolib.utils.ShareTools;
 import com.example.todolib.utils.date.DateTools;
@@ -241,6 +242,9 @@ public class EditTaskActivity extends BaseActivity {
                 return true;
             case R.id.menu_image_share:
                 ShareTaskActivity.openShareTaskActivity(mContext, task);
+                return true;
+            case R.id.menu_edit_tag :
+                new EditTagDialog(mContext, task).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

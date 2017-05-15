@@ -41,7 +41,7 @@ public class DateTimeDialog extends Dialog {
 
 
     public DateTimeDialog(Context context, Date beginDate, UiShower<Date> shower) {
-        this(context, 0, beginDate, shower);
+        this(context, R.style.MyDialogStyle, beginDate, shower);
     }
 
     public DateTimeDialog(Context context, int themeResId, Date beginDate, UiShower<Date> shower) {
@@ -52,8 +52,8 @@ public class DateTimeDialog extends Dialog {
     }
 
     private void initView() {
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layout_dialog_date_time);
+        setTitle("设置提醒时间");
         yearMouthAndDayNP = (NumberPicker) findViewById(R.id.np_year_month_day);
         hourNP = (NumberPicker) findViewById(R.id.np_hour);
         mintsNp = (NumberPicker) findViewById(R.id.np_mints);
