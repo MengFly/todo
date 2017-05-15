@@ -6,6 +6,9 @@ package com.example.mengfei.todo;
  */
 public class AppConstant {
 
+    //App中所有的字符串的分割符
+    public static final String APPSPLITE = "~todo~";
+
     //App中用到的一些地址
     public static final String BACK_EMAIL = "mengfly_todo_app@163.com";
     public static final String ABOUT_APP_URL = "https://mengfly.github.io/app/todo/aboutapp.html";

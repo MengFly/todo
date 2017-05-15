@@ -24,6 +24,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.mengfei.todo.AppConstant;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.entity.Task;
@@ -286,34 +287,13 @@ public class AddTaskActivity extends BaseActivity {
 
     //检测输入的类型是否正确
     private boolean checkStyle(String taskType, String taskDesc) {
-        if (Task.TASK_TYPE_EMAIL.equals(taskType)) {
-            if (CheckUtils.isEmail(taskDesc)) {
-                return true;
-            } else {
-                //设置提示信息
-                String showStr = "Email填写规范:\n <****.****@***.com/cn> \n示例:\n (shili@gmail.com)";
-                showSnackbarAsRule("您输入的Email地址不合法", getSpannbleShowTip(showStr));
-                return false;
+        return TaskManager.checkTask(taskType, taskDesc, new UiShower<String>() {
+            @Override
+            public void show(String s) {
+                String[] showStrs = s.split(AppConstant.APPSPLITE);
+                showSnackbarAsRule(showStrs[0], getSpannbleShowTip(showStrs[1]));
             }
-        } else if (Task.TASK_TYPE_MOBILE.equals(taskType)) {
-            if (CheckUtils.isMobileExact(taskDesc) || CheckUtils.isTel(taskDesc)) {
-                return true;
-            } else {
-                String showStr = "手机号或电话号码填写规范:\n<***-*****或******> \n示例:\n(0000-1111111或10000000000)";
-               showSnackbarAsRule("您输入的电话或手机号码不合法", getSpannbleShowTip(showStr));
-                return false;
-            }
-        } else if (Task.TASK_TYPE_NET.equals(taskType)) {
-            if (CheckUtils.isURL(taskDesc)) {
-                return true;
-            } else {
-                String showStr = "网络地址填写规范:\n<http://****.***或https://****.****> \n示例:\n(http://github.com)";
-                showSnackbarAsRule("您输入的网络地址不合法", getSpannbleShowTip(showStr));
-                return false;
-            }
-        } else {
-            return true;
-        }
+        });
     }
 
     //获取提示信息的Spannble

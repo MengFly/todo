@@ -4,15 +4,22 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.text.SpannableString;
 import android.text.TextUtils;
 
+import com.example.mengfei.todo.AppConstant;
+import com.example.mengfei.todo.activity.MainActivity;
+import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.reciver.TaskTimeCheckReceiver;
+import com.example.todolib.utils.CheckUtils;
 import com.example.todolib.utils.date.DateTools;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Task的管理类
@@ -80,6 +87,53 @@ public class TaskManager {
     //根据task获取到通知的id
     public static int getTaskID(Task task) {
         return Integer.parseInt(task.getTaskId().substring(task.getTaskId().length() - 7, task.getTaskId().length()));
+    }
+
+    /**
+     * 检测Task是否符合标准
+     * @param taskType
+     * @param taskDesc
+     * @param shower 用于显示的shower
+     * @return
+     */
+    public static boolean checkTask(String taskType, String taskDesc, UiShower<String> shower) {
+        if (Task.TASK_TYPE_EMAIL.equals(taskType)) {
+            if (CheckUtils.isEmail(taskDesc)) {
+                return true;
+            } else {
+                //设置提示信息
+                if (shower!= null) {
+                    shower.show("您输入的Email地址不合法" +
+                            AppConstant.APPSPLITE +
+                            "Email填写规范:\n <****.****@***.com/cn> \n示例:\n (shili@gmail.com)");
+                }
+                return false;
+            }
+        } else if (Task.TASK_TYPE_MOBILE.equals(taskType)) {
+            if (CheckUtils.isMobileExact(taskDesc) || CheckUtils.isTel(taskDesc)) {
+                return true;
+            } else {
+                if (shower != null) {
+                    shower.show("您输入的电话或手机号码不合法" +
+                            AppConstant.APPSPLITE +
+                            "手机号或电话号码填写规范:\n<***-*****或******> \n示例:\n(0000-1111111或10000000000)");
+                }
+                return false;
+            }
+        } else if (Task.TASK_TYPE_NET.equals(taskType)) {
+            if (CheckUtils.isURL(taskDesc)) {
+                return true;
+            } else {
+                if (shower != null) {
+                    shower.show("您输入的网络地址不合法" +
+                            AppConstant.APPSPLITE +
+                            "网络地址填写规范:\n<http://****.***或https://****.****> \n示例:\n(http://github.com)");
+                }
+                return false;
+            }
+        } else {
+            return true;
+        }
     }
 
     public static String getTaskShareStr(Task task) {

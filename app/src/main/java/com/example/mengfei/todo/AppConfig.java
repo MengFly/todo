@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
  * Created by mengfei on 2017/3/26.
  */
 public class AppConfig {
+
+
     private static final String CONFIG_SPF_NAME = "todo-config";
     private static AppConfig mInstance;
     private SharedPreferences configSPF;
