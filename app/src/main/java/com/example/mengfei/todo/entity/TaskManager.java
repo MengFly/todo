@@ -157,5 +157,11 @@ public class TaskManager {
 
     }
 
+    public static Task getHelpTask() {
+        Task task = new Task("欢迎使用任务备忘录，点击查看应用使用帮助哦", AppConstant.APP_HELP_URL);
+        task.setTaskType(Task.TASK_TYPE_NET);
+        task.save();
+        return task;
+    }
 
 }

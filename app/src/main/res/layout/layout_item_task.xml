@@ -50,6 +50,14 @@
                 android:gravity="center_vertical"
                 android:padding="5dp" />
 
+            <TextView
+                android:id="@+id/tv_tag_count"
+                style="@style/DescTextView"
+                android:drawableLeft="@drawable/ic_tag_small"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:padding="5dp" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

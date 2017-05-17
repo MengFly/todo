@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_include_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="设置密码"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_input_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_back"
+            android:gravity="center"
+            android:hint="请输入您的密码"
+            android:inputType="numberPassword"
+            android:padding="10dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|start"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="设置密保问题"
+            android:textColor="@android:color/background_dark"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_mibao_q"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_back"
+            android:gravity="center"
+            android:hint="输入密保问题"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_mibao_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_back"
+            android:gravity="center"
+            android:hint="输入问题的答案"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/btn"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:text="确定" />
+
+    </LinearLayout>
+</LinearLayout>

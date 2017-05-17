@@ -3,22 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="300dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <HorizontalScrollView
+
+    <!--已经添加过的TAG-->
+    <com.example.todolib.view.widget.FlowLayout
+        android:id="@+id/ll_added_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
-
-        <!--已经添加过的TAG-->
-        <LinearLayout
-            android:id="@+id/ll_added_tags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:minHeight="30dp"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>
+        android:gravity="center_vertical"
+        android:minHeight="30dp"
+        android:orientation="horizontal" />
 
     <TextView
         style="@style/DescTextView"
@@ -47,36 +43,36 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_add_tag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <EditText
-                    android:textColor="@color/color_text_main_dark"
                     android:id="@+id/et_tag_input"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_back"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:textColor="@color/color_text_main_dark" />
 
                 <ImageButton
-                    android:layout_margin="5dp"
                     android:id="@+id/ibtn_ok"
-                    android:background="?selectableItemBackground"
-                    android:src="@drawable/ic_done"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_done" />
 
                 <ImageButton
-                    android:layout_margin="6dp"
                     android:id="@+id/ibtn_cancel"
-                    android:background="?selectableItemBackground"
-                    android:src="@drawable/ic_cancle"
                     android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:layout_margin="6dp"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_cancle" />
 
             </LinearLayout>
 

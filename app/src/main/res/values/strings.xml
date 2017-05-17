@@ -17,4 +17,6 @@
     <string name="string_ok_edit">确定修改</string>
     <string name="all_tags">All Tags</string>
     <string name="tag">添加TAG</string>
+    <string name="string_title_done_task">已经归档的任务</string>
+    <string name="string_task_done_tip">任务已经归档，可以在已完成任务界面里面查看呦</string>
 </resources>

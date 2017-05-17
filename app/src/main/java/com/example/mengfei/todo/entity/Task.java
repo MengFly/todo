@@ -4,6 +4,8 @@ package com.example.mengfei.todo.entity;
 import android.content.ContentValues;
 import android.text.TextUtils;
 
+import com.example.mengfei.todo.AppConstant;
+
 import org.bouncycastle.asn1.dvcs.Data;
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
@@ -52,9 +54,9 @@ public class Task extends DataSupport implements Serializable {
         this.createDate = new Date();
         taskId = String.valueOf(createDate.getTime());
     }
-    public void setTag(Tag tag) {
+    public void addTag(Tag tag) {
         if (tags == null || !tags.contains(tag.getName())) {
-            tags += tag.getName() + " ";
+            tags += tag.getName() + AppConstant.APPSPLITE;
             ContentValues values = new ContentValues();
             values.put("tags", tags);
             updateAll(Task.class, values, "taskId=?", getTaskId());
@@ -64,7 +66,7 @@ public class Task extends DataSupport implements Serializable {
     public void removeTag(Tag tag) {
         String tagName = tag.getName();
         if (tags != null && tags.contains(tagName)) {
-            tags = tags.replace(tagName + " " , "");
+            tags = tags.replace(tagName + AppConstant.APPSPLITE, "");
             ContentValues values = new ContentValues();
             values.put("tags", tags);
             updateAll(Task.class, values, "taskId=?", getTaskId());
@@ -76,9 +78,7 @@ public class Task extends DataSupport implements Serializable {
     }
 
     public void setTags(String tags) {
-        if (tags != null) {
-            this.tags = tags.replaceAll("  ", " ");
-        } else {
+        if (tags == null) {
             this.tags = "";
         }
     }
@@ -87,7 +87,7 @@ public class Task extends DataSupport implements Serializable {
         if (tags == null) {
             return Collections.emptyList();
         }
-        String[] tagsName = tags.split(" ");
+        String[] tagsName = tags.split(AppConstant.APPSPLITE);
         List<Tag> tags =new ArrayList<>();
         for (String tagName : tagsName) {
             if (!TextUtils.isEmpty(tagName)) {

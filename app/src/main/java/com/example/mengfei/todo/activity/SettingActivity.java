@@ -10,6 +10,8 @@ import com.example.mengfei.todo.AppConfig;
 import com.example.mengfei.todo.AppConstant;
 import com.example.mengfei.todo.R;
 
+import org.w3c.dom.Text;
+
 import static com.example.mengfei.todo.R.id.s_delete_task_tip;
 
 /**
@@ -22,11 +24,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private Switch deleteTipS;
     private Switch mainTooLateTipS;
-//    private TextView clearCacheTv;
+    //    private TextView clearCacheTv;
     private TextView helpTv;
     private TextView aboutAppTv;
     private TextView licenceTv;
     private TextView privateTv;
+    private TextView passTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         aboutAppTv.setOnClickListener(this);
         licenceTv.setOnClickListener(this);
         privateTv.setOnClickListener(this);
+        passTv.setOnClickListener(this);
         deleteTipS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -72,6 +76,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         aboutAppTv = (TextView) findViewById(R.id.tv_about_app);
         licenceTv = (TextView) findViewById(R.id.tv_license);
         privateTv = (TextView) findViewById(R.id.tv_private);
+        passTv = (TextView) findViewById(R.id.tv_set_pass);
     }
 
     @Override
@@ -88,6 +93,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_private:
                 WebActivity.StartWebActivityWithURL(mContext, AppConstant.APP_PRIVATE_URL);
+                break;
+            case R.id.tv_set_pass:
+                if (AppConfig.getInstance(mContext).hasPassWd()) {
+                    openOtherActivity(PassWordInputActivity.class, false);
+                } else {
+                    openOtherActivity(PassWdSetActivity.class, false);
+                }
                 break;
         }
 

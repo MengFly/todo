@@ -30,7 +30,7 @@ public class TotalDoneTaskActivity extends BaseActivity {
     }
 
     private void initView() {
-        initActionBar("已经完成的任务", null, true);
+        initActionBar(getString(R.string.string_title_done_task), null, true);
         doneTaskListView = (ListView) findViewById(R.id.lv_done_task);
         TextView emptyView = (TextView) findViewById(R.id.tv_empty_view);
         doneTaskAdapter = new TaskAdapter(mContext, TaskManager.getCompletedTask(), R.layout.layout_item_task);

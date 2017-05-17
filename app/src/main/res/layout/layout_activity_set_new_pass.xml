@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/act_splash_gai_pass_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layout_collapseParallaxMultiplier="0.9">
+
+    <include layout="@layout/layout_include_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_set_new_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/edit_back"
+                android:gravity="center"
+                android:hint="请设置您的新密码"
+                android:inputType="numberPassword"
+                android:padding="10dp"
+                android:textColorHint="@android:color/darker_gray" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|start"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="回答密保问题"
+            android:textColor="@android:color/background_dark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_mibao_q"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_back"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_mibao_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_back"
+            android:gravity="center"
+            android:hint="输入问题的答案"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/btn_reset_mibao"
+                style="@style/btn"
+                android:text="重新设置密保问题" />
+
+            <Button
+                android:id="@+id/btn_set_pass"
+                style="@style/btn"
+                android:elevation="0dp"
+                android:text="设置密码" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

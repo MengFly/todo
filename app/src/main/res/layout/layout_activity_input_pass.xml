@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_include_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/et_pass_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/edit_back"
+            android:gravity="center"
+            android:hint="请输入您的密码"
+            android:inputType="numberPassword"
+            android:padding="10dp"
+            android:textColorHint="@color/color_text_second_dark"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/btn"
+            android:text="@string/ok" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|top"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/cb_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="开启密码" />
+
+        <Button
+            android:id="@+id/btn_forget_passwd"
+            style="@style/btn_flat"
+            android:text="忘记密码" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

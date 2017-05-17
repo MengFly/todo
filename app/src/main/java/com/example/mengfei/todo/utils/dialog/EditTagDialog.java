@@ -23,14 +23,14 @@ import org.litepal.crud.DataSupport;
 import java.util.List;
 
 /**
+ * 编辑任务的界面
  * Created by mengfei on 2017/5/15.
  */
-
 public class EditTagDialog extends Dialog {
 
     private Task task;
 
-    private LinearLayout addedTagsLL;
+    private FlowLayout addedTagsLL;
     private FlowLayout allTagsFL;
     private Button addTagBtn;
     private Button okBtn;
@@ -54,7 +54,7 @@ public class EditTagDialog extends Dialog {
     private void initView(Context context) {
         setContentView(R.layout.layout_dialog_edit_tag);
         setTitle("Edit Tag");
-        addedTagsLL = (LinearLayout) findViewById(R.id.ll_added_tags);
+        addedTagsLL = (FlowLayout) findViewById(R.id.ll_added_tags);
         allTagsFL = (FlowLayout) findViewById(R.id.fl_all_tags);
         addTagBtn = (Button) findViewById(R.id.btn_add_tag);
         okBtn = (Button) findViewById(R.id.btn_ok);
@@ -80,7 +80,7 @@ public class EditTagDialog extends Dialog {
         }
     }
 
-    private CheckBox getAddedCheckBox(Context c,  final Tag allTag) {
+    private CheckBox getAddedCheckBox(Context c, final Tag allTag) {
         CheckBox cb = new CheckBox(c);
         cb.setPadding(10, 10, 10, 10);
         cb.setButtonDrawable(R.drawable.none);
@@ -95,7 +95,7 @@ public class EditTagDialog extends Dialog {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addTag(buttonView ,allTag);
+                    addTag(buttonView, allTag);
                 } else {
                     removeTag(buttonView, allTag);
                 }
@@ -109,12 +109,12 @@ public class EditTagDialog extends Dialog {
         allTagsFL.removeView(cb);
         addedTagsLL.addView(cb);
         if (task != null) {
-            task.setTag(allTag);
+            task.addTag(allTag);
         }
         cb.setTextColor(getContext().getResources().getColor(R.color.color_text_main_light));
     }
 
-    private void removeTag(CompoundButton cb,Tag allTag) {
+    private void removeTag(CompoundButton cb, Tag allTag) {
         addedTagsLL.removeView(cb);
         allTagsFL.removeView(cb);
         allTagsFL.addView(cb);

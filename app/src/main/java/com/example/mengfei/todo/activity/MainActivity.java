@@ -17,7 +17,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -273,10 +275,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void taskOnLongClick(final Task task) {
-        SpannableString title = new SpannableString("选择操作任务 —— " + task.getTitle());
-        title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_main_color)), "选择操作任务 —— ".length(), title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_btn_color)), 0, "选择操作任务".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        CustomDialogCreater.getItemsDialog(mContext, title, new String[]{"完成目标", "删除任务", "查看任务"}, new DialogInterface.OnClickListener() {
+        SpannableString title = new SpannableString("选择操作任务:" + task.getTitle());
+        title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_text_main_dark)), "选择操作任务:".length(), title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_main_color)), 0, "选择操作任务:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        title.setSpan(new RelativeSizeSpan(0.7f), "选择操作任务:".length(), title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        CustomDialogCreater.getItemsDialog(mContext, title, new String[]{"完成(归档)任务", "删除任务", "查看任务"}, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -300,7 +303,7 @@ public class MainActivity extends BaseActivity {
     //完成Task
     private void completeTask(Task task) {
         if (TaskManager.completeTask(task)) {
-            showSnackbar(coordinatorLayout, "任务已经完成，可以在已完成任务界面里面查看呦");
+            showSnackbar(coordinatorLayout, getString(R.string.string_task_done_tip));
             adapter.removeItem(task);
         }
     }
@@ -363,6 +366,9 @@ public class MainActivity extends BaseActivity {
 
     private void initDatas() {
         List<Task> tasks = TaskManager.getNotCompletedTask();
+        if (AppConfig.getInstance(mContext).isFirstInstall()) {
+            tasks.add(TaskManager.getHelpTask());
+        }
         adapter = new TaskAdapter(mContext, tasks, R.layout.layout_item_task);
         taskLV.setAdapter(adapter);
         if (showMsg != null) {
