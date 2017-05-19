@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,8 +18,11 @@ import com.example.mengfei.todo.activity.inter.UiShower;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -79,10 +83,12 @@ public class DateTimeDialog extends Dialog {
         mintsNp.setValue(beginDate.get(Calendar.MINUTE));
         mintsNp.setWrapSelectorWheel(false);
 
+        String[] sub = getDisplayValues();
+        yearMouthAndDayNP.setDisplayedValues(sub);
         yearMouthAndDayNP.setMinValue(0);
-        yearMouthAndDayNP.setMaxValue(100);
+        yearMouthAndDayNP.setMaxValue(sub.length - 1);
+//        yearMouthAndDayNP.setFormatter(formatter);
         yearMouthAndDayNP.setValue(0);
-        yearMouthAndDayNP.setFormatter(formatter);
         yearMouthAndDayNP.setWrapSelectorWheel(false);
         initListener();
         updateShowText();
@@ -150,13 +156,34 @@ public class DateTimeDialog extends Dialog {
         showDateView.setText(timeStr);
     }
 
+
+    private String[] getDisplayValues() {
+        String[] array = new String[100];
+        for (int i = 0; i < 100; i++) {
+            if (i == 1) {
+                array[i] = "明天";
+            } else if (i == 0) {
+                array[i] = "今天";
+            } else if (i == 2) {
+                array[i] = "后天";
+            } else {
+                Calendar show = Calendar.getInstance();
+                show.setTime(beginDate.getTime());
+                show.set(Calendar.DAY_OF_MONTH, i + beginDate.get(Calendar.DAY_OF_MONTH));
+                String dateStr = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA).format(show.getTime());
+                array[i] = dateStr.substring(2, dateStr.length());
+            }
+        }
+        return array;
+    }
+
     private NumberPicker.Formatter formatter = new NumberPicker.Formatter() {
         @Override
         public String format(int value) {
-            if (value == 0) {
-                return "今天";
-            } else if (value == 1) {
+            if (value == 1) {
                 return "明天";
+            } else if (value == 0) {
+                return "今天";
             } else if (value == 2) {
                 return "后天";
             } else {

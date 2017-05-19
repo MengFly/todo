@@ -126,6 +126,7 @@ public class ShareTaskActivity extends BaseActivity {
                         switch (which) {
                             case 0:
                                 OneWords oneWords = OneWordsManager.getRandomOneWords();
+                                headerBackIV.setScaleType(ImageView.ScaleType.FIT_XY);
                                 ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, null);
                                 break;
                             case 1:
@@ -137,6 +138,7 @@ public class ShareTaskActivity extends BaseActivity {
                 }).show();
             }
         });
+
     }
 
     @Override
@@ -145,6 +147,7 @@ public class ShareTaskActivity extends BaseActivity {
             case RESULT_REQUEST_CODE_PIC:
                 if (resultCode == RESULT_OK) {
                     Glide.with(mContext).load(data.getData()).into(headerBackIV);
+                    headerBackIV.setScaleType(ImageView.ScaleType.CENTER);
                 }
                 break;
         }
@@ -178,12 +181,12 @@ public class ShareTaskActivity extends BaseActivity {
         for (Talk talk : task.getTalks()) {
             chatLayout.addView(getTalkTextView(talk));
         }
-        taskExtraTv.setText("我用3天的时间完成了这个任务,感觉棒棒的呢~");
+//        taskExtraTv.setText("我用3天的时间完成了这个任务,感觉棒棒的呢~");
     }
 
     private View getTalkTextView(Talk talk) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.layout_item_talk, null);
-        ((ExpandableTextView)itemView.findViewById(R.id.expand_text_view)).setText(talk.getTalkContent());
+        ((ExpandableTextView) itemView.findViewById(R.id.expand_text_view)).setText(talk.getTalkContent());
         ((DateTextView) itemView.findViewById(R.id.tv_talk_date)).setDate(talk.getTalkDate());
         return itemView;
     }
@@ -208,7 +211,7 @@ public class ShareTaskActivity extends BaseActivity {
         taskCreateDateTv = (TextView) findViewById(R.id.tv_task_create_date);
         taskWantDoneDateTv = (TextView) findViewById(R.id.tv_task_want_done_date);
         taskDoneDateTv = (TextView) findViewById(R.id.tv_task_done_date);
-        initActionBar("分享应用", null, true);
+        initActionBar("分享任务", null, true);
     }
 
     public SpannableString getShowDate(String tip, Date showDate) {
@@ -219,7 +222,7 @@ public class ShareTaskActivity extends BaseActivity {
             showStr = tip + DateTools.formatDate(showDate);
         }
         SpannableString showSp = new SpannableString(showStr);
-        showSp.setSpan(new RelativeSizeSpan(1.5f), 0, tip.length(),
+        showSp.setSpan(new RelativeSizeSpan(1.3f), 0, tip.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         showSp.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_text_main_dark)),
                 0, tip.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -223,7 +223,6 @@ public class MainActivity extends BaseActivity {
 
     //侧滑菜单的点击响应事件
     private boolean navItemSelected(MenuItem item) {
-        closeNavMenu();
         switch (item.getItemId()) {
             case R.id.menu_done_task:
                 openOtherActivity(TotalDoneTaskActivity.class, false);
@@ -279,21 +278,22 @@ public class MainActivity extends BaseActivity {
         title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_text_main_dark)), "选择操作任务:".length(), title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         title.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.app_main_color)), 0, "选择操作任务:".length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         title.setSpan(new RelativeSizeSpan(0.7f), "选择操作任务:".length(), title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        CustomDialogCreater.getItemsDialog(mContext, title, new String[]{"完成(归档)任务", "删除任务", "查看任务"}, new DialogInterface.OnClickListener() {
+        CustomDialogCreater.getItemsDialog(mContext, title, new String[]{"查看任务","完成(归档)任务", "删除任务", }, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
-                    //完成目标
+                    //查看目标
                     case 0:
+                        EditTaskActivity.openEditTaskActivity(mContext, task, false);
+                        break;
+                    //完成任务
+                    case 1:
                         completeTask(task);
                         break;
-                    //删除任务
-                    case 1:
-                        deleteTask(task);
-                        break;
+                    //删除
                     case 2:
-                        EditTaskActivity.openEditTaskActivity(mContext, task, false);
+                        deleteTask(task);
                         break;
                 }
             }

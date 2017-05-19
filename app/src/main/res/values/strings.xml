@@ -19,4 +19,6 @@
     <string name="tag">添加TAG</string>
     <string name="string_title_done_task">已经归档的任务</string>
     <string name="string_task_done_tip">任务已经归档，可以在已完成任务界面里面查看呦</string>
+    <string name="string_menu_history">历史</string>
+    <string name="string_menu_setting">设置</string>
 </resources>

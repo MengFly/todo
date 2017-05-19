@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:title="历史">
+    <item android:title="@string/string_menu_history">
         <menu>
             <item
                 android:id="@+id/menu_history_words"
@@ -10,7 +10,7 @@
                 android:title="每日一句" />
             <item
                 android:id="@+id/menu_done_task"
-                android:icon="@drawable/ic_done"
+                android:icon="@drawable/ic_menu_done_task"
                 android:title="已完成的任务" />
         </menu>
     </item>
@@ -18,7 +18,7 @@
     <item
         android:id="@+id/menu_setting"
         android:icon="@drawable/ic_setting"
-        android:title="设置" />
+        android:title="@string/string_menu_setting" />
 
     <item android:title="About">
         <menu>

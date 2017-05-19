@@ -10,13 +10,13 @@
             <item
                 android:id="@+id/menu_add_time"
                 android:icon="@drawable/ic_menu_tip"
-                android:title="添加提醒时间" />
+                android:title="添加提醒" />
         </menu>
     </item>
 
     <item
         android:id="@+id/menu_ok"
-        android:icon="@drawable/ic_menu_ok"
+        android:icon="@drawable/ic_menu_commit"
         android:title="@string/ok"
         app:showAsAction="always" />
 

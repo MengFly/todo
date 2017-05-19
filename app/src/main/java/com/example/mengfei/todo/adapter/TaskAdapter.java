@@ -3,11 +3,13 @@ package com.example.mengfei.todo.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.entity.Task;
+import com.example.mengfei.todo.utils.dialog.EditTagDialog;
 import com.example.todolib.adapter.CommonAdapter;
 import com.example.todolib.adapter.ViewHolder;
 import com.example.todolib.en_de_code.impl.DecodeAES;
@@ -46,7 +48,17 @@ public class TaskAdapter extends CommonAdapter<Task> {
         } else {
             ((ImageView) holder.getView(R.id.iv_task_type)).setImageResource(R.drawable.ic_task_type_text);
         }
+        initListener(holder, bean);
 
+    }
+
+    private void initListener(ViewHolder holder, final Task task) {
+        holder.getView(R.id.tv_tag_count).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new EditTagDialog(getContext(), task).show();
+            }
+        });
     }
 
 }
