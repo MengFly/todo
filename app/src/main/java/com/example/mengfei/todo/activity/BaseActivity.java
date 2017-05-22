@@ -3,6 +3,7 @@ package com.example.mengfei.todo.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.aitangba.swipeback.SwipeBackActivity;
@@ -69,6 +71,11 @@ public class BaseActivity extends SwipeBackActivity {
         actionBar.setDisplayShowHomeEnabled(isBack);
     }
 
+    public void showInputKeyBord() {
+        InputMethodManager keyBordManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        keyBordManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+    }
+
     /**
      * 显示一个Toast
      *
@@ -98,7 +105,6 @@ public class BaseActivity extends SwipeBackActivity {
             }
         }
     }
-
 
 
     /**

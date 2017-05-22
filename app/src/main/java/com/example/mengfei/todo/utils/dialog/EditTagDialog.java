@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.entity.Tag;
 import com.example.mengfei.todo.entity.Task;
 import com.example.todolib.view.widget.FlowLayout;
@@ -39,15 +40,20 @@ public class EditTagDialog extends Dialog {
     private ImageButton okTagIBtn;
     private ImageButton cancelTagBtn;
     private EditText tagInputEt;
-
+    private UiShower<Void> shower;
 
     public EditTagDialog(Context context, Task task) {
-        this(context, R.style.MyDialogStyle, task);
+        this(context, R.style.MyDialogStyle, task, null);
     }
 
-    private EditTagDialog(Context context, int themeResId, Task task) {
+    public EditTagDialog(Context context, Task task, UiShower<Void> shower) {
+        this(context, R.style.MyDialogStyle, task, shower);
+    }
+
+    private EditTagDialog(Context context, int themeResId, Task task, UiShower<Void> shower) {
         super(context, themeResId);
         this.task = task;
+        this.shower = shower;
         initView(context);
     }
 
@@ -129,6 +135,9 @@ public class EditTagDialog extends Dialog {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (shower != null) {
+                    shower.show(null);
+                }
                 dismiss();
             }
         });

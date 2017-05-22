@@ -243,7 +243,7 @@ public class EditTaskActivity extends BaseActivity {
             case R.id.menu_image_share:
                 ShareTaskActivity.openShareTaskActivity(mContext, task);
                 return true;
-            case R.id.menu_edit_tag :
+            case R.id.menu_edit_tag:
                 new EditTagDialog(mContext, task).show();
                 return true;
         }
@@ -261,6 +261,7 @@ public class EditTaskActivity extends BaseActivity {
                 } else {
                     adapter.setItem(talk, 0);
                     talk.save();
+                    showInputKeyBord();
                 }
             }
         }, task).show();

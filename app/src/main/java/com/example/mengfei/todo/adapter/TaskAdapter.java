@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.utils.dialog.EditTagDialog;
 import com.example.todolib.adapter.CommonAdapter;
@@ -56,7 +57,12 @@ public class TaskAdapter extends CommonAdapter<Task> {
         holder.getView(R.id.tv_tag_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EditTagDialog(getContext(), task).show();
+                new EditTagDialog(getContext(), task, new UiShower<Void>() {
+                    @Override
+                    public void show(Void aVoid) {
+                        TaskAdapter.this.notifyDataSetChanged();
+                    }
+                }).show();
             }
         });
     }
