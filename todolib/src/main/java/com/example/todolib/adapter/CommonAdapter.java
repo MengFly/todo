@@ -71,6 +71,9 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         return holder.getConvertView();
     }
 
+    public int indexOf(T t) {
+        return mList.indexOf(t);
+    }
 
     /**
      * 为ListView的Item绑定数据

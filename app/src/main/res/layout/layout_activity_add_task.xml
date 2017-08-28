@@ -1,54 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back_white"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_include_add_task_header" />
+    <include layout="@layout/layout_include_toolbar"/>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/ly_task_style"
+
+    <EditText
+        android:id="@+id/et_task_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/string_task_title"
+        android:maxLines="2"
+        android:padding="10dp"
+        android:background="@null"
+        android:textColor="@color/app_main_color"
+        android:textColorHint="@color/color_text_disabled_dark"
+        android:textSize="20sp" />
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_task_desc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+        android:background="@null"
+        android:gravity="top"
+        android:hint="@string/string_input_task_desc"
+        android:lineSpacingExtra="6dp"
+        android:padding="10dp"
+        android:textColor="@color/color_text_main_dark"
+        android:textColorHint="@color/color_text_disabled_dark"
+        android:textSize="14sp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_style_text"
-            style="@style/btn_float"
-            app:elevation="1dp"
-            android:layout_gravity="bottom|center"
-            android:src="@drawable/ic_task_type_text" />
+</LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_style_url"
-            style="@style/btn_float"
-            app:elevation="1dp"
-            android:layout_gravity="bottom|center"
-            android:src="@drawable/ic_task_type_net" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_style_email"
-            style="@style/btn_float"
-            app:elevation="1dp"
-            android:layout_gravity="bottom|center"
-            android:src="@drawable/ic_task_type_email" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_style_phone"
-            style="@style/btn_float"
-            app:elevation="1dp"
-            android:layout_gravity="bottom|center"
-            android:src="@android:drawable/stat_sys_phone_call" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btn_show_style"
-            style="@style/btn_float"
-            app:elevation="1dp"
-            android:layout_gravity="bottom|center"
-            android:src="@drawable/ic_task_type_text" />
-
-    </android.support.design.widget.CoordinatorLayout>
-</android.support.design.widget.CoordinatorLayout>

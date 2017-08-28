@@ -17,4 +17,7 @@ public class AppConstant {
     public static final String APP_HELP_URL = "https://mengfly.github.io/app/todo/apphelp.html";
 
 
+    public static final String IMAGE_GOOD_NIGHT = "https://mengfly.github.io/app/todo/image/good_night.gif";
+
+
 }

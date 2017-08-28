@@ -35,7 +35,6 @@ public class LinkManager {
                                     Snackbar.make(textView, "已经复制到剪贴板", Snackbar.LENGTH_SHORT).show();
                                     break;
                                 case 1:
-                                    AddTaskActivity.openAddTaskActivity(context, Task.TASK_TYPE_MOBILE, url.substring("tel:".length(), url.length()));
                                     break;
                             }
                         }
@@ -51,7 +50,6 @@ public class LinkManager {
                                     Snackbar.make(textView, "已经复制到剪贴板", Snackbar.LENGTH_SHORT).show();
                                     break;
                                 case 1:
-                                    AddTaskActivity.openAddTaskActivity(context, Task.TASK_TYPE_EMAIL, url.substring("mailto:".length(), url.length()));
                                     break;
                             }
                         }
@@ -67,7 +65,6 @@ public class LinkManager {
                                     Snackbar.make(textView, "已经复制到剪贴板", Snackbar.LENGTH_SHORT).show();
                                     break;
                                 case 1:
-                                    AddTaskActivity.openAddTaskActivity(context, Task.TASK_TYPE_NET, url);
                                     break;
                                 case 2:
                                     WebActivity.StartWebActivityWithURL(context, url);

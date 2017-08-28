@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--EmptyView-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ly_empty"
+    android:layout_height="match_parent"
+    android:background="#ffff">
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="15dp"
+        android:drawableTop="@drawable/ic_empty"
+        android:padding="15dp"
+        android:text="没有信息" />
+</FrameLayout>

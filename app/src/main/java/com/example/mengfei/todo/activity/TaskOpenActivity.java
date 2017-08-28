@@ -57,12 +57,6 @@ public class TaskOpenActivity extends BaseActivity {
 
 
     private void initListener() {
-        okBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                open();
-            }
-        });
         //添加提醒时间
         addTimeTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,27 +73,6 @@ public class TaskOpenActivity extends BaseActivity {
         });
     }
 
-    private void open() {
-        if (Task.TASK_TYPE_EMAIL.equals(task.getTaskType())) {
-            Intent intent = ShareTools.getSendEmailIntent(task.getDesc(), "", emailEt.getText().toString());
-            if (isUsedIntentActivity(intent)) {
-                startActivity(Intent.createChooser(intent, "选择应用"));
-            } else {
-                showSnackbar(okBtn, "没有对应的应用");
-            }
-        } else if (Task.TASK_TYPE_MOBILE.equals(task.getTaskType())) {
-            Intent intent = ShareTools.getCallIntent(task.getDesc());
-            if (isUsedIntentActivity(intent)) {
-                startActivity(Intent.createChooser(intent, "选择应用"));
-            } else {
-                showSnackbar(okBtn, "没有对应的应用");
-            }
-        } else {
-            WebActivity.StartWebActivityWithURL(mContext, task.getDesc());
-        }
-    }
-
-
     @Override
     public boolean supportSlideBack() {
         return false;
@@ -107,7 +80,6 @@ public class TaskOpenActivity extends BaseActivity {
 
     private void initUI() {
         taskTitleTv.setText(task.getTitle());
-        taskDescTv.setText(getOpenSpann());
         if (task.getWantDoneDate() != null) {
             addTimeTv.setText(DateTools.formatDate(task.getWantDoneDate()));
         }
@@ -128,24 +100,4 @@ public class TaskOpenActivity extends BaseActivity {
         okBtn = (Button) findViewById(R.id.btn_ok);
     }
 
-    public SpannableString getOpenSpann() {
-        String showString = "";
-        if (Task.TASK_TYPE_EMAIL.equals(task.getTaskType())) {
-            showString += "email:";
-            okBtn.setText("发送邮件");
-            emailEt.setVisibility(View.VISIBLE);
-        } else if (Task.TASK_TYPE_MOBILE.equals(task.getTaskType())) {
-            showString += "tel:";
-            okBtn.setText("拨打电话");
-        } else {
-            showString += "url:";
-            okBtn.setText("打开网页");
-        }
-        showString += task.getDesc();
-        SpannableString spannbleString = new SpannableString(showString);
-        spannbleString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_text_main_dark)),
-                0, showString.indexOf(":"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannbleString.setSpan(new RelativeSizeSpan(2.0f), 0, showString.indexOf(":"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannbleString;
-    }
 }

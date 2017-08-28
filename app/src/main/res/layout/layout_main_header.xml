@@ -2,40 +2,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_header"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="match_parent"
+    android:background="#aaaa">
 
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="fitXY"
+        android:layout_gravity="bottom"
         android:src="@drawable/ic_back_error" />
 
-    <LinearLayout
+
+    <!--每日一句显示-->
+    <TextView
+        android:id="@+id/tv_word_of_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:paddingBottom="5dp">
-
-        <!--每日一句显示-->
-        <TextView
-            android:id="@+id/tv_word_of_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/back_one_words"
-            android:lineSpacingExtra="8dp"
-            android:padding="10dp"
-            android:textColor="@color/color_text_main_light" />
-
-        <TextView
-            style="@style/TitleTextView"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/string_current_not_complete_task"
-            android:textColor="@color/color_text_main_light" />
-    </LinearLayout>
-
+        android:layout_margin="10dp"
+        android:lineSpacingExtra="8dp"
+        android:padding="10dp"
+        android:textColor="@color/color_text_main_light" />
 
 </FrameLayout>

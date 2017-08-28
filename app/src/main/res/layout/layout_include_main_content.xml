@@ -4,30 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <include layout="@layout/layout_include_toolbar" />
 
-        <ListView
-            android:id="@+id/lv_task_items"
+    <lib.homhomlib.design.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slidingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        app:background_view="@layout/layout_main_header"
+        app:sliding_mode="both"
+        app:top_max="300dp">
+        <!--background_view为你的背景布局-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none" />
+            android:orientation="vertical">
 
+            <ListView
+                android:id="@+id/lv_task_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffff"
+                android:scrollbars="none" />
 
-        <!--EmptyView-->
-        <TextView
-            android:id="@+id/act_main_empty_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_no_task"
-            android:visibility="gone" />
+            <include layout="@layout/layout_include_empty" />
 
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <include layout="@layout/layout_include_toolbar_alpha" />
+    </lib.homhomlib.design.SlidingLayout>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/cl_btn"
@@ -41,15 +46,7 @@
             android:src="@drawable/ic_add_white"
             app:borderWidth="4dp"
             app:elevation="3dp"
-            app:pressedTranslationZ="6dp" />
-
-        <include
-            android:id="@+id/ly_main_foot"
-            layout="@layout/layout_main_foot"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="end|bottom"
-            android:visibility="gone" />
+            app:rippleColor="@color/app_main_color" />
     </android.support.design.widget.CoordinatorLayout>
 
 

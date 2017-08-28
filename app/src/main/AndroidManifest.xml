@@ -43,7 +43,7 @@
         <activity
             android:name=".activity.AddTaskActivity"
             android:label="Add Task"
-            android:windowSoftInputMode="stateHidden|adjustNothing">
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <data android:mimeType="text/plain" />
@@ -54,7 +54,7 @@
             android:name=".activity.EditTaskActivity"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity android:name=".activity.HistoryOneWordsActivity" />
-        <activity android:name=".activity.TotalDoneTaskActivity" />
+        <activity android:name=".activity.GetTaskActivity" />
         <activity android:name=".activity.AboutAppActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.BackActivity" />
@@ -63,15 +63,12 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.ShareTaskActivity" />
 
-        <service android:name=".service.TaskTimeCheckService" />
-
         <activity
             android:name=".activity.ShareOneWordActivity"
             android:theme="@style/DialogActivity" />
         <activity
             android:name=".activity.TaskOpenActivity"
             android:theme="@style/DialogActivity" />
-        <activity android:name=".activity.AddNoteActivity" />
     </application>
 
 </manifest>

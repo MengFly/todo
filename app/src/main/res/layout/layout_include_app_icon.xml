@@ -17,5 +17,5 @@
 
     <TextView
         style="@style/DescTextView"
-        android:text="CopyRight©MengFly" />
+        android:text="@string/copyright_mengfly" />
 </LinearLayout>

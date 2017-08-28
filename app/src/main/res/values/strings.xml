@@ -13,6 +13,7 @@
     <string name="ok">Ok</string>
     <string name="string_current_not_complete_task">当前未完成任务</string>
     <string name="string_ok">确定</string>
+    <string name="string_cancel">取消</string>
     <string name="string_reset_time">重置时间</string>
     <string name="string_ok_edit">确定修改</string>
     <string name="all_tags">All Tags</string>
@@ -21,4 +22,18 @@
     <string name="string_task_done_tip">任务已经归档，可以在已完成任务界面里面查看呦</string>
     <string name="string_menu_history">历史</string>
     <string name="string_menu_setting">设置</string>
+    <string name="test_title">测试标题</string>
+    <string name="test_message">这是测试的内容</string>
+    <string name="copyright_mengfly">CopyRight©MengFly</string>
+    <string name="string_delete">删除</string>
+    <string name="string_is_delete_task">是否删除任务？</string>
+    <string name="string_delete_success">删除成功,您可以在回收站找到近期删除的任务。</string>
+    <string name="menu_complete_task">完成任务</string>
+    <string name="menu_delete_task">删除任务</string>
+    <string name="menu_history_words">每日一句</string>
+    <string name="menu_done_task">已完成的任务</string>
+    <string name="menu_recycle">回收站</string>
+    <string name="about">About</string>
+    <string name="menu_about_app">关于App</string>
+    <string name="menu_back">应用反馈</string>
 </resources>

@@ -13,7 +13,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +24,6 @@ import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.entity.OneWords;
 import com.example.mengfei.todo.entity.OneWordsManager;
-import com.example.mengfei.todo.entity.Talk;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.AppFileManager;
@@ -35,8 +33,6 @@ import com.example.todolib.utils.ShareTools;
 import com.example.todolib.utils.date.DateTools;
 import com.example.todolib.utils.io.FileManager;
 import com.example.todolib.view.widget.CustomDialogCreater;
-import com.example.todolib.view.widget.DateTextView;
-import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.litepal.crud.DataSupport;
 
@@ -59,9 +55,7 @@ public class ShareTaskActivity extends BaseActivity {
     private ScrollView shareLayout;
     private ImageView headerBackIV;
     private ImageView addImageIV;
-    private LinearLayout chatLayout;
 
-    private TextView taskTitleTv, taskDescTv, taskExtraTv;
     private TextView taskCreateDateTv, taskWantDoneDateTv, taskDoneDateTv;
 
     private Button shareBtn, saveBtn;
@@ -172,23 +166,10 @@ public class ShareTaskActivity extends BaseActivity {
     }
 
     private void initUI() {
-        taskTitleTv.setText(task.getTitle());
-        taskDescTv.setText(task.getDesc());
         ImageLoader.loadImage(mContext, DataSupport.findLast(OneWords.class).getPicture2(), headerBackIV, null);
         taskCreateDateTv.setText(getShowDate("任务创建时间: ", task.getCreateDate()));
         taskWantDoneDateTv.setText(getShowDate("预计完成时间: ", task.getWantDoneDate()));
         taskDoneDateTv.setText(getShowDate("实际完成时间: ", task.getDoneDate()));
-        for (Talk talk : task.getTalks()) {
-            chatLayout.addView(getTalkTextView(talk));
-        }
-//        taskExtraTv.setText("我用3天的时间完成了这个任务,感觉棒棒的呢~");
-    }
-
-    private View getTalkTextView(Talk talk) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.layout_item_talk, null);
-        ((ExpandableTextView) itemView.findViewById(R.id.expand_text_view)).setText(talk.getTalkContent());
-        ((DateTextView) itemView.findViewById(R.id.tv_talk_date)).setDate(talk.getTalkDate());
-        return itemView;
     }
 
     private void initVirable() {
@@ -202,10 +183,6 @@ public class ShareTaskActivity extends BaseActivity {
         shareLayout = (ScrollView) findViewById(R.id.sv_share);
         headerBackIV = (ImageView) findViewById(R.id.iv_header_back);
         addImageIV = (ImageView) findViewById(R.id.iv_add_image);
-        chatLayout = (LinearLayout) findViewById(R.id.ly_talk);
-        taskTitleTv = (TextView) findViewById(R.id.tv_task_title);
-        taskDescTv = (TextView) findViewById(R.id.tv_task_desc);
-        taskExtraTv = (TextView) findViewById(R.id.tv_task_extra);
         shareBtn = (Button) findViewById(R.id.btn_share);
         saveBtn = (Button) findViewById(R.id.btn_save);
         taskCreateDateTv = (TextView) findViewById(R.id.tv_task_create_date);

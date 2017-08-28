@@ -55,9 +55,8 @@ public class HistoryOneWordsActivity extends BaseActivity {
     private void initView() {
         backImageView = (ImageView) findViewById(R.id.iv_back);
         oneWordLv = (ListView) findViewById(R.id.lv_one_words);
-        TextView emptyView = (TextView) findViewById(R.id.tv_empty_view);
         oneWordLv.addFooterView(getOneWordsListence());
-        oneWordLv.setEmptyView(emptyView);
+        oneWordLv.setEmptyView(getEmptyView(null));
         oneWordLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -17,8 +17,12 @@ public class ImageLoader {
         Log.d("URL", "loadImage: " + url);
         if (transformation != null) {
             Glide.with(context).load(url).error(R.drawable.ic_back_error).bitmapTransform(transformation).into(imageView);
-        } else  {
+        } else {
             Glide.with(context).load(url).error(R.drawable.ic_back_error).into(imageView);
         }
+    }
+
+    public static void loadGif(Context context, int res, ImageView imageView) {
+        Glide.with(context).load(res).asGif().error(R.drawable.ic_back_error).into(imageView);
     }
 }

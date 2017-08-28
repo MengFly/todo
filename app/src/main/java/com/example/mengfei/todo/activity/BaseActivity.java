@@ -6,19 +6,25 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aitangba.swipeback.SwipeBackActivity;
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.activity.inter.UiShower;
+import com.example.mengfei.todo.utils.dialog.MyDialog;
 
 import java.util.List;
 
@@ -31,7 +37,6 @@ public class BaseActivity extends SwipeBackActivity {
 
     protected Toast mToast;
     protected BaseActivity mContext;
-    private ProgressDialog mProDialog;
     protected Toolbar toolbar;
 
 
@@ -55,10 +60,27 @@ public class BaseActivity extends SwipeBackActivity {
         }
     }
 
+    protected View getEmptyView(String tip) {
+        View view = findViewById(R.id.ly_empty);
+        if (tip != null)
+            ((TextView) findViewById(R.id.tv_empty)).setText(tip);
+        return view;
+    }
+
     public Snackbar showSnackbar(View view, CharSequence text) {
         Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG);
         snackbar.show();
         return snackbar;
+    }
+
+    public void showMessageDialog(int icon, String title, String message, View.OnClickListener ok, View.OnClickListener cancel) {
+        MyDialog dialog = new MyDialog(mContext);
+        dialog.setIcon(icon);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setOkListener(ok);
+        dialog.setCancelListener(cancel);
+        dialog.show();
     }
 
     public void initActionBar(String actionTitle, String actionBarSubTitle, boolean isBack) {
@@ -76,6 +98,7 @@ public class BaseActivity extends SwipeBackActivity {
         keyBordManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
     }
 
+
     /**
      * 显示一个Toast
      *
@@ -92,32 +115,6 @@ public class BaseActivity extends SwipeBackActivity {
 
 
     /**
-     * 显示一个带提示文字的对话框
-     */
-    public void showSimpleProgressDialog(String showContent) {
-        if (!this.isFinishing()) {
-            if (mProDialog == null) {
-                mProDialog = ProgressDialog.show(this, null, showContent);
-                mProDialog.setCancelable(true);
-            } else {
-                mProDialog.setMessage(showContent);
-                mProDialog.show();
-            }
-        }
-    }
-
-
-    /**
-     * 取消等待提示的对话框
-     */
-    public void hindSimpleProgressDialog() {
-        if (mProDialog != null && mProDialog.isShowing() && !this.isFinishing()) {
-            mProDialog.dismiss();
-        }
-    }
-
-
-    /**
      * 返回目标的Intent时候存在支持的Activity
      *
      * @param intent 目标的Intent
@@ -125,7 +122,7 @@ public class BaseActivity extends SwipeBackActivity {
      */
     public boolean isUsedIntentActivity(Intent intent) {
         PackageManager manager = getPackageManager();
-        List list = manager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        List<ResolveInfo> list = manager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
 

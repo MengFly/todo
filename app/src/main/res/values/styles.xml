@@ -39,7 +39,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
 
@@ -96,11 +96,19 @@
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="MyDialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
-        <item name="windowNoTitle">false</item>
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowTitleStyle">@style/dialog_title</item>
-        <item name="colorPrimary">@color/color_text_main_dark</item>
+    <style name="MyDialogStyle">
+        <!--设置dialog的背景-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--设置windowFrame框为无-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否有title-->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否悬浮在Activity上面-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否有遮盖-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--背景是否模糊显示-->
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <style name="dialog_title">

@@ -7,11 +7,15 @@
             <item
                 android:id="@+id/menu_history_words"
                 android:icon="@drawable/ic_one_words"
-                android:title="每日一句" />
+                android:title="@string/menu_history_words" />
             <item
                 android:id="@+id/menu_done_task"
                 android:icon="@drawable/ic_menu_done_task"
-                android:title="已完成的任务" />
+                android:title="@string/menu_done_task" />
+            <item
+                android:id="@+id/menu_recycle"
+                android:icon="@drawable/ic_menu_delete"
+                android:title="@string/menu_recycle" />
         </menu>
     </item>
 
@@ -20,16 +24,16 @@
         android:icon="@drawable/ic_setting"
         android:title="@string/string_menu_setting" />
 
-    <item android:title="About">
+    <item android:title="@string/about">
         <menu>
             <item
                 android:id="@+id/menu_about_app"
                 android:icon="@drawable/ic_about"
-                android:title="关于App" />
+                android:title="@string/menu_about_app" />
             <item
                 android:id="@+id/menu_back"
                 android:icon="@drawable/ic_edit"
-                android:title="应用反馈" />
+                android:title="@string/menu_back" />
         </menu>
 
 
