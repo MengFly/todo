@@ -36,4 +36,6 @@
     <string name="about">About</string>
     <string name="menu_about_app">关于App</string>
     <string name="menu_back">应用反馈</string>
+    <string name="empty">没有信息</string>
+    <string name="choose_contacs">选择联系人</string>
 </resources>

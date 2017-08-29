@@ -30,6 +30,7 @@ import com.example.mengfei.todo.entity.OneWordsManager;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.DateUtils;
+import com.example.mengfei.todo.utils.dialog.GetContactsDialog;
 import com.example.mengfei.todo.utils.image.ImageLoader;
 
 import java.util.List;
@@ -169,6 +170,7 @@ public class MainActivity extends BaseActivity {
                     Task indexTask = adapter.getItem(adapter.indexOf(changeTask));
                     indexTask.setTitle(changeTask.getTitle());
                     indexTask.setDesc(changeTask.getDesc());
+                    indexTask.setWantDoneDate(changeTask.getWantDoneDate());
                     adapter.notifyDataSetChanged();
                     break;
             }

@@ -167,9 +167,9 @@ public class ShareTaskActivity extends BaseActivity {
 
     private void initUI() {
         ImageLoader.loadImage(mContext, DataSupport.findLast(OneWords.class).getPicture2(), headerBackIV, null);
-        taskCreateDateTv.setText(getShowDate("任务创建时间: ", task.getCreateDate()));
-        taskWantDoneDateTv.setText(getShowDate("预计完成时间: ", task.getWantDoneDate()));
-        taskDoneDateTv.setText(getShowDate("实际完成时间: ", task.getDoneDate()));
+        taskCreateDateTv.setText(getShowDate("(创建) ", task.getCreateDate()));
+        taskWantDoneDateTv.setText(getShowDate("(提醒) ", task.getWantDoneDate()));
+        taskDoneDateTv.setText(getShowDate("(完成) ", task.getDoneDate()));
     }
 
     private void initVirable() {

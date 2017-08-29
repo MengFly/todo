@@ -3,11 +3,11 @@ package com.example.todolib.view.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,10 +21,18 @@ import java.util.TimerTask;
  * 显示的格式是(N天前)yyyy年mm月rr日
  * Created by mengfei on 2017/3/7.
  */
-public class DateTextView extends TextView {
+public class DateTextView extends AppCompatTextView {
 
     private Date mDate;
     private int showTypeCount = 2;//这个变量标示在显示天数的时候可以显示几种类型,默认是显示两种类型
+    //只显示日期
+    public static final String SHOW_MODE_ONLY_DATE = "only_date";
+    //只显示距离多久
+    public static final String SHOW_MODE_ONLY_HOW_LONG = "how_long";
+    //所有的都显示
+    public static final String SHOW_MODE_ALL = "all";
+
+    private String showMode = SHOW_MODE_ALL;
 
     public DateTextView(Context context) {
         this(context, null, 0);
@@ -37,6 +45,10 @@ public class DateTextView extends TextView {
     public DateTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         createUpdateThread();
+    }
+
+    public void setShowMode(String showmode) {
+        this.showMode = showmode;
     }
 
     private void createUpdateThread() {
@@ -62,6 +74,10 @@ public class DateTextView extends TextView {
         updateShowText(date);
     }
 
+    public Date getDate() {
+        return mDate;
+    }
+
     private void updateShowText(Date date) {
         setText(getShowText(date));
     }
@@ -69,6 +85,9 @@ public class DateTextView extends TextView {
     private SpannableString getShowText(Date date) {
         if (date == null) {
             return null;
+        }
+        if (showMode.equals(SHOW_MODE_ONLY_DATE)) {
+            return new SpannableString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(date));
         }
         int showTypeCount = 0;
         StringBuilder sb = new StringBuilder("(");
@@ -122,12 +141,17 @@ public class DateTextView extends TextView {
             sb.append("前");
         }
         sb.append(")");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-        sb.append(" ").append(format.format(date));
-        SpannableString showString = new SpannableString(sb.toString());
-        showString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFCA8619")), 0, sb.indexOf(")") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return showString;
-
+        if (showMode.equals(SHOW_MODE_ONLY_HOW_LONG)) {
+            SpannableString showString = new SpannableString(sb.toString());
+            showString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFCA8619")), 0, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return showString;
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+            sb.append(" ").append(format.format(date));
+            SpannableString showString = new SpannableString(sb.toString());
+            showString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFCA8619")), 0, sb.indexOf(")") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return showString;
+        }
     }
 
 

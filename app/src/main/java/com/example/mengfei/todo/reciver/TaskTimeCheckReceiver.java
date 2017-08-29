@@ -1,17 +1,11 @@
 package com.example.mengfei.todo.reciver;
 
 import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 
-import com.example.mengfei.todo.R;
-import com.example.mengfei.todo.activity.EditTaskActivity;
-import com.example.mengfei.todo.activity.TaskOpenActivity;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 
@@ -58,23 +52,7 @@ public class TaskTimeCheckReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= 17) {
             builder.setShowWhen(true);
         }
-//        Intent intent;
-//        if (!Task.TASK_TYPE_TEXT.equals(task.getTaskType())) {
-//            intent = new Intent(context, TaskOpenActivity.class);
-//
-//        } else {
-//            intent = new Intent(context, EditTaskActivity.class);
-//        }
-//        intent.putExtra("task", task);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//        builder.setContentIntent(pendingIntent);
-//        builder.setDefaults(Notification.DEFAULT_ALL);
-//        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_app_icon));
-//        builder.setSmallIcon(R.drawable.ic_app_small);
-//        ((NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(getTaskID(task), builder.build());
     }
-
     //根据task获取到通知的id
     public int getTaskID(Task task) {
         return Integer.parseInt(task.getTaskId().substring(task.getTaskId().length() - 7, task.getTaskId().length()));

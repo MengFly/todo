@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import com.example.mengfei.todo.R;
@@ -46,6 +47,7 @@ public class AddTaskActivity extends BaseActivity {
     private void initView() {
         taskTitleEt = (EditText) findViewById(R.id.et_task_title);
         taskDescEt = (EditText) findViewById(R.id.et_task_desc);
+        findViewById(R.id.select_menu).setVisibility(View.GONE);
     }
 
     @Override

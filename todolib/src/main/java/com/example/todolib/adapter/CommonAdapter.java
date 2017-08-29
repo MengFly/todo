@@ -62,6 +62,11 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     }
 
     @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = ViewHolder.getHolder(mContext, position,
                 convertView, parent, mItemLayoutResource);

@@ -13,5 +13,5 @@
         android:drawablePadding="15dp"
         android:drawableTop="@drawable/ic_empty"
         android:padding="15dp"
-        android:text="没有信息" />
+        android:text="@string/empty" />
 </FrameLayout>

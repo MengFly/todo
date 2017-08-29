@@ -8,6 +8,7 @@ import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.entity.Task;
 import com.example.todolib.adapter.CommonAdapter;
 import com.example.todolib.adapter.ViewHolder;
+import com.example.todolib.view.widget.DateTextView;
 
 import java.util.List;
 
@@ -24,7 +25,10 @@ public class TaskAdapter extends CommonAdapter<Task> {
     @Override
     public void bindItemDatas(ViewHolder holder, Task bean) {
         ((TextView) holder.getView(R.id.tv_task_title)).setText(bean.getTitle());
-        ((TextView) holder.getView(R.id.tv_task_desc)).setText(TextUtils.isEmpty(bean.getDesc()) ?"没有描述":bean.getDesc());
+        ((TextView) holder.getView(R.id.tv_task_desc)).setText(TextUtils.isEmpty(bean.getDesc()) ? "没有描述" : bean.getDesc());
+        DateTextView dateTextView = (DateTextView) holder.getView(R.id.dtv_create_date);
+        dateTextView.setShowMode(DateTextView.SHOW_MODE_ONLY_HOW_LONG);
+        dateTextView.setDate(bean.getCreateDate());
     }
 
 }

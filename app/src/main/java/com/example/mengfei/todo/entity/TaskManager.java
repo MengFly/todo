@@ -36,8 +36,6 @@ public class TaskManager {
 
     //更新任务
     public static boolean updateTask(Task task, String title, String desc) {
-        task.setTitle(title);
-        task.setDesc(desc);
         ContentValues values = new ContentValues();
         if (title != null) {
             values.put("title", title);
