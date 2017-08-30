@@ -66,6 +66,17 @@
         <activity
             android:name=".activity.ShareOneWordActivity"
             android:theme="@style/DialogActivity" />
+
+        <receiver android:name=".reciver.OneWordWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.mengfei.todo.randomStyle" />
+                <action android:name="com.mengfei.todo.randomOneWord" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/one_words_widget" />
+        </receiver>
     </application>
 
 </manifest>

@@ -63,12 +63,12 @@ public class OneWordsManager {
         return DataSupport.order("getDate desc").find(OneWords.class);
     }
 
-    public static OneWords getRandomOneWords() {
+    public static void getRandomOneWords(UiShower<OneWords> oneWordsUiShower) {
         List<OneWords> list = DataSupport.findAll(OneWords.class);
         if (list == null || list.isEmpty()) {
-            return getDefaultOneWords();
+            getOneWords(oneWordsUiShower);
         } else {
-            return list.get(Math.abs(new Random().nextInt()) % list.size());
+            oneWordsUiShower.show(list.get(Math.abs(new Random().nextInt()) % list.size()));
         }
     }
 }

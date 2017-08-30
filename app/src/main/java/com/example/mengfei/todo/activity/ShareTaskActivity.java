@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.entity.OneWords;
 import com.example.mengfei.todo.entity.OneWordsManager;
 import com.example.mengfei.todo.entity.Task;
@@ -119,9 +120,13 @@ public class ShareTaskActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                OneWords oneWords = OneWordsManager.getRandomOneWords();
-                                headerBackIV.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, null);
+                                OneWordsManager.getRandomOneWords(new UiShower<OneWords>() {
+                                    @Override
+                                    public void show(OneWords oneWords) {
+                                        headerBackIV.setScaleType(ImageView.ScaleType.FIT_XY);
+                                        ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, null);
+                                    }
+                                });
                                 break;
                             case 1:
                                 startActivityForResult(ShareTools.getImageFromAlbumIntent(), RESULT_REQUEST_CODE_PIC);
