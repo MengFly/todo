@@ -67,8 +67,8 @@ public class MainActivity extends BaseActivity {
     //检查时间是否太晚
     private void checkTime() {
         if (DateUtils.isTooLate() && config.isTimeTooLateTipShow()) {
-        showMessageDialog(R.drawable.ic_good_night, "重要提示！！！",
-                "时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。(此消息可以在设置中关闭)", null, null);
+            showMessageDialog(R.drawable.ic_good_night, "重要提示！！！",
+                    "时间已经太晚了哦，小Do提醒您充足的睡眠有助于提高工作效率哦。(此消息可以在设置中关闭)", null, null);
         }
     }
 
@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity {
                     indexTask.setTitle(changeTask.getTitle());
                     indexTask.setDesc(changeTask.getDesc());
                     indexTask.setWantDoneDate(changeTask.getWantDoneDate());
+                    TaskManager.addTaskNotice(mContext, indexTask);
                     adapter.notifyDataSetChanged();
                     break;
             }

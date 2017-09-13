@@ -151,6 +151,7 @@ public class EditTaskActivity extends BaseActivity {
         int now = (int) (Calendar.getInstance().getTime().getTime() / 1000 - task.getCreateDate().getTime() / 1000);
         nowPB.setMax(tootal);
         nowPB.setProgress(now);
+        wantDoneDateDTV.setDate(task.getWantDoneDate());
         if (now >= tootal) {
             return;
         }
