@@ -41,19 +41,6 @@
         <activity android:name=".activity.PassWordSetMibaoActivity" />
         <activity android:name=".activity.PassWdSetActivity" />
 
-        <activity
-            android:name=".activity.AddTaskActivity"
-            android:label="Add Task"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <data android:mimeType="text/plain" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.EditTaskActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.HistoryOneWordsActivity" />
         <activity android:name=".activity.GetTaskActivity" />
         <activity android:name=".activity.SettingActivity" />

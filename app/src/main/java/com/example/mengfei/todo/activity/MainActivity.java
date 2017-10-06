@@ -30,7 +30,7 @@ import com.example.mengfei.todo.entity.OneWordsManager;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.DateUtils;
-import com.example.mengfei.todo.utils.dialog.GetContactsDialog;
+import com.example.mengfei.todo.utils.dialog.AddAndEditTaskDialog;
 import com.example.mengfei.todo.utils.image.ImageLoader;
 
 import java.util.List;
@@ -81,13 +81,26 @@ public class MainActivity extends BaseActivity {
         addTaskBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddTaskActivity.openAddTaskActivityForResult(mContext);
+                AddAndEditTaskDialog dialog = new AddAndEditTaskDialog(mContext, null, new UiShower<Task>() {
+                    @Override
+                    public void show(Task task) {
+                        showAndSaveTask(task);
+                    }
+                });
+                dialog.show();
             }
         });
         taskLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EditTaskActivity.openEditTaskActivity(mContext, adapter.getItem(position));
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Task editTask = adapter.getItem(position);
+                AddAndEditTaskDialog editTaskDialog = new AddAndEditTaskDialog(mContext, editTask, new UiShower<Task>() {
+                    @Override
+                    public void show(Task task) {
+                        showAndUpdateTask(task, view);
+                    }
+                });
+                editTaskDialog.show();
             }
         });
         taskLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -103,6 +116,17 @@ public class MainActivity extends BaseActivity {
                 return navItemSelected(item);
             }
         });
+    }
+
+    private void showAndUpdateTask(Task task, View view) {
+        TaskManager.updateTask(task, task.getTitle(), task.getDesc());
+        adapter.notifyDataSetChanged();
+        showSnackbar(view, "修改成功");
+    }
+
+    private void showAndSaveTask(Task task) {
+        task.save();
+        adapter.setItem(task);
     }
 
     //侧滑菜单的点击响应事件
@@ -145,38 +169,6 @@ public class MainActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case AddTaskActivity.REQUEST_CODE:
-                    Task task = (Task) data.getSerializableExtra("task");
-                    if (task != null) {
-                        adapter.setItem(task, 0);
-                        adapter.notifyDataSetChanged();
-                        showSnackbar(addTaskBtn, "添加成功");
-                    }
-                    break;
-                case GetTaskActivity.REQUEST_CODE:
-                    if (data.getBooleanExtra("dataIsChange", false)) {
-                        //如果数据有改变就刷新数据
-                        initDatas();
-                    }
-                    break;
-                case EditTaskActivity.REQUEST_CODE:
-                    Task changeTask = (Task) data.getSerializableExtra("task");
-                    Task indexTask = adapter.getItem(adapter.indexOf(changeTask));
-                    indexTask.setTitle(changeTask.getTitle());
-                    indexTask.setDesc(changeTask.getDesc());
-                    indexTask.setWantDoneDate(changeTask.getWantDoneDate());
-                    TaskManager.addTaskNotice(mContext, indexTask);
-                    adapter.notifyDataSetChanged();
-                    break;
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

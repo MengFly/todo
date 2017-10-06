@@ -1,11 +1,14 @@
 package com.example.mengfei.todo.entity;
 
 
+import android.util.Log;
+
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 任务的实体类
@@ -13,17 +16,25 @@ import java.util.Date;
  */
 public class Task extends DataSupport implements Serializable {
 
+    private int id;
     private String title;
     private String desc;
     private Date createDate;
     private boolean isCompleted;
     private Date doneDate;
-    @Column(unique = true)
     private String taskId;
     private boolean isDelete;
 
     //想要完成的时间，也是提醒时间
     private Date wantDoneDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Task(String title, String desc) {
         this.title = title;
@@ -84,10 +95,6 @@ public class Task extends DataSupport implements Serializable {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
-    }
-
     public void setWantDoneDate(Date wantDoneDate) {
         this.wantDoneDate = wantDoneDate;
     }
@@ -99,5 +106,10 @@ public class Task extends DataSupport implements Serializable {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Task && ((Task) obj).getTaskId().equals(getTaskId());
+    }
+
+    public Action getAction() {
+        List<Action> actions = Action.where("taskid=?", getTaskId()).find(Action.class);
+        return actions.isEmpty() ? null : actions.get(0);
     }
 }

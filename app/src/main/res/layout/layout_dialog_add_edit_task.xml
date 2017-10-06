@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_toolbar"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="添加任务"
+            android:textColor="@color/back_white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/ib_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:src="@drawable/ic_menu_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/et_task_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/string_task_title"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:textColor="@color/app_main_color"
+            android:textColorHint="@color/color_text_disabled_dark"
+            android:textSize="18sp" />
+
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_task_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/string_input_task_desc"
+            android:lineSpacingExtra="6dp"
+            android:minHeight="60dp"
+            android:padding="10dp"
+            android:textColor="@color/color_text_main_dark"
+            android:textColorHint="@color/color_text_disabled_dark"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <include layout="@layout/layout_include_add_time" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include  layout="@layout/layout_include_add_action" />
+
+        <include layout="@layout/layout_item_action" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <include layout="@layout/layout_include_dialog_btn" />
+
+</LinearLayout>

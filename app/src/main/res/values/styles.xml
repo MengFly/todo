@@ -96,6 +96,10 @@
         <item name="android:padding">16dp</item>
     </style>
 
+    <style name="ScreenDialog" parent="AlertDialog.AppCompat">
+        <item name="android:windowActionBar">false</item>
+    </style>
+
     <style name="MyDialogStyle">
         <!--设置dialog的背景-->
         <item name="android:windowBackground">@android:color/transparent</item>

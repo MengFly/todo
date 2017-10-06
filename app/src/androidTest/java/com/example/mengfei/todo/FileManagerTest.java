@@ -22,7 +22,6 @@ public class FileManagerTest {
         Log.d("test", "testRootFile: " + AppFileManager.getAppRootFileDir(false, TodoApplication.getContext()));
         Log.d("test", "testRootFile: " + AppFileManager.getAppRootCacheDir(false, TodoApplication.getContext()));
 
-
     }
 
 }

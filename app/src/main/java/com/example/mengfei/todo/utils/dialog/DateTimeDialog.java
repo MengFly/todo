@@ -1,34 +1,20 @@
 package com.example.mengfei.todo.utils.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by mengfei on 2017/3/19.
- */
-public class DateTimeDialog extends Dialog {
+public class DateTimeDialog extends BaseDialog {
 
     private TextView showDateView;
     private UiShower<Date> shower;
@@ -37,37 +23,29 @@ public class DateTimeDialog extends Dialog {
     private NumberPicker hourNP;
     private NumberPicker mintsNp;
 
-    private Button resetBtn;
-    private Button okBtn;
+    private Calendar beginDate;
+    private Calendar showDate ;
 
-    private Calendar beginDate = Calendar.getInstance();
-    private Calendar showDate = Calendar.getInstance();
-
-
-    public DateTimeDialog(Context context, Date beginDate, UiShower<Date> shower) {
-        this(context, R.style.MyDialogStyle, beginDate, shower);
-    }
-
-    public DateTimeDialog(Context context, int themeResId, Date beginDate, UiShower<Date> shower) {
-        super(context, themeResId);
-        this.beginDate.setTime(beginDate);
-        this.shower = shower;
-        initView();
-    }
-
-    private void initView() {
+    @Override
+    protected void initView() {
         setContentView(R.layout.layout_dialog_date_time);
         setTitle("设置提醒时间");
         yearMouthAndDayNP = (NumberPicker) findViewById(R.id.np_year_month_day);
         hourNP = (NumberPicker) findViewById(R.id.np_hour);
         mintsNp = (NumberPicker) findViewById(R.id.np_mints);
         showDateView = (TextView) findViewById(R.id.tv_show_date_time);
-        resetBtn = (Button) findViewById(R.id.btn_reset);
-        okBtn = (Button) findViewById(R.id.btn_ok);
-        initDatas();
+
     }
 
+    public DateTimeDialog(Context context, Date beginDate, UiShower<Date> shower) {
+        super(context);
+        this.shower = shower;
+        initDatas();
+        this.beginDate.setTime(beginDate);
+    }
     private void initDatas() {
+        beginDate = Calendar.getInstance();
+        showDate = Calendar.getInstance();
         showDate.setTime(beginDate.getTime());
         mintsNp.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         hourNP.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
@@ -113,7 +91,7 @@ public class DateTimeDialog extends Dialog {
                 updateMintsText(newVal);
             }
         });
-        okBtn.setOnClickListener(new View.OnClickListener() {
+        setOkListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (showDate.before(Calendar.getInstance())) {
@@ -124,13 +102,12 @@ public class DateTimeDialog extends Dialog {
                 }
             }
         });
-
-        resetBtn.setOnClickListener(new View.OnClickListener() {
+        setCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initDatas();
             }
-        });
+        }, false, "重置时间");
     }
 
 
@@ -176,23 +153,4 @@ public class DateTimeDialog extends Dialog {
         }
         return array;
     }
-
-    private NumberPicker.Formatter formatter = new NumberPicker.Formatter() {
-        @Override
-        public String format(int value) {
-            if (value == 1) {
-                return "明天";
-            } else if (value == 0) {
-                return "今天";
-            } else if (value == 2) {
-                return "后天";
-            } else {
-                Calendar show = Calendar.getInstance();
-                show.setTime(beginDate.getTime());
-                show.set(Calendar.DAY_OF_MONTH, value + beginDate.get(Calendar.DAY_OF_MONTH));
-                String dateStr = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA).format(show.getTime());
-                return dateStr.substring(2, dateStr.length());
-            }
-        }
-    };
 }

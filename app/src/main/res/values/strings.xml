@@ -1,4 +1,6 @@
 <resources>
+    <string name="add_task">添加任务</string>
+    <string name="edit_task">编辑任务</string>
     <string name="app_name">任务备忘录</string>
     <string name="string_no_msg">暂时还没有消息哦</string>
     <string name="string_no_task">你还没有完成的任务呦,快去努力完成吧!</string>
@@ -38,4 +40,13 @@
     <string name="menu_back">应用反馈</string>
     <string name="empty">没有信息</string>
     <string name="choose_contacs">选择联系人</string>
+    <string name="add_action">点击添加您要执行的具体任务</string>
+    <string name="click_add_time">点击添加提醒时间</string>
+
+    <string-array name="action_type">
+        <item>打开一个App</item>
+        <item>打电话</item>
+        <item>打开一个网页</item>
+        <item>发送一个Email</item>
+    </string-array>
 </resources>

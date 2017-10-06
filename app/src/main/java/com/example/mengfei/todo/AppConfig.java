@@ -23,7 +23,7 @@ public class AppConfig {
 
     private static final String KEY_IS_TIME_TOO_LATE = "is-time-too-late";
     private boolean isTimeTooLateTipShow = true;//标识着主界面的提示时间太晚的提示框是否显示。默认是显示
-    private static final String KEY_IS_DELETE_TIP = "is-delete-tip";
+    private static final String KEY_IS_DELETE_TIP = "is-delete-type";
     private boolean isDeleteTipShow = true;//标识着当删除任务的时候是否出现提示框，默认是显示
 
     private static final String KEY_switch_pass = "switch_pass";

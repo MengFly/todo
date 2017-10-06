@@ -53,7 +53,14 @@ public abstract class BaseDialog extends Dialog {
         }
     }
 
-    public void setCancelListener(final View.OnClickListener listener) {
+    public void setCancelListener(View.OnClickListener listener) {
+        setCancelListener(listener, true, null);
+    }
+
+    public void setCancelListener(final View.OnClickListener listener, final boolean isDismiss, String btnName) {
+        if (btnName != null) {
+            cancelBtn.setText(btnName);
+        }
         if (listener == null) {
             cancelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,7 +73,9 @@ public abstract class BaseDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     listener.onClick(v);
-                    dismiss();
+                    if (isDismiss) {
+                        dismiss();
+                    }
                 }
             });
         }

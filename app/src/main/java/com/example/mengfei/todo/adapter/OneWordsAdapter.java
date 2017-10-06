@@ -12,10 +12,6 @@ import com.example.todolib.adapter.ViewHolder;
 
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
 /**
  * Created by mengfei on 2017/3/17.
  */

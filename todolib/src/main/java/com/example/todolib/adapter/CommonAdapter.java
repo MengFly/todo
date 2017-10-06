@@ -15,7 +15,7 @@ import java.util.List;
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
 
-    private Context mContext;
+    protected Context mContext;
 
     protected List<T> mList;
 

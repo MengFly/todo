@@ -7,9 +7,7 @@ import android.text.util.Linkify;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.TodoApplication;
-import com.example.mengfei.todo.activity.AddTaskActivity;
 import com.example.mengfei.todo.activity.WebActivity;
-import com.example.mengfei.todo.entity.Task;
 import com.example.todolib.utils.ClipboardUtils;
 import com.example.todolib.view.widget.CustomDialogCreater;
 

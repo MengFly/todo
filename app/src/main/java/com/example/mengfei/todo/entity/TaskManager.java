@@ -1,38 +1,19 @@
 package com.example.mengfei.todo.entity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.widget.Toast;
 
 import com.example.mengfei.todo.AppConstant;
-import com.example.mengfei.todo.TodoApplication;
-import com.example.mengfei.todo.activity.EditTaskActivity;
-import com.example.mengfei.todo.reciver.TaskTimeCheckReceiver;
-import com.example.mengfei.todo.utils.DateUtils;
 
 import org.litepal.crud.DataSupport;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Task的管理类
  * Created by mengfei on 2017/3/15.
  */
 public class TaskManager {
-
-    public static boolean checkTitleAndDesc(String title, String desc) {
-        return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(desc));
-    }
 
     //完成任务
     public static boolean completeTask(Task task) {
@@ -93,28 +74,6 @@ public class TaskManager {
     //根据task获取到通知的id
     public static int getTaskID(Task task) {
         return Integer.parseInt(task.getTaskId().substring(task.getTaskId().length() - 5, task.getTaskId().length()));
-    }
-
-    //为Notice设置通知
-    public static void addTaskNotice(Context context, Task task) {
-        if (task.getWantDoneDate() != null && !task.getWantDoneDate().before(new Date())) {
-            AlarmManager alarmManager = (AlarmManager) TodoApplication.getContext().getSystemService(Context.ALARM_SERVICE);
-            PendingIntent sendIntent = getNoticePendingIntent(context, task);
-            Calendar calender = Calendar.getInstance();
-            calender.setTime(task.getWantDoneDate());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), sendIntent);
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), sendIntent);
-            }
-        }
-    }
-
-    private static PendingIntent getNoticePendingIntent(Context context, Task task) {
-        Intent intent = new Intent(context, EditTaskActivity.class);
-//        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.putExtra("task", task);
-        return PendingIntent.getActivity(context, getTaskID(task), intent, 0);
     }
 
     public static Task getHelpTask() {

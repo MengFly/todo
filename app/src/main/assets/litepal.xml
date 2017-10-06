@@ -4,11 +4,12 @@
     <!--数据库名称-->
     <dbname value="todo_db" />
     <!--数据库版本-->
-    <version value="9" />
+    <version value="10" />
 
     <list>
-        <mapping class="com.example.mengfei.todo.entity.Task"/>
-        <mapping class="com.example.mengfei.todo.entity.OneWords"/>
+        <mapping class="com.example.mengfei.todo.entity.Task" />
+        <mapping class="com.example.mengfei.todo.entity.OneWords" />
+        <mapping class="com.example.mengfei.todo.entity.Action" />
     </list>
 
 </litepal>
