@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_include_toolbar" />
+    <include layout="@layout/layout_include_toolbar_alpha" />
 
     <LinearLayout
         android:layout_width="match_parent"

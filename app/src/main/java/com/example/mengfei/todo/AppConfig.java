@@ -2,6 +2,8 @@ package com.example.mengfei.todo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.example.todolib.en_de_code.EncodeAndDecodeFactory;
@@ -28,10 +30,12 @@ public class AppConfig {
 
     private static final String KEY_switch_pass = "switch_pass";
     //密码的key
-    private static final String  KEY_PASSWORD = "passwd";
+    private static final String KEY_PASSWORD = "passwd";
     //密保问题的key
     private static final String KEY_MIBAO_Q = "mibao_q";
-    private static final String  KEY_MIBAO = "mibao";
+    private static final String KEY_MIBAO = "mibao";
+
+    private static final String KEY_SELECT_SOUND = "KEY_SELECT_SOUND";
 
     //应用是否是第一次安装
     private static final String KEY_IS_FIRST_INSTALL = "is-first-install";
@@ -112,14 +116,16 @@ public class AppConfig {
             return EncodeAndDecodeFactory.getMd5Degist().md5Degist(mibao.trim()).equals(configSPF.getString(KEY_MIBAO, null));
         }
     }
+
     /**
      * App是否是第一次安装
+     *
      * @return
      */
     public boolean isFirstInstall() {
         boolean isFirstInstall = configSPF.getBoolean(KEY_IS_FIRST_INSTALL, true);
         if (isFirstInstall) {
-           configSPF.edit().putBoolean(KEY_IS_FIRST_INSTALL, false).apply();
+            configSPF.edit().putBoolean(KEY_IS_FIRST_INSTALL, false).apply();
         }
         return isFirstInstall;
     }
@@ -152,5 +158,26 @@ public class AppConfig {
         e.putString(KEY_MIBAO, null);
         e.putString(KEY_PASSWORD, null);
         e.apply();
+    }
+
+    public void setSelectSound(Uri selectSound) {
+        SharedPreferences.Editor e = configSPF.edit();
+        e.putString(KEY_SELECT_SOUND, selectSound.toString());
+        e.apply();
+    }
+
+    public String getSelectSound() {
+        return configSPF.getString(KEY_SELECT_SOUND, null);
+    }
+
+    public Uri getNotificationSoundUri() {
+        String soundStr = getSelectSound();
+        Uri uri;
+        if (soundStr == null) {
+            uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        } else {
+            uri = Uri.parse(soundStr);
+        }
+        return uri;
     }
 }

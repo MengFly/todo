@@ -16,7 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
-import com.example.mengfei.todo.entity.OneWords;
+import com.example.mengfei.todo.entity.DailySentence;
 import com.example.mengfei.todo.utils.AppFileManager;
 import com.example.mengfei.todo.utils.image.ImageLoader;
 import com.example.todolib.utils.ImageUtils;
@@ -41,7 +41,7 @@ public class ShareOneWordActivity extends BaseActivity {
     private TextView oneWordsDescTv;
     private Button shareBtn;
 
-    private OneWords oneWords;
+    private DailySentence dailySentence;
 
     private static final int HANDLER_SHARE_IMAGE_WHAT = 0x8989;
 
@@ -61,9 +61,9 @@ public class ShareOneWordActivity extends BaseActivity {
         }
     };
 
-    public static void OpenShareOneWordsActivity(Context context, OneWords oneWords) {
+    public static void OpenShareOneWordsActivity(Context context, DailySentence dailySentence) {
         Intent intent = new Intent(context, ShareOneWordActivity.class);
-        intent.putExtra(INTENT_KEY, oneWords);
+        intent.putExtra(INTENT_KEY, dailySentence);
         context.startActivity(intent);
     }
 
@@ -78,7 +78,7 @@ public class ShareOneWordActivity extends BaseActivity {
         oneWordsTitleTv = (TextView) findViewById(R.id.tv_one_word_content);
         oneWordsDescTv = (TextView) findViewById(R.id.tv_one_word_note);
         shareBtn = (Button) findViewById(R.id.btn_share);
-        if (oneWords == null) {
+        if (dailySentence == null) {
             showSnackbar(shareView, "初始化失败，请重试");
         } else {
             initUI();
@@ -103,7 +103,7 @@ public class ShareOneWordActivity extends BaseActivity {
 
     private void saveImageAndShare() {
         final Bitmap shareBitmap = ImageUtils.getScrollViewImage(shareView);
-        final String filePath = AppFileManager.getShareFileName("" + oneWords.getGetDate().getTime());
+        final String filePath = AppFileManager.getShareFileName("" + dailySentence.getGetDate().getTime());
         new Thread() {
             @Override
             public void run() {
@@ -117,17 +117,17 @@ public class ShareOneWordActivity extends BaseActivity {
     }
 
     private void initUI() {
-        ImageLoader.loadImage(mContext, oneWords.getPicture2(), showImageIv, null);
-        oneWordsTitleTv.setText(oneWords.getContent());
-        oneWordsDescTv.setText(oneWords.getNote());
-        showDateTv.setText(new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA).format(oneWords.getGetDate()));
+        ImageLoader.loadImage(mContext, dailySentence.getPicture2(), showImageIv, null);
+        oneWordsTitleTv.setText(dailySentence.getContent());
+        oneWordsDescTv.setText(dailySentence.getNote());
+        showDateTv.setText(new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA).format(dailySentence.getGetDate()));
     }
 
 
     private void initVirable() {
         Intent intent = getIntent();
         if (intent != null) {
-            oneWords = (OneWords) intent.getSerializableExtra(INTENT_KEY);
+            dailySentence = (DailySentence) intent.getSerializableExtra(INTENT_KEY);
         }
     }
 

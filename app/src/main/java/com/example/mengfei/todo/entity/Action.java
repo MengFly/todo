@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 
 import com.example.mengfei.todo.TodoApplication;
 import com.example.mengfei.todo.activity.BaseActivity;
+import com.example.mengfei.todo.activity.WebActivity;
 import com.example.todolib.utils.ImageUtils;
 import com.example.todolib.utils.ShareTools;
 
@@ -19,9 +20,9 @@ import org.litepal.crud.DataSupport;
 
 public class Action extends DataSupport {
     public static String TYPE_URL = "type_url";
-    public static String TYPE_Email = "type_url";
-    public static String TYPE_App = "type_url";
-    public static String TYPE_Phone = "type_url";
+    public static String TYPE_Email = "type_email";
+    public static String TYPE_App = "type_app";
+    public static String TYPE_Phone = "type_phone";
 
     public Action() {
     }
@@ -64,11 +65,18 @@ public class Action extends DataSupport {
 
 
         } else if (type.equals(TYPE_URL)) {
-
+            Intent urlIntent = ShareTools.getBrowseIntent(desc);
+            if (((BaseActivity) context).isUsedIntentActivity(urlIntent)) {
+                context.startActivity(urlIntent);
+            } else {
+                WebActivity.StartWebActivityWithURL(context, desc);
+            }
         } else if (type.equals(TYPE_Phone)) {
             Intent callIntent = ShareTools.getCallIntent(desc);
             if (((BaseActivity) context).isUsedIntentActivity(callIntent)) {
                 context.startActivity(callIntent);
+            } else {
+                ((BaseActivity) context).showToast("没有可执行的应用程序");
             }
         }
     }

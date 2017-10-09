@@ -2,7 +2,6 @@ package com.example.mengfei.todo.activity;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,18 +12,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aitangba.swipeback.SwipeBackActivity;
 import com.example.mengfei.todo.R;
-import com.example.mengfei.todo.activity.inter.UiShower;
-import com.example.mengfei.todo.utils.dialog.MyDialog;
+import com.example.mengfei.todo.dialog.MyDialog;
 
 import java.util.List;
 

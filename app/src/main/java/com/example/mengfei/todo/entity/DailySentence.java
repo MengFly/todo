@@ -16,11 +16,11 @@ import java.util.Date;
  * 每日一句
  * Created by mengfei on 2017/3/14.
  */
-public class OneWords extends DataSupport implements Serializable{
+public class DailySentence extends DataSupport implements Serializable{
 
     private String note;
 
-    public OneWords(String note) {
+    public DailySentence(String note) {
         this.note = note;
     }
 

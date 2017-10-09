@@ -1,17 +1,10 @@
 package com.example.mengfei.todo.net;
 
-import com.example.mengfei.todo.entity.OneWords;
 import com.example.todolib.net.CommonOkHttpClient;
-import com.example.todolib.net.RequestCenter;
 import com.example.todolib.net.listener.DisposeDataHandle;
 import com.example.todolib.net.listener.DisposeDataListener;
 import com.example.todolib.net.request.CommonRequest;
 import com.google.gson.Gson;
-import com.google.gson.internal.ObjectConstructor;
-
-import java.util.Date;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by mengfei on 2017/3/17.

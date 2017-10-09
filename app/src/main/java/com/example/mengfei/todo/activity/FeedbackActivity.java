@@ -16,7 +16,7 @@ import com.example.todolib.utils.ShareTools;
  * 应用反馈的Activity
  * Created by mengfei on 2017/3/18.
  */
-public class BackActivity extends BaseActivity {
+public class FeedbackActivity extends BaseActivity {
 
     private RadioGroup backTypeRg;
     private EditText backBodyEt;
@@ -29,7 +29,7 @@ public class BackActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_activity_back);
+        setContentView(R.layout.layout_activity_feedback);
         initActionBar("应用反馈", null, true);
         initView();
         initListener();

@@ -29,13 +29,6 @@
             android:text="添加任务"
             android:textColor="@color/back_white"
             android:textSize="20sp" />
-
-        <ImageButton
-            android:id="@+id/ib_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackground"
-            android:src="@drawable/ic_menu_right" />
     </LinearLayout>
 
     <LinearLayout

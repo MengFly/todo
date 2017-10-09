@@ -43,7 +43,6 @@ public class TaskAdapter extends CommonAdapter<Task> {
         } else {
             holder.getView(R.id.ll_action).setVisibility(View.VISIBLE);
             ((ImageView) holder.getView(R.id.ib_action)).setImageBitmap(action.getShowIcon());
-            ((TextView) holder.getView(R.id.tv_action_type)).setText(action.type);
             (holder.getView(R.id.ib_action)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

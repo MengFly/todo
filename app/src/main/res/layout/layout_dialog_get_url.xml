@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dialog"
+    android:minHeight="200dp"
+    android:minWidth="400dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_title"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_title"
+            android:hint="输入标题"
+            android:padding="10dp"
+            android:textSize="20sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_url_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/et_input_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_url"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_url"
+            android:gravity="center_vertical"
+            android:hint="输入网络地址"
+            android:inputType="textUri"
+            android:padding="10dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <include layout="@layout/layout_include_dialog_btn" />
+
+</LinearLayout>

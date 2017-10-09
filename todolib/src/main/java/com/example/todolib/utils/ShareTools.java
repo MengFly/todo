@@ -49,6 +49,14 @@ public class ShareTools {
         return intent;
     }
 
+    public static Intent getBrowseIntent(String url) {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse(url);
+        intent.setData(content_url);
+        return intent;
+    }
+
     //获取发送text的Intent
     public static Intent getShareTextIntent(String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);

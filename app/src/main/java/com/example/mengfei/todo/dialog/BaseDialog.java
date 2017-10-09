@@ -1,4 +1,4 @@
-package com.example.mengfei.todo.utils.dialog;
+package com.example.mengfei.todo.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.TodoApplication;
 
 /**
  * Created by mengfei on 2017/8/29.
@@ -21,7 +22,7 @@ public abstract class BaseDialog extends Dialog {
         this(context, R.style.MyDialogStyle);
     }
 
-    private BaseDialog(@NonNull Context context, @StyleRes int themeResId) {
+    public BaseDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
         initView();
         initBtn();
@@ -50,6 +51,18 @@ public abstract class BaseDialog extends Dialog {
                     dismiss();
                 }
             });
+        }
+    }
+
+    public void changeOkBtnStat(boolean enabled) {
+        if (okBtn == null) return;
+        okBtn.setEnabled(enabled);
+        okBtn.setClickable(enabled);
+        okBtn.setFocusable(enabled);
+        if (enabled) {
+            okBtn.setTextColor(TodoApplication.getContext().getResources().getColor(R.color.app_btn_color));
+        } else {
+            okBtn.setTextColor(TodoApplication.getContext().getResources().getColor(R.color.color_text_disabled_dark));
         }
     }
 

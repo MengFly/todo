@@ -1,11 +1,10 @@
-package com.example.mengfei.todo.utils.dialog;
+package com.example.mengfei.todo.dialog;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;

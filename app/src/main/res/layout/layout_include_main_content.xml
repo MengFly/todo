@@ -2,16 +2,15 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/back_white">
 
-    <include layout="@layout/layout_include_toolbar_alpha" />
 
     <lib.homhomlib.design.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/slidingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
         app:background_view="@layout/layout_main_header"
         app:sliding_mode="both"
         app:top_max="300dp">
@@ -19,7 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="?actionBarSize">
 
             <ListView
                 android:id="@+id/lv_task_items"
@@ -33,6 +33,8 @@
         </LinearLayout>
 
     </lib.homhomlib.design.SlidingLayout>
+
+    <include layout="@layout/layout_include_toolbar_alpha" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/cl_btn"

@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.adapter.OneWordsAdapter;
-import com.example.mengfei.todo.entity.OneWords;
-import com.example.mengfei.todo.entity.OneWordsManager;
+import com.example.mengfei.todo.entity.DailySentence;
+import com.example.mengfei.todo.entity.DailySentenceManager;
 import com.example.todolib.utils.DisplayUtils;
 
 import java.util.List;
@@ -43,11 +43,11 @@ public class HistoryOneWordsActivity extends BaseActivity {
     }
 
     private void initDatas() {
-        List<OneWords> oneWordsList = OneWordsManager.getOneWordsList();
-        adapter = new OneWordsAdapter(mContext, oneWordsList, R.layout.layout_item_one_words);
+        List<DailySentence> dailySentenceList = DailySentenceManager.getOneWordsList();
+        adapter = new OneWordsAdapter(mContext, dailySentenceList, R.layout.layout_item_one_words);
         oneWordLv.setAdapter(adapter);
-        if (oneWordsList != null && oneWordsList.size() > 0) {
-            OneWords showPic = oneWordsList.get(Math.abs(new Random().nextInt()) % oneWordsList.size());
+        if (dailySentenceList != null && dailySentenceList.size() > 0) {
+            DailySentence showPic = dailySentenceList.get(Math.abs(new Random().nextInt()) % dailySentenceList.size());
             Glide.with(mContext).load(showPic.getPicture2()).bitmapTransform(new BlurTransformation(mContext, 30)).into(backImageView);
         }
     }
@@ -61,8 +61,8 @@ public class HistoryOneWordsActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position < adapter.getCount()) {
-                    OneWords oneWords = adapter.getItem(position);
-                    ShareOneWordActivity.OpenShareOneWordsActivity(mContext, oneWords);
+                    DailySentence dailySentence = adapter.getItem(position);
+                    ShareOneWordActivity.OpenShareOneWordsActivity(mContext, dailySentence);
                 }
             }
         });

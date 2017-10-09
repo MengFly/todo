@@ -1,11 +1,20 @@
 package com.example.mengfei.todo.entity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 
 import com.example.mengfei.todo.AppConstant;
+import com.example.mengfei.todo.R;
+import com.example.mengfei.todo.TodoApplication;
+import com.example.mengfei.todo.reciver.TaskTimeCheckReceiver;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +45,7 @@ public class TaskManager {
         }
         if (task.getWantDoneDate() != null) {
             values.put("wantDoneDate", task.getWantDoneDate().getTime());
+            addTaskAlarm(task);
         }
         return DataSupport.updateAll(Task.class, values, "taskId=?", task.getTaskId()) > 0;
     }
@@ -53,11 +63,39 @@ public class TaskManager {
         return DataSupport.where("isDelete=?", String.valueOf(1)).order("createDate desc").find(Task.class);
     }
 
+    public static boolean saveTask(Task task) {
+        boolean isSave = task.save();
+        if (isSave) {
+            addTaskAlarm(task);
+        }
+        return isSave;
+    }
+
     // 放进回收站
     public static boolean deleteTask(Task task) {
+        //在删除Task之前要删除这个Task的闹钟
+        TaskManager.cancelTaskAlarm(task);
         ContentValues values = new ContentValues();
         values.put("isDelete", true);
         return DataSupport.updateAll(Task.class, values, "taskId=?", task.getTaskId()) > 0;
+    }
+
+    private static void cancelTaskAlarm(Task task) {
+        AlarmManager alarmManager = TodoApplication.getAlarmManager();
+        alarmManager.cancel(getAlarmPendingIntent(task));
+    }
+
+    public static void addTaskAlarm(Task task) {
+        AlarmManager alarmManager = TodoApplication.getAlarmManager();
+        //在添加闹钟的时候要清除之前的闹钟信息，因为不能让之前的闹钟影响现在的闹钟
+        cancelTaskAlarm(task);
+        if (task.getWantDoneDate() != null && task.getWantDoneDate().after(Calendar.getInstance().getTime())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, task.getWantDoneDate().getTime(), getAlarmPendingIntent(task));
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, task.getWantDoneDate().getTime(), getAlarmPendingIntent(task));
+            }
+        }
     }
 
     public static boolean recoveryTask(Task task) {
@@ -68,6 +106,7 @@ public class TaskManager {
 
     //永久删除
     public static boolean alwaysDelete(Task task) {
+        cancelTaskAlarm(task);
         return DataSupport.deleteAll(Task.class, "taskId=?", task.getTaskId()) > 0;
     }
 
@@ -76,8 +115,18 @@ public class TaskManager {
         return Integer.parseInt(task.getTaskId().substring(task.getTaskId().length() - 5, task.getTaskId().length()));
     }
 
+    private static PendingIntent getAlarmPendingIntent(Task task) {
+        Intent intent = new Intent(TaskTimeCheckReceiver.ACTION);
+        intent.putExtra("taskId", task.getId());
+        return PendingIntent.getBroadcast(TodoApplication.getContext(), task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     public static Task getHelpTask() {
         Task task = new Task("欢迎使用任务备忘录，点击查看应用使用帮助哦", AppConstant.APP_HELP_URL);
+        Action action = new Action("任务备忘录使用帮助", AppConstant.APP_HELP_URL,
+                TodoApplication.getContext().getResources().getDrawable(R.drawable.ic_url),
+                Action.TYPE_URL, task.getTaskId());
+        action.save();
         task.save();
         return task;
     }

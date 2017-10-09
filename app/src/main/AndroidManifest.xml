@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--震动权限-->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -44,11 +45,13 @@
         <activity android:name=".activity.HistoryOneWordsActivity" />
         <activity android:name=".activity.GetTaskActivity" />
         <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.BackActivity" />
+        <activity android:name=".activity.FeedbackActivity" />
         <activity
             android:name=".activity.WebActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.ShareTaskActivity" />
+        <activity
+            android:name=".activity.ShareTaskActivity"
+            android:theme="@style/DialogActivity" />
 
         <activity
             android:name=".activity.ShareOneWordActivity"
@@ -69,7 +72,6 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.mengfei.todo.CHECK_TASK_TIME" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
     </application>

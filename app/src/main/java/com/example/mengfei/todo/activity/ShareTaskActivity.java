@@ -16,15 +16,14 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
-import com.example.mengfei.todo.entity.OneWords;
-import com.example.mengfei.todo.entity.OneWordsManager;
+import com.example.mengfei.todo.entity.DailySentence;
+import com.example.mengfei.todo.entity.DailySentenceManager;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.AppFileManager;
@@ -120,11 +119,11 @@ public class ShareTaskActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                OneWordsManager.getRandomOneWords(new UiShower<OneWords>() {
+                                DailySentenceManager.getRandomOneWords(new UiShower<DailySentence>() {
                                     @Override
-                                    public void show(OneWords oneWords) {
+                                    public void show(DailySentence dailySentence) {
                                         headerBackIV.setScaleType(ImageView.ScaleType.FIT_XY);
-                                        ImageLoader.loadImage(mContext, oneWords.getPicture2(), headerBackIV, null);
+                                        ImageLoader.loadImage(mContext, dailySentence.getPicture2(), headerBackIV, null);
                                     }
                                 });
                                 break;
@@ -171,7 +170,7 @@ public class ShareTaskActivity extends BaseActivity {
     }
 
     private void initUI() {
-        ImageLoader.loadImage(mContext, DataSupport.findLast(OneWords.class).getPicture2(), headerBackIV, null);
+        ImageLoader.loadImage(mContext, DataSupport.findLast(DailySentence.class).getPicture2(), headerBackIV, null);
         taskCreateDateTv.setText(getShowDate("(创建) ", task.getCreateDate()));
         taskWantDoneDateTv.setText(getShowDate("(提醒) ", task.getWantDoneDate()));
         taskDoneDateTv.setText(getShowDate("(完成) ", task.getDoneDate()));

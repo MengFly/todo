@@ -9,13 +9,21 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
 
-    <ListView
-        android:id="@+id/lv_one_words"
+    <lib.homhomlib.design.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slidingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:divider="@drawable/diver_bound"
-        android:padding="10dp" />
+        app:sliding_mode="both">
+
+        <ListView
+            android:id="@+id/lv_one_words"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:divider="@drawable/diver_bound"
+            android:padding="10dp" />
+    </lib.homhomlib.design.SlidingLayout>
 
     <include layout="@layout/layout_include_toolbar_alpha" />
 </FrameLayout>

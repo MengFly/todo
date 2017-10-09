@@ -1,6 +1,5 @@
 package com.example.mengfei.todo.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,12 +24,12 @@ import com.example.mengfei.todo.AppConstant;
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.mengfei.todo.adapter.TaskAdapter;
-import com.example.mengfei.todo.entity.OneWords;
-import com.example.mengfei.todo.entity.OneWordsManager;
+import com.example.mengfei.todo.entity.DailySentence;
+import com.example.mengfei.todo.entity.DailySentenceManager;
 import com.example.mengfei.todo.entity.Task;
 import com.example.mengfei.todo.entity.TaskManager;
 import com.example.mengfei.todo.utils.DateUtils;
-import com.example.mengfei.todo.utils.dialog.AddAndEditTaskDialog;
+import com.example.mengfei.todo.dialog.AddAndEditTaskDialog;
 import com.example.mengfei.todo.utils.image.ImageLoader;
 
 import java.util.List;
@@ -121,12 +120,12 @@ public class MainActivity extends BaseActivity {
     private void showAndUpdateTask(Task task, View view) {
         TaskManager.updateTask(task, task.getTitle(), task.getDesc());
         adapter.notifyDataSetChanged();
-        showSnackbar(view, "修改成功");
+        showSnackbar(coordinatorLayout, "修改成功");
     }
 
     private void showAndSaveTask(Task task) {
-        task.save();
-        adapter.setItem(task);
+        TaskManager.saveTask(task);
+        adapter.setItem(task, 0);
     }
 
     //侧滑菜单的点击响应事件
@@ -142,7 +141,7 @@ public class MainActivity extends BaseActivity {
                 WebActivity.StartWebActivityWithURL(mContext, AppConstant.ABOUT_APP_URL);
                 return true;
             case R.id.menu_back:
-                openOtherActivity(BackActivity.class, false);
+                openOtherActivity(FeedbackActivity.class, false);
                 return true;
             case R.id.menu_setting:
                 openOtherActivity(SettingActivity.class, false);
@@ -205,11 +204,11 @@ public class MainActivity extends BaseActivity {
     }
 
     void initOneWord() {
-        OneWordsManager.getOneWords(new UiShower<OneWords>() {
+        DailySentenceManager.getOneWords(new UiShower<DailySentence>() {
             @Override
-            public void show(OneWords oneWords) {
-                ImageLoader.loadImage(mContext, oneWords.getPicture2(), oneWordOfDayImg, null);
-                oneWordOfDayTv.setText(oneWords.getShowSpannableString());
+            public void show(DailySentence dailySentence) {
+                ImageLoader.loadImage(mContext, dailySentence.getPicture2(), oneWordOfDayImg, null);
+                oneWordOfDayTv.setText(dailySentence.getShowSpannableString());
             }
         });
     }

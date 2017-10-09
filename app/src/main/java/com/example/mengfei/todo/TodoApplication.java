@@ -1,15 +1,18 @@
 package com.example.mengfei.todo;
 
 
+import android.app.AlarmManager;
+
 import com.aitangba.swipeback.ActivityLifecycleHelper;
 import com.tencent.smtt.sdk.QbSdk;
 
 import org.litepal.LitePalApplication;
 
-/**
- * Created by mengfei on 2017/3/14.
- */
 public class TodoApplication extends LitePalApplication {
+
+    public static AlarmManager getAlarmManager() {
+        return (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+    }
 
     @Override
     public void onCreate() {

@@ -7,12 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
-import com.example.mengfei.todo.entity.OneWords;
-import com.example.mengfei.todo.entity.OneWordsManager;
+import com.example.mengfei.todo.entity.DailySentence;
+import com.example.mengfei.todo.entity.DailySentenceManager;
 
 /**
  * 每日一句的Widget
@@ -60,11 +59,11 @@ public class OneWordWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
-        OneWordsManager.getRandomOneWords(new UiShower<OneWords>() {
+        DailySentenceManager.getRandomOneWords(new UiShower<DailySentence>() {
             @Override
-            public void show(OneWords oneWords) {
+            public void show(DailySentence dailySentence) {
                 final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.layout_widget_one_word);
-                remoteViews.setTextViewText(R.id.tv_one_word_content, oneWords.getShowSpannableString());
+                remoteViews.setTextViewText(R.id.tv_one_word_content, dailySentence.getShowSpannableString());
                 remoteViews.setOnClickPendingIntent(R.id.tv_other_style, getIntent(context, appWidgetIds, ACTION_RANDOM_STYLE, 0));
                 remoteViews.setOnClickPendingIntent(R.id.tv_other_word, getIntent(context, appWidgetIds, ACTION_RANDOM_ONE_WORD, 1));
                 appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);

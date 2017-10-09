@@ -1,8 +1,9 @@
-package com.example.mengfei.todo.utils.dialog;
+package com.example.mengfei.todo.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
@@ -45,7 +46,6 @@ public class AddAndEditTaskDialog extends Dialog {
 
     //titlebar
     private TextView titleBarTitle;
-    private ImageButton titleBarMenu;
     private ImageButton titleBarBack;
 
     public AddAndEditTaskDialog(@NonNull Context context, Task editTask, UiShower<Task> showEditedTask) {
@@ -72,7 +72,6 @@ public class AddAndEditTaskDialog extends Dialog {
         addActionTv = ((TextView) findViewById(R.id.tv_add_action));
         addTimeTv = ((TextView) findViewById(R.id.tv_add_time));
 
-        titleBarMenu = (ImageButton) findViewById(R.id.ib_menu);
         titleBarTitle = (TextView) findViewById(R.id.tv_title);
         titleBarBack = (ImageButton) findViewById(R.id.ib_back);
 
@@ -102,7 +101,15 @@ public class AddAndEditTaskDialog extends Dialog {
         if (wantDoneDate == null) {
             addTimeTv.setText(context.getResources().getText(R.string.click_add_time));
         } else {
-            addTimeTv.setText(DateUtils.formatDateTime(context, wantDoneDate.getTime(), DateUtils.FORMAT_ABBREV_ALL));
+            String dateStr = DateUtils.getRelativeTimeSpanString(wantDoneDate.getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS).toString();
+            if (wantDoneDate.getTime() < System.currentTimeMillis()) {
+                String showStr = dateStr + "(已超时)";
+                addTimeTv.setText(showStr);
+                addTimeTv.setTextColor(Color.RED);
+            } else {
+                addTimeTv.setText(dateStr);
+                addTimeTv.setTextColor(Color.BLACK);
+            }
         }
     }
 
@@ -132,7 +139,7 @@ public class AddAndEditTaskDialog extends Dialog {
             public void onClick(View v) {
                 String title = taskTitleET.getText().toString();
                 String desc = taskDescET.getText().toString();
-                if (checkText(title, desc)) {
+                if (checkText(title)) {
                     editTask.setTitle(title);
                     editTask.setDesc(desc);
                     editTask.setWantDoneDate(wantDoneDate);
@@ -146,12 +153,6 @@ public class AddAndEditTaskDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 dismiss();
-            }
-        });
-        titleBarMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
         titleBarBack.setOnClickListener(new View.OnClickListener() {
@@ -174,11 +175,17 @@ public class AddAndEditTaskDialog extends Dialog {
         addActionTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showSelectActionTypeDialog();
+            }
+        });
+        actionLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("选择要添加的动作类型").setItems(R.array.action_type, new OnClickListener() {
+                builder.setTitle("选择操作").setItems(R.array.action_selects, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        onActionTypeClick(which);
+                        onActionSelectClick(which);
                     }
                 }).create().show();
             }
@@ -187,13 +194,34 @@ public class AddAndEditTaskDialog extends Dialog {
 
     }
 
+    private void showSelectActionTypeDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("选择要添加的动作类型").setItems(R.array.action_type, new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                onActionTypeClick(which);
+            }
+        }).create().show();
+    }
+
+    private void onActionSelectClick(int which) {
+        switch (which) {
+            case 0:
+                showSelectActionTypeDialog();
+                break;
+            case 1:
+                ActionManager.deleteAction(action);
+                updateActionView(null);
+                break;
+
+        }
+    }
+
     /**
      * item>打开一个App</item>
      * <item>打电话</item>
      * <item>打开一个网页</item>
      * <item>发送一个Email</item>
-     *
-     * @param which
      */
     private void onActionTypeClick(int which) {
         switch (which) {
@@ -204,12 +232,31 @@ public class AddAndEditTaskDialog extends Dialog {
                 selectPhone();
                 break;
             case 2:
-//                selectURL();
+                selectURL();
                 break;
             case 3:
-//                selectEmail();
+                selectEmail();
                 break;
         }
+    }
+
+    private void selectEmail() {
+        new GetEmailDialog(context, new UiShower<String>() {
+            @Override
+            public void show(String s) {
+                ((BaseActivity) context).showToast(s);
+            }
+        }).show();
+    }
+
+    private void selectURL() {
+        new GetUrlDialog(context, new UiShower<GetUrlDialog.URLBean>() {
+            @Override
+            public void show(GetUrlDialog.URLBean urlBean) {
+                Action action = new Action(urlBean.title, urlBean.address, urlBean.icon, Action.TYPE_URL, editTask.getTaskId());
+                updateActionView(action);
+            }
+        }).show();
     }
 
     private void selectPhone() {
@@ -232,7 +279,7 @@ public class AddAndEditTaskDialog extends Dialog {
         }).show();
     }
 
-    private boolean checkText(String title, String desc) {
+    private boolean checkText(String title) {
         if (TextUtils.isEmpty(title)) {
             ((BaseActivity) context).showToast("标题不能为空");
             return false;

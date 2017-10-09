@@ -1,4 +1,4 @@
-package com.example.mengfei.todo.utils.dialog;
+package com.example.mengfei.todo.dialog;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;

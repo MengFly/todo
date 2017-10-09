@@ -2,10 +2,6 @@ package com.example.todolib.utils;
 
 import android.content.Context;
 
-/**
- * Created by mengfei on 2017/3/20.
- */
-
 public class DisplayUtils {
     /**
      * 将px值转换为dip或dp值，保证尺寸大小不变
