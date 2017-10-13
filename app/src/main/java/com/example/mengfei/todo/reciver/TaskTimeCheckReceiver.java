@@ -45,7 +45,7 @@ public class TaskTimeCheckReceiver extends BroadcastReceiver {
         Notification.Builder builder = new Notification.Builder(context);
         builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
                 .setContentTitle(task.getTitle())
-                .setContentText(task.getDesc())
+                .setContentText(task.getDesc() == null ? "没有描述" : task.getDesc())
                 .setSmallIcon(R.drawable.ic_app_small)
                 .setLargeIcon(getLargeIcon(context, task))
                 .setContentIntent(pendIntent)

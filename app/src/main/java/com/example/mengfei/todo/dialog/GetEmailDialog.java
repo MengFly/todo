@@ -2,49 +2,50 @@ package com.example.mengfei.todo.dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.MultiAutoCompleteTextView;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
+import com.example.mengfei.todo.adapter.ShowModel;
+import com.example.mengfei.todo.adapter.TitleAndListAdapter;
 import com.example.todolib.utils.CheckUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetEmailDialog extends BaseDialog {
-    private UiShower<String> uiShower;
+    private UiShower<Email> uiShower;
     private String[] emailEnds = new String[]{
             "@gmail.com", "@qq.com", "@163.com", "@126.com", "@hotmail.com", "@sina.com", "@163.net", "@outlook.com"
     };
 
+    private EditText setEmailAddressET, setEmailContentET;
 
-    private AutoCompleteTextView setEmailACTV;
-    private List<String> emails;
-    private ArrayAdapter<String> emailAdapter;
+    private RecyclerView emailRV;
+    private List<ShowModel> emails;
+    private TitleAndListAdapter emailAdapter;
 
-    public GetEmailDialog(@NonNull Context context, UiShower<String> emailShower) {
-        super(context, R.style.ScreenDialog);
+    public GetEmailDialog(@NonNull Context context, UiShower<Email> emailShower) {
+        super(context);
         this.uiShower = emailShower;
-        initListener();
         initDatas();
+        initListener();
     }
 
     private void initDatas() {
         emails = new ArrayList<>();
-        setEmailACTV.setThreshold(2);
-        emailAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, emails);
-        setEmailACTV.setAdapter(emailAdapter);
+        emailAdapter = new TitleAndListAdapter(getContext(), emails);
+        emailRV.setAdapter(emailAdapter);
     }
 
     private void initListener() {
-        setEmailACTV.addTextChangedListener(new TextWatcher() {
+        setEmailAddressET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -69,7 +70,16 @@ public class GetEmailDialog extends BaseDialog {
         setOkListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uiShower.show(setEmailACTV.getText().toString());
+                Email email = new Email();
+                email.emailAddress = setEmailAddressET.getText().toString();
+                email.emailContent = setEmailContentET.getText().toString();
+                uiShower.show(email);
+            }
+        });
+        emailAdapter.setOnItemClickListener(new TitleAndListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                setEmailAddressET.setText(emails.get(position).getShowText());
             }
         });
     }
@@ -81,7 +91,7 @@ public class GetEmailDialog extends BaseDialog {
         } else {
             if (!s.toString().contains("@")) {
                 for (String emailEnd : emailEnds) {
-                    emails.add(s + emailEnd);
+                    emails.add(new ShowModel(ShowModel.TYPE_CONTENT, s + emailEnd));
                 }
             }
         }
@@ -92,6 +102,14 @@ public class GetEmailDialog extends BaseDialog {
     @Override
     protected void initView() {
         setContentView(R.layout.layout_dialog_get_email);
-        setEmailACTV = (AutoCompleteTextView) findViewById(R.id.mactv_input_email);
+        setEmailAddressET = (EditText) findViewById(R.id.et_input_email_address);
+        setEmailContentET = (EditText) findViewById(R.id.et_input_content);
+        emailRV = (RecyclerView) findViewById(R.id.rv_show_email);
+        emailRV.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    public class Email {
+        public String emailAddress;
+        public String emailContent;
     }
 }

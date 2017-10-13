@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/menu_share"
-        android:icon="@drawable/ic_share"
-        android:title="@string/string_share"
-        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_delete_task"
+        android:title="删除任务" />
+    <item
+        android:id="@+id/menu_see_task"
+        android:title="查看任务" />
 </menu>

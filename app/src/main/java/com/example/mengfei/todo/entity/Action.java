@@ -62,8 +62,14 @@ public class Action extends DataSupport {
                 context.startActivity(intent);
             }
         } else if (type.equals(TYPE_Email)) {
-
-
+            String emailAddress = title;
+            String emailContent = desc;
+            Intent emailIntent = ShareTools.getSendEmailIntent(emailAddress, null, emailContent);
+            if (((BaseActivity) context).isUsedIntentActivity(emailIntent)) {
+                context.startActivity(emailIntent);
+            } else {
+                ((BaseActivity) context).showToast("没有可以执行的应用");
+            }
         } else if (type.equals(TYPE_URL)) {
             Intent urlIntent = ShareTools.getBrowseIntent(desc);
             if (((BaseActivity) context).isUsedIntentActivity(urlIntent)) {

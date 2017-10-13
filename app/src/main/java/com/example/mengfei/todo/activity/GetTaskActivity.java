@@ -78,6 +78,8 @@ public class GetTaskActivity extends BaseActivity {
                 popmenu.setGravity(Gravity.CENTER);
                 if (type.equals(TYPE_RECYCLE)) {
                     popmenu.inflate(R.menu.menu_recycle);
+                } else {
+                    popmenu.inflate(R.menu.menu_done_task);
                 }
                 popmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -91,11 +93,20 @@ public class GetTaskActivity extends BaseActivity {
                                     dataIsChange = true;
                                 }
                                 return true;
-                            case R.id.menu_delete:
+                            case R.id.menu_always_delete:
                                 TaskManager.alwaysDelete(task);
                                 doneTaskAdapter.removeItem(task);
                                 showSnackbar(getCurrentFocus(), "已经完全删除");
                                 return true;
+                            case R.id.menu_delete_task:
+                                TaskManager.deleteTask(task);
+                                doneTaskAdapter.removeItem(task);
+                                showSnackbar(getCurrentFocus(), "已删除");
+                                return true;
+                            case R.id.menu_see_task:
+                                ShareTaskActivity.start(mContext, task);
+                                return true;
+
                         }
                         return false;
                     }

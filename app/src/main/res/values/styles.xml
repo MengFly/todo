@@ -20,6 +20,8 @@
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <!--设置windowFrame框为无-->
+        <item name="android:windowFrame">@null</item>
         <item name="windowNoTitle">true</item>
     </style>
 

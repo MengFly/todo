@@ -30,7 +30,7 @@
     <string name="string_delete">删除</string>
     <string name="string_is_delete_task">是否删除任务？</string>
     <string name="string_delete_success">删除成功,您可以在回收站找到近期删除的任务。</string>
-    <string name="menu_complete_task">完成任务</string>
+    <string name="menu_complete_task">归档任务</string>
     <string name="menu_delete_task">删除任务</string>
     <string name="menu_history_words">每日一句</string>
     <string name="menu_done_task">已完成的任务</string>
@@ -46,6 +46,12 @@
     <string name="notification_delete_task">删除任务提醒</string>
     <string name="select_sound">选择提醒铃声</string>
     <string name="select_sound_title">选择您需要的通知声音</string>
+    <string name="input_email_address">输入Email地址</string>
+    <string name="input_email_content">在这里输入您想要发送的邮件信息</string>
+    <string name="do_action">执行任务</string>
+    <string name="want_done_time">提醒时间</string>
+    <string name="create_time">创建时间</string>
+    <string name="task_info">任务详情</string>
 
     <string-array name="action_type">
         <item>打开一个App</item>

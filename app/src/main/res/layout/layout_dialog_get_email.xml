@@ -7,17 +7,32 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <AutoCompleteTextView
-        android:id="@+id/mactv_input_email"
+    <EditText
+        android:id="@+id/et_input_email_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_email"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_email"
-        android:hint="输入Email地址"
+        android:hint="@string/input_email_address"
+        android:inputType="textEmailAddress|textWebEmailAddress"
         android:padding="10dp" />
 
-    <View
+    <EditText
+        android:id="@+id/et_input_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_title"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_title"
+        android:gravity="center_vertical"
+        android:hint="@string/input_email_content"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textSize="12sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_show_email"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

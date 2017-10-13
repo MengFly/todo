@@ -4,6 +4,6 @@
         android:id="@+id/menu_recovery"
         android:title="恢复" />
     <item
-        android:id="@+id/menu_delete"
+        android:id="@+id/menu_always_delete"
         android:title="彻底删除" />
 </menu>

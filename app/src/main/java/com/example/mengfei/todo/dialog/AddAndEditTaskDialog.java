@@ -241,10 +241,13 @@ public class AddAndEditTaskDialog extends Dialog {
     }
 
     private void selectEmail() {
-        new GetEmailDialog(context, new UiShower<String>() {
+        new GetEmailDialog(context, new UiShower<GetEmailDialog.Email>() {
             @Override
-            public void show(String s) {
-                ((BaseActivity) context).showToast(s);
+            public void show(GetEmailDialog.Email email) {
+                Action action = new Action(email.emailAddress, email.emailContent,
+                        context.getResources().getDrawable(R.drawable.ic_email),
+                        Action.TYPE_Email, editTask.getTaskId());
+                updateActionView(action);
             }
         }).show();
     }

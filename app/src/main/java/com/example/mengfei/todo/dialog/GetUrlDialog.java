@@ -61,6 +61,7 @@ public class GetUrlDialog extends BaseDialog {
                 beanUiShower.show(bean);
             }
         });
+        setCancelListener(null);
     }
 
     @Override
