@@ -20,4 +20,6 @@ public class AppConstant {
     public static final String IMAGE_GOOD_NIGHT = "https://mengfly.github.io/app/todo/image/good_night.gif";
 
 
+    public static final String APP_THANKS_URL = "https://mengfly.github.io/app/todo/thanks-for-feedback.html";
+    public static final String APP_VERSION_URL = "https://mengfly.github.io/app/todo/version.html";
 }

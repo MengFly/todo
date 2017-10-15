@@ -31,7 +31,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private TextView helpTv;
     private TextView aboutAppTv;
     private TextView licenceTv;
-    private TextView privateTv;
+    private TextView thanksTv;
+    private TextView versionTv;
     private TextView passTv;
     private TextView selectSoundTV;
     private ImageButton playSoundIB;
@@ -57,10 +58,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         helpTv.setOnClickListener(this);
         aboutAppTv.setOnClickListener(this);
         licenceTv.setOnClickListener(this);
-        privateTv.setOnClickListener(this);
+        thanksTv.setOnClickListener(this);
         passTv.setOnClickListener(this);
         selectSoundTV.setOnClickListener(this);
         playSoundIB.setOnClickListener(this);
+        versionTv.setOnClickListener(this);
         deleteTipS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -82,7 +84,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         helpTv = (TextView) findViewById(R.id.tv_help);
         aboutAppTv = (TextView) findViewById(R.id.tv_about_app);
         licenceTv = (TextView) findViewById(R.id.tv_license);
-        privateTv = (TextView) findViewById(R.id.tv_private);
+        thanksTv = (TextView) findViewById(R.id.tv_thanks);
+        versionTv = (TextView) findViewById(R.id.tv_version);
         passTv = (TextView) findViewById(R.id.tv_set_pass);
         selectSoundTV = (TextView) findViewById(R.id.tv_select_sound);
         playSoundIB = (ImageButton) findViewById(R.id.ib_play_sound);
@@ -100,8 +103,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.tv_license:
                 WebActivity.StartWebActivityWithURL(mContext, AppConstant.APP_LICENSE_URL);
                 break;
-            case R.id.tv_private:
-                WebActivity.StartWebActivityWithURL(mContext, AppConstant.APP_PRIVATE_URL);
+            case R.id.tv_thanks:
+                WebActivity.StartWebActivityWithURL(mContext, AppConstant.APP_THANKS_URL);
+                break;
+            case R.id.tv_version:
+                WebActivity.StartWebActivityWithURL(mContext, AppConstant.APP_VERSION_URL);
                 break;
             case R.id.tv_select_sound:
                 new SelectSoundDialog(mContext).show();
