@@ -37,10 +37,8 @@ public class GetAppDialog extends BaseDialog {
 
     @Override
     protected void initView() {
-        setContentView(R.layout.layout_dialog_get_contacts);
-        ((TextView) findViewById(R.id.tv_title)).setText("选择应用");
+        setContentView(R.layout.layout_dialog_get_app);
         ListView appsList = (ListView) findViewById(R.id.lv_contacts_list);
-        findViewById(R.id.ll_dialog_btn).setVisibility(View.GONE);
         adapter = new CommonAdapter<AppBean>(getContext(), getAppBean(), R.layout.layout_item_contact) {
             @Override
             public void bindItemDatas(ViewHolder holder, AppBean bean) {
@@ -75,10 +73,6 @@ public class GetAppDialog extends BaseDialog {
             }
         }
         return beans;
-    }
-
-    public static Intent getStartIntent(String packageName) {
-        return TodoApplication.getContext().getPackageManager().getLaunchIntentForPackage(packageName);
     }
 
     /**

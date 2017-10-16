@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_dialog"
+    android:minWidth="300dp"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -14,11 +15,23 @@
         android:layout_height="wrap_content"
         android:text="@string/choose_contacs" />
 
+    <CheckBox
+        android:id="@+id/cb_load_from_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="从手机联系人中选择" />
+
     <LinearLayout
+        android:id="@+id/ll_load_contacts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ListView
             android:id="@+id/lv_contacts_list"
@@ -26,10 +39,56 @@
             android:layout_height="match_parent" />
 
         <include layout="@layout/layout_include_empty" />
+
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_input_number"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <include layout="@layout/layout_include_dialog_btn" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_title"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_title"
+                android:hint="输入提示"
+                android:padding="10dp"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_url_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:counterEnabled="true">
+
+            <EditText
+                android:id="@+id/et_input_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_url"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_url"
+                android:gravity="center_vertical"
+                android:hint="输入联系人号码"
+                android:inputType="number"
+                android:padding="10dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <include layout="@layout/layout_include_dialog_btn" />
+
+    </LinearLayout>
 </LinearLayout>
