@@ -52,6 +52,10 @@
     <string name="want_done_time">提醒时间</string>
     <string name="create_time">创建时间</string>
     <string name="task_info">任务详情</string>
+    <string name="search_baidu">百度搜索</string>
+    <string name="search_sougou">搜狗搜索</string>
+    <string name="search_biying">必应搜索</string>
+    <string name="search_github">Github搜索</string>
 
     <string-array name="action_type">
         <item>打开一个App</item>

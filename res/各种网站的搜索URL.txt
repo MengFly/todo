@@ -1,0 +1,7 @@
+1.百度搜索 http://www.baidu.com/s?wd=%s
+
+2.必应搜索 http://cn.bing.com/search?q=%s
+
+3.搜狗搜索 https://www.sogou.com/sogou?query=%s
+
+4.github搜索 https://github.com/search?q=%s

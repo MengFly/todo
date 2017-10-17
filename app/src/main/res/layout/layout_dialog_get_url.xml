@@ -10,9 +10,9 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_title"
@@ -44,6 +44,8 @@
             android:inputType="textUri"
             android:padding="10dp" />
     </android.support.design.widget.TextInputLayout>
+
+    <include layout="@layout/layout_include_search" />
 
     <include layout="@layout/layout_include_dialog_btn" />
 

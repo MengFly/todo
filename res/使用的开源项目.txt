@@ -1,0 +1,18 @@
+SwipeBack（Activity滑动推出）
+项目地址：https://github.com/XBeats/and_swipeback
+
+腾讯X5（WebView）
+项目地址：http://x5.tencent.com/tbs/
+
+Better-Link-Movement-Method（支持TextView Link点击）
+项目地址：https://github.com/Saketme/Better-Link-Movement-Method
+
+gson(Google的Json解析框架)
+项目地址：https://github.com/google/gson
+
+okhttp（网络访问框架）
+项目地址：https://github.com/square/okhttp
+
+glide（图片加载框架）
+项目地址：https://github.com/bumptech/glide
+

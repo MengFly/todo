@@ -5,20 +5,27 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.TodoApplication;
 import com.example.mengfei.todo.activity.inter.UiShower;
+import com.example.mengfei.todo.utils.SearchUtils;
 
-public class GetUrlDialog extends BaseDialog {
+public class GetUrlDialog extends BaseDialog implements View.OnClickListener {
     private UiShower<URLBean> beanUiShower;
     private EditText titleEt;
     private EditText urlEt;
     private TextInputLayout urlTIL;
+
+    private LinearLayout searchLL;
+    private TextView searchBaiduTv, searchSougouTv, searchBiYingTv, searchGithubTv;
 
     public GetUrlDialog(@NonNull Context context, UiShower<URLBean> beanUiShower) {
         super(context);
@@ -39,10 +46,16 @@ public class GetUrlDialog extends BaseDialog {
                 if (URLUtil.isNetworkUrl(s.toString())) {
                     urlTIL.setErrorEnabled(false);
                     changeOkBtnStat(true);
+                    searchLL.setVisibility(View.GONE);
                 } else {
                     urlTIL.setErrorEnabled(true);
                     urlTIL.setError("网络格式格式不正确");
                     changeOkBtnStat(false);
+                    if (!TextUtils.isEmpty(s)) {
+                        searchLL.setVisibility(View.VISIBLE);
+                    } else {
+                        searchLL.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -57,11 +70,15 @@ public class GetUrlDialog extends BaseDialog {
                 URLBean bean = new URLBean();
                 bean.address = urlEt.getText().toString();
                 bean.title = titleEt.getText().toString();
-                bean.icon = TodoApplication.getContext().getResources().getDrawable(R.drawable.ic_url);
+                bean.icon = SearchUtils.getSearchDrawable(bean.address);
                 beanUiShower.show(bean);
             }
         });
         setCancelListener(null);
+        searchBaiduTv.setOnClickListener(this);
+        searchSougouTv.setOnClickListener(this);
+        searchBiYingTv.setOnClickListener(this);
+        searchGithubTv.setOnClickListener(this);
     }
 
     @Override
@@ -70,6 +87,33 @@ public class GetUrlDialog extends BaseDialog {
         titleEt = (EditText) findViewById(R.id.et_title);
         urlTIL = (TextInputLayout) findViewById(R.id.til_url_input);
         urlEt = urlTIL.getEditText();
+
+        //initSearchView
+        searchLL = (LinearLayout) findViewById(R.id.ll_search);
+        searchBaiduTv = (TextView) findViewById(R.id.tv_search_baidu);
+        searchSougouTv = (TextView) findViewById(R.id.tv_search_sougou);
+        searchBiYingTv = (TextView) findViewById(R.id.tv_search_biying);
+        searchGithubTv = (TextView) findViewById(R.id.tv_search_github);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String searchString = urlEt.getText().toString();
+        switch (v.getId()) {
+            case R.id.tv_search_baidu:
+                urlEt.setText(SearchUtils.getSearchURL(SearchUtils.TYPE_BAIDU, searchString));
+                break;
+            case R.id.tv_search_sougou:
+                urlEt.setText(SearchUtils.getSearchURL(SearchUtils.TYPE_SOUGOU, searchString));
+                break;
+            case R.id.tv_search_biying:
+                urlEt.setText(SearchUtils.getSearchURL(SearchUtils.TYPE_BIYING, searchString));
+                break;
+            case R.id.tv_search_github:
+                urlEt.setText(SearchUtils.getSearchURL(SearchUtils.TYPE_GITHUB, searchString));
+                break;
+
+        }
     }
 
     public static class URLBean {

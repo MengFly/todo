@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_search"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv_search_baidu"
+        style="@style/TextSelectItem"
+        android:drawableLeft="@drawable/ic_search_baidu"
+        android:drawableStart="@drawable/ic_search_baidu"
+        android:text="@string/search_baidu" />
+
+    <TextView
+        android:id="@+id/tv_search_sougou"
+        style="@style/TextSelectItem"
+        android:drawableLeft="@drawable/ic_search_sougou"
+        android:drawableStart="@drawable/ic_search_sougou"
+        android:text="@string/search_sougou" />
+
+    <TextView
+        android:id="@+id/tv_search_biying"
+        style="@style/TextSelectItem"
+        android:drawableLeft="@drawable/ic_search_biying"
+        android:drawableStart="@drawable/ic_search_biying"
+        android:text="@string/search_biying" />
+
+    <TextView
+        android:id="@+id/tv_search_github"
+        style="@style/TextSelectItem"
+        android:drawableLeft="@drawable/ic_search_github"
+        android:drawableStart="@drawable/ic_search_github"
+        android:text="@string/search_github" />
+
+</LinearLayout>
