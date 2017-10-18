@@ -244,7 +244,7 @@ public class MainActivity extends BaseActivity {
         oneWordOfDayImg = (ImageView) findViewById(R.id.iv_back);
         oneWordOfDayTv = (TextView) findViewById(R.id.tv_word_of_day);
 
-        taskLV.setEmptyView(getEmptyView("点击下方的添加按钮添加任务"));
+//        taskLV.setEmptyView(getEmptyView("点击下方的添加按钮添加任务"));
         initActionBar("任务备忘录", null, false);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {

@@ -58,8 +58,8 @@
     <string name="search_github">Github搜索</string>
 
     <string-array name="action_type">
-        <item>打开一个App</item>
         <item>打电话</item>
+        <item>打开一个App</item>
         <item>打开一个网页</item>
         <item>发送一个Email</item>
     </string-array>

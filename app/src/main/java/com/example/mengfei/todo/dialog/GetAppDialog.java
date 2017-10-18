@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.example.mengfei.todo.TodoApplication;
 import com.example.mengfei.todo.activity.inter.UiShower;
 import com.example.todolib.adapter.CommonAdapter;
 import com.example.todolib.adapter.ViewHolder;
+import com.example.todolib.utils.ChineseSpelling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import java.util.List;
 public class GetAppDialog extends BaseDialog {
     private CommonAdapter<AppBean> adapter;
     private UiShower<AppBean> getAppBeanListener;
+    private SearchView searchAppSV;
 
     public GetAppDialog(@NonNull Context context, UiShower<AppBean> getAppBeanListener) {
         super(context);
@@ -38,7 +42,8 @@ public class GetAppDialog extends BaseDialog {
     @Override
     protected void initView() {
         setContentView(R.layout.layout_dialog_get_app);
-        ListView appsList = (ListView) findViewById(R.id.lv_contacts_list);
+        final ListView appsList = (ListView) findViewById(R.id.lv_contacts_list);
+        searchAppSV = (SearchView) findViewById(R.id.sv_search_app);
         adapter = new CommonAdapter<AppBean>(getContext(), getAppBean(), R.layout.layout_item_contact) {
             @Override
             public void bindItemDatas(ViewHolder holder, AppBean bean) {
@@ -46,13 +51,38 @@ public class GetAppDialog extends BaseDialog {
                 ((TextView) holder.getView(R.id.tv_name)).setText(bean.name);
                 ((TextView) holder.getView(R.id.tv_number)).setText(bean.packageName);
             }
+
+            @Override
+            public boolean isFilter(CharSequence str, AppBean appBean) {
+                return appBean.name.contains(str)
+                        || appBean.packageName.contains(str)
+                        || ChineseSpelling.getInstance().getSelling(appBean.name).contains(str);
+            }
         };
+        appsList.setTextFilterEnabled(true);
         appsList.setAdapter(adapter);
         appsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getAppBeanListener.show(adapter.getItem(position));
                 dismiss();
+            }
+        });
+        searchAppSV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String searchText = newText.trim();
+                if (TextUtils.isEmpty(searchText)) {
+                    appsList.clearTextFilter();
+                } else {
+                    adapter.getFilter().filter(searchText);
+                }
+                return true;
             }
         });
     }

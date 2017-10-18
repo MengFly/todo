@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_dialog"
-    android:minHeight="200dp"
-    android:minWidth="400dp"
-    android:orientation="vertical"
-    android:padding="10dp">
+    style="@style/XMLDialogRootLayout"
+    android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.example.mengfei.todo.adapter.TextWatcherAdapter;
 import com.example.todolib.adapter.CommonAdapter;
 import com.example.todolib.adapter.ViewHolder;
 import com.example.todolib.utils.CheckUtils;
+import com.example.todolib.utils.ChineseSpelling;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class GetContactsDialog extends BaseDialog {
     private ListView contactLV;
     private CommonAdapter<Contact> adapter;
     private List<Contact> contacts;
+    private SearchView searchContactSV;
 
     private CheckBox loadFromPhoneCB;
     private LinearLayout inputNumberLL;
@@ -70,8 +73,16 @@ public class GetContactsDialog extends BaseDialog {
                 ((TextView) holder.getView(R.id.tv_number)).setText(bean.number);
                 ((ImageView) holder.getView(R.id.iv_icon)).setImageBitmap(bean.icon);
             }
+
+            @Override
+            public boolean isFilter(CharSequence str, Contact contact) {
+                return contact.name.contains(str)
+                        || contact.number.contains(str)
+                        || ChineseSpelling.getInstance().getSelling(contact.name).contains(str);
+            }
         };
         contactLV.setAdapter(adapter);
+        showInputNumberView();
     }
 
     private void initListener() {
@@ -96,7 +107,7 @@ public class GetContactsDialog extends BaseDialog {
         inputNumberET.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (CheckUtils.isTel(s)||CheckUtils.isMobileExact(s)) {
+                if (CheckUtils.isTel(s) || CheckUtils.isMobileExact(s)) {
                     changeOkBtnStat(true);
                 } else {
                     changeOkBtnStat(false);
@@ -111,12 +122,29 @@ public class GetContactsDialog extends BaseDialog {
                 dismiss();
             }
         });
+        searchContactSV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String searchText = newText.trim();
+                if (TextUtils.isEmpty(searchText)) {
+                    contactLV.clearTextFilter();
+                } else {
+                    adapter.getFilter().filter(searchText);
+                }
+                return true;
+            }
+        });
 
     }
 
     private void showLoadPhoneView() {
         loadFromPhoneLL.setVisibility(View.VISIBLE);
+        searchContactSV.setVisibility(View.VISIBLE);
         inputNumberLL.setVisibility(View.GONE);
         if (contacts.isEmpty()) {
             contacts.addAll(getContacts());
@@ -126,6 +154,7 @@ public class GetContactsDialog extends BaseDialog {
 
     private void showInputNumberView() {
         loadFromPhoneLL.setVisibility(View.GONE);
+        searchContactSV.setVisibility(View.GONE);
         inputNumberLL.setVisibility(View.VISIBLE);
     }
 
@@ -138,7 +167,8 @@ public class GetContactsDialog extends BaseDialog {
         inputTitleET = (EditText) findViewById(R.id.et_title);
         inputNumberET = (EditText) findViewById(R.id.et_input_number);
         loadFromPhoneCB = (CheckBox) findViewById(R.id.cb_load_from_phone);
-
+        searchContactSV = (SearchView) findViewById(R.id.sv_search_contact);
+        contactLV.setTextFilterEnabled(true);
         View emptyView = findViewById(R.id.ly_empty);
         TextView emptyTipTv = (TextView) emptyView.findViewById(R.id.tv_empty);
         emptyTipTv.setText("没有读取到联系人，或没有授权。请在【设置】-【权限管理】中检查应用权限");

@@ -112,7 +112,9 @@ public class GetUrlDialog extends BaseDialog implements View.OnClickListener {
             case R.id.tv_search_github:
                 urlEt.setText(SearchUtils.getSearchURL(SearchUtils.TYPE_GITHUB, searchString));
                 break;
-
+        }
+        if (TextUtils.isEmpty(titleEt.getText().toString())) {
+            titleEt.setText(searchString);
         }
     }
 

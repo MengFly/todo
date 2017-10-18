@@ -5,21 +5,20 @@
     android:layout_height="match_parent"
     android:background="@color/back_white">
 
+    <include layout="@layout/layout_main_header" />
 
-    <lib.homhomlib.design.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <lib.homhomlib.design.SlidingLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/slidingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:background_view="@layout/layout_main_header"
+        android:layout_marginTop="?actionBarSize"
         app:sliding_mode="both"
         app:top_max="300dp">
         <!--background_view为你的背景布局-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="?actionBarSize">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
 
             <ListView
                 android:id="@+id/lv_task_items"
@@ -28,9 +27,7 @@
                 android:background="#ffff"
                 android:scrollbars="none" />
 
-            <include layout="@layout/layout_include_empty" />
-
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
     </lib.homhomlib.design.SlidingLayout>
 

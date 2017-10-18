@@ -218,18 +218,18 @@ public class AddAndEditTaskDialog extends Dialog {
     }
 
     /**
-     * item>打开一个App</item>
      * <item>打电话</item>
+     * <item>打开一个App</item>
      * <item>打开一个网页</item>
      * <item>发送一个Email</item>
      */
     private void onActionTypeClick(int which) {
         switch (which) {
             case 0:
-                selectApp();
+                selectPhone();
                 break;
             case 1:
-                selectPhone();
+                selectApp();
                 break;
             case 2:
                 selectURL();

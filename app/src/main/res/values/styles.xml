@@ -117,6 +117,17 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="XMLDialogRootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minWidth">300dp</item>
+        <item name="android:maxWidth">400dp</item>
+        <item name="android:minHeight">200dp</item>
+        <item name="android:maxHeight">600dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/bg_dialog</item>
+    </style>
+
     <style name="dialog_title">
         <item name="android:textColor">@color/app_btn_color</item>
         <item name="android:padding">15dp</item>
