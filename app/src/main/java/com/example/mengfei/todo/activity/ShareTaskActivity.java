@@ -53,7 +53,7 @@ public class ShareTaskActivity extends BaseActivity {
         taskTitleTv.setText(task.getTitle());
         taskDescTv.setText(task.getDesc());
         taskCreateDateTv.setText(task.getCreateDate().toString());
-        taskWantDoneDateTv.setText(task.getWantDoneDate().toString());
+        taskWantDoneDateTv.setText(task.getWantDoneDate() == null ? "没有日期信息" : task.getWantDoneDate().toString());
         final Action action = task.getAction();
         if (action != null) {
             actionLL.setVisibility(View.VISIBLE);

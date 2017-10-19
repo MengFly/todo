@@ -14,8 +14,33 @@
         android:paddingBottom="5dp"
         android:textSize="16sp" />
 
+    <CheckBox
+        android:id="@+id/cb_input_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:text="手动输入日期" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_datetime"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_back"
+            android:hint="输入日期（格式:2017-06-06 14:50:18）"
+            android:inputType="datetime"
+            android:padding="10dp"
+            android:textSize="14sp" />
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
+        android:id="@+id/ll_select_datetime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

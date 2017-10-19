@@ -36,6 +36,10 @@ public abstract class BaseDialog extends Dialog {
     protected abstract void initView();
 
     public void setOkListener(final View.OnClickListener listener) {
+        setOkListener(listener, true);
+    }
+
+    public void setOkListener(final View.OnClickListener listener, final boolean isDismiss) {
         if (listener == null) {
             okBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,7 +52,8 @@ public abstract class BaseDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     listener.onClick(v);
-                    dismiss();
+                    if (isDismiss)
+                        dismiss();
                 }
             });
         }

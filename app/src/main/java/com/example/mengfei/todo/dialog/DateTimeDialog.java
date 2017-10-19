@@ -2,29 +2,42 @@ package com.example.mengfei.todo.dialog;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mengfei.todo.R;
 import com.example.mengfei.todo.activity.inter.UiShower;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class DateTimeDialog extends BaseDialog {
 
+    private CheckBox inputDateTimeCB;
     private TextView showDateView;
     private UiShower<Date> shower;
 
+    private TextInputLayout inputDateTimeTIL;
+    private EditText inputDateTimeEt;
+
+    private LinearLayout selectDateTimeLL;
     private NumberPicker yearMouthAndDayNP;
     private NumberPicker hourNP;
     private NumberPicker mintsNp;
 
     private Calendar beginDate;
-    private Calendar showDate ;
+    private Calendar showDate;
 
     @Override
     protected void initView() {
@@ -34,7 +47,20 @@ public class DateTimeDialog extends BaseDialog {
         hourNP = (NumberPicker) findViewById(R.id.np_hour);
         mintsNp = (NumberPicker) findViewById(R.id.np_mints);
         showDateView = (TextView) findViewById(R.id.tv_show_date_time);
+        inputDateTimeCB = (CheckBox) findViewById(R.id.cb_input_date);
+        inputDateTimeTIL = (TextInputLayout) findViewById(R.id.til_datetime);
+        inputDateTimeEt = inputDateTimeTIL.getEditText();
+        selectDateTimeLL = (LinearLayout) findViewById(R.id.ll_select_datetime);
+    }
 
+    private void showSelectDateTimeView() {
+        selectDateTimeLL.setVisibility(View.VISIBLE);
+        inputDateTimeTIL.setVisibility(View.GONE);
+    }
+
+    private void showInputDateTimeView() {
+        selectDateTimeLL.setVisibility(View.GONE);
+        inputDateTimeTIL.setVisibility(View.VISIBLE);
     }
 
     public DateTimeDialog(Context context, Date beginDate, UiShower<Date> shower) {
@@ -43,7 +69,9 @@ public class DateTimeDialog extends BaseDialog {
         initDatas();
         this.beginDate.setTime(beginDate);
     }
+
     private void initDatas() {
+        showSelectDateTimeView();
         beginDate = Calendar.getInstance();
         showDate = Calendar.getInstance();
         showDate.setTime(beginDate.getTime());
@@ -94,20 +122,45 @@ public class DateTimeDialog extends BaseDialog {
         setOkListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (showDate.before(Calendar.getInstance())) {
-                    Snackbar.make(showDateView, "设置的时间不能在当前系统时间之前", Snackbar.LENGTH_LONG).show();
+                Date date = null;
+                if (selectDateTimeLL.getVisibility() == View.VISIBLE) {
+                    date = showDate.getTime();
                 } else {
-                    shower.show(showDate.getTime());
+                    try {
+                        String datetimeStr = inputDateTimeEt.getText().toString();
+                        if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}", datetimeStr)) {
+                            Snackbar.make(showDateView, "日期格式不正确", Snackbar.LENGTH_LONG).show();
+                        } else {
+                            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).parse(datetimeStr);
+                        }
+                    } catch (ParseException e) {
+                        Toast.makeText(getContext(), "日期格式不正确", Toast.LENGTH_LONG).show();
+                    }
+                }
+                if (date != null && date.before(Calendar.getInstance().getTime())) {
+                    Snackbar.make(showDateView, "设置的时间不能在当前系统时间之前", Snackbar.LENGTH_SHORT).show();
+                } else if (date != null) {
+                    shower.show(date);
                     dismiss();
                 }
             }
-        });
+        }, false);
         setCancelListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initDatas();
             }
         }, false, "重置时间");
+        inputDateTimeCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    showInputDateTimeView();
+                } else {
+                    showSelectDateTimeView();
+                }
+            }
+        });
     }
 
 
